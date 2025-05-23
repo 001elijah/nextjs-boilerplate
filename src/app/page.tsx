@@ -13,17 +13,17 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-start p-8 pt-16">
+    <div className="min-h-screen flex flex-col items-center p-8 pt-16">
       <div className="max-w-5xl w-full">
         <div className="text-center mb-12">
-          <p className="text-lg text-muted-foreground mt-4 text-left">We&#39re your reliable and steady partner in advertising.</p>
+          <p className="text-lg text-muted-foreground mt-4 text-left">{"We're your reliable and steady partner in advertising."}</p>
           <h1 className="text-4xl font-bold text-left">
             <span>Your success </span>
             <br />
             <span className="whitespace-nowrap">is our goal</span>
           </h1>
           <p className="text-lg text-muted-foreground mt-4 text-left">
-            We don&#39t just sell ads, we provide personalized service that is guaranteed to drive you to success.
+            {"We don't just sell ads, we provide personalized service that is guaranteed to drive you to success."}
           </p>
         </div>
 

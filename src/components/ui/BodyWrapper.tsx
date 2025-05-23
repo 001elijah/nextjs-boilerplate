@@ -24,9 +24,6 @@ export const BodyWrapper = ({ children }: { children: React.ReactNode }) => {
           <Image
             alt="Background"
             fill
-            priority
-            quality={85}
-            sizes="100vw"
             src="/bg_hero.jpg"
             style={{
               objectFit: 'cover',
