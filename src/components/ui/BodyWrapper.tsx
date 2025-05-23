@@ -17,7 +17,10 @@ export const BodyWrapper = ({ children }: { children: React.ReactNode }) => {
   const { user } = useAuth()
 
   return (
-    <body className={`${geistSans.variable} ${geistMono.variable} antialiased w-full h-full relative bg-cover bg-center bg-no-repeat`} style={{ backgroundImage: `${!user ? 'url("/bg_hero.jpg")' : ''}` }}>
+    <body
+      className={`${geistSans.variable} ${geistMono.variable} antialiased w-full h-full relative bg-cover bg-center bg-no-repeat`}
+      style={{ backgroundImage: `${!user ? 'url("/bg_hero.jpg")' : ''}` }}
+    >
       {children}
     </body>
   )
