@@ -1,6 +1,7 @@
 'use client'
 
 import { Geist, Geist_Mono } from 'next/font/google'
+import Image from 'next/image'
 import { useAuth } from '@/contexts/authContext'
 
 const geistSans = Geist({
@@ -17,10 +18,20 @@ export const BodyWrapper = ({ children }: { children: React.ReactNode }) => {
   const { user } = useAuth()
 
   return (
-    <body
-      className={`${geistSans.variable} ${geistMono.variable} antialiased w-full h-full relative bg-cover bg-center bg-no-repeat`}
-      style={{ backgroundImage: `${!user ? 'url("/bg_hero.jpg")' : ''}` }}
-    >
+    <body className={`${geistSans.variable} ${geistMono.variable} antialiased w-full h-full relative`}>
+      {!user && (
+        <div className="fixed inset-0 z-[-1]">
+          <Image
+            alt="Background"
+            fill
+            src="/bg-hero.jpg"
+            style={{
+              objectFit: 'cover',
+              objectPosition: 'center'
+            }}
+          />
+        </div>
+      )}
       {children}
     </body>
   )
