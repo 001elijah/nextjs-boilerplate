@@ -1,14 +1,24 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import { Geist, Geist_Mono } from 'next/font/google'
 import { AuthGuard } from '@/components/AuthGuard'
 import { Header } from '@/components/Header'
 import { NetworkMonitor } from '@/components/NetworkMonitor'
 import { ThemeProvider } from '@/components/ThemeProvider'
-import { BodyWrapper } from '@/components/ui/BodyWrapper'
 import { Sidebar } from '@/components/ui/Sidebar'
 import { ToastProvider } from '@/components/ui/ToastProvidet'
 import { AuthProvider } from '@/contexts/authContext'
 import { GlobalProvider } from '@/contexts/globalContext'
+
+const geistSans = Geist({
+  subsets: ['latin'],
+  variable: '--font-geist-sans'
+})
+
+const geistMono = Geist_Mono({
+  subsets: ['latin'],
+  variable: '--font-geist-mono'
+})
 
 export const metadata: Metadata = {
   description: 'advertiser',
@@ -22,9 +32,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <GlobalProvider>
-        <AuthProvider>
-          <BodyWrapper>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased w-full h-full relative`}>
+        <GlobalProvider>
+          <AuthProvider>
             <ThemeProvider attribute="class" defaultTheme="dark" disableTransitionOnChange enableSystem={false}>
               <ToastProvider />
               <NetworkMonitor />
@@ -35,18 +45,16 @@ export default function RootLayout({
                     <div className="flex flex-1 overflow-hidden">
                       <Sidebar />
                       <div className="flex-1 flex flex-col overflow-hidden">
-                        <main className="flex-1 overflow-y-auto">
-                          <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4">{children}</div>
-                        </main>
+                        <main className="flex-1 overflow-y-auto">{children}</main>
                       </div>
                     </div>
                   </div>
                 </AuthGuard>
               </div>
             </ThemeProvider>
-          </BodyWrapper>
-        </AuthProvider>
-      </GlobalProvider>
+          </AuthProvider>
+        </GlobalProvider>
+      </body>
     </html>
   )
 }

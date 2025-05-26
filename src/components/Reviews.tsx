@@ -107,7 +107,7 @@ export const Reviews = () => {
   const currentReviews = mockReviews.slice(currentPage * CARDS_PER_PAGE, (currentPage + 1) * CARDS_PER_PAGE)
 
   return (
-    <section className="w-full py-12 md:py-16 lg:py-20">
+    <section aria-label="Reviews section" className="w-full py-12 md:py-16 lg:py-20" id="reviews">
       <div className="container mx-auto px-4 md:px-6">
         <h2 className="text-2xl font-bold tracking-tighter text-center sm:text-2xl md:text-3xl mb-8 md:mb-12">Reviews</h2>
         <div className="relative">
