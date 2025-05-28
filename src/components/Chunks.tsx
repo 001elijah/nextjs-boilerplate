@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { routes } from '@/config/routes'
+import { routes } from '@/config'
 
 export const renderTitle = (title?: string) => {
   return (

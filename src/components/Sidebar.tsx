@@ -3,13 +3,13 @@
 import { BookOpen, LayoutDashboard, Plus } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
-import { SidebarDesktop } from '@/components/ui/SidebarDesktop'
-import { SidebarItemInterface } from '@/components/ui/SidebarItem'
-import { SidebarMobile } from '@/components/ui/SidebarMobile'
-import { UserInfo } from '@/components/UserInfo'
-import { routes } from '@/config/routes'
-import { useAuth } from '@/contexts/authContext'
-import { useGlobal } from '@/contexts/globalContext'
+import { SidebarDesktop } from '@/components'
+import { SidebarItemInterface } from '@/components'
+import { SidebarMobile } from '@/components'
+import { UserInfo } from '@/components'
+import { routes } from '@/config'
+import { useAuth } from '@/contexts'
+import { useGlobal } from '@/contexts'
 
 interface SidebarProps {
   className?: string

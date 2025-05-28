@@ -2,9 +2,10 @@
 
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'
 import { useState } from 'react'
-import { Section } from '@/components/Section'
-import { Button } from '@/components/ui/Button'
-import { ReviewInterface, ReviewsCard } from '@/components/ui/ReviewsCard'
+import { Section } from '@/components'
+import { Button } from '@/components'
+import { ReviewInterface, ReviewsCard } from '@/components'
+import { Container } from '@/components'
 
 const mockReviews: ReviewInterface[] = [
   {
@@ -109,48 +110,50 @@ export const Reviews = () => {
 
   return (
     <Section ariaLabel="Reviews section" id="reviews">
-      <h2 className="text-2xl font-bold tracking-tighter text-center sm:text-2xl md:text-3xl mb-8 md:mb-12">Reviews</h2>
-      <div className="relative">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {currentReviews.map(review => (
-            <ReviewsCard key={review.id} review={review} />
-          ))}
+      <Container>
+        <h2 className="text-2xl font-bold tracking-tighter text-center sm:text-2xl md:text-3xl mb-8 md:mb-12">Reviews</h2>
+        <div className="relative">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            {currentReviews.map(review => (
+              <ReviewsCard key={review.id} review={review} />
+            ))}
+          </div>
+          {totalPages > 1 && (
+            <>
+              <Button
+                aria-label="Previous reviews"
+                className="text-muted-foreground absolute top-1/2 -translate-y-1/2 left-[-40px] md:left-[-45px] z-10 h-10 w-10 rounded-full"
+                onClick={handlePrev}
+                size="icon"
+                variant="ghost"
+              >
+                <ChevronLeftIcon className="size-9" />
+              </Button>
+              <Button
+                aria-label="Next reviews"
+                className="text-muted-foreground absolute top-1/2 -translate-y-1/2 right-[-40px] md:right-[-45px] z-10 h-10 w-10 rounded-full"
+                onClick={handleNext}
+                size="icon"
+                variant="ghost"
+              >
+                <ChevronRightIcon className="size-9" />
+              </Button>
+            </>
+          )}
         </div>
         {totalPages > 1 && (
-          <>
-            <Button
-              aria-label="Previous reviews"
-              className="text-muted-foreground absolute top-1/2 -translate-y-1/2 left-[-40px] md:left-[-45px] z-10 h-10 w-10 rounded-full"
-              onClick={handlePrev}
-              size="icon"
-              variant="ghost"
-            >
-              <ChevronLeftIcon className="size-9" />
-            </Button>
-            <Button
-              aria-label="Next reviews"
-              className="text-muted-foreground absolute top-1/2 -translate-y-1/2 right-[-40px] md:right-[-45px] z-10 h-10 w-10 rounded-full"
-              onClick={handleNext}
-              size="icon"
-              variant="ghost"
-            >
-              <ChevronRightIcon className="size-9" />
-            </Button>
-          </>
+          <div className="flex justify-center mt-8 space-x-2">
+            {[...Array(totalPages)].map((_, i) => (
+              <button
+                aria-label={`Go to page ${i + 1}`}
+                className={`w-3 h-3 rounded-full ${currentPage === i ? 'bg-primary' : 'bg-gray-300 hover:bg-gray-400 cursor-pointer'}`}
+                key={i}
+                onClick={() => setCurrentPage(i)}
+              />
+            ))}
+          </div>
         )}
-      </div>
-      {totalPages > 1 && (
-        <div className="flex justify-center mt-8 space-x-2">
-          {[...Array(totalPages)].map((_, i) => (
-            <button
-              aria-label={`Go to page ${i + 1}`}
-              className={`w-3 h-3 rounded-full ${currentPage === i ? 'bg-primary' : 'bg-gray-300 hover:bg-gray-400 cursor-pointer'}`}
-              key={i}
-              onClick={() => setCurrentPage(i)}
-            />
-          ))}
-        </div>
-      )}
+      </Container>
     </Section>
   )
 }

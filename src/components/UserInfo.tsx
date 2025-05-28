@@ -2,18 +2,11 @@
 
 import { LogOut, Settings, User } from 'lucide-react'
 import Link from 'next/link'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/Avatar'
-import { Button } from '@/components/ui/Button'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger
-} from '@/components/ui/DropdownMenu'
-import { navigation } from '@/config/routes'
-import { useAuth } from '@/contexts/authContext'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components'
+import { Button } from '@/components'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components'
+import { navigation } from '@/config'
+import { useAuth } from '@/contexts'
 
 interface UserInfoProps {
   className?: string

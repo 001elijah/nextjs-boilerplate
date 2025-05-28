@@ -1,12 +1,12 @@
 'use client'
 
-import { AdGenerator } from '@/components/AdGenerator'
-import { Container } from '@/components/Container'
-import { Hero } from '@/components/Hero'
-import { Reviews } from '@/components/Reviews'
-import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
-import { WhyChooseUs } from '@/components/WhyChooseUs'
-import { useAuth } from '@/contexts/authContext'
+import { LoadingSpinner } from '@/components'
+import { useAuth } from '@/contexts'
+import { AdGenerator } from '@/views'
+import { Reviews } from '@/views'
+import { WhyChooseUs } from '@/views'
+import { CaseStudies } from '@/views'
+import { HomeHero } from '@/views'
 
 export default function Home() {
   const { loading, user } = useAuth()
@@ -18,16 +18,16 @@ export default function Home() {
   return (
     <>
       {user ? (
-        <Container>
-          <AdGenerator />
-        </Container>
+        <AdGenerator />
       ) : (
         <>
-          <Hero />
-          <Container>
-            <Reviews />
-            <WhyChooseUs />
-          </Container>
+          <HomeHero />
+
+          <Reviews />
+
+          <WhyChooseUs />
+
+          <CaseStudies />
         </>
       )}
     </>

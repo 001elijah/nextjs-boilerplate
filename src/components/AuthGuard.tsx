@@ -2,8 +2,8 @@
 
 import { usePathname, useRouter } from 'next/navigation'
 import { useEffect } from 'react'
-import { AppRoute, isProtectedRoute, routes } from '@/config/routes'
-import { useAuth } from '@/contexts/authContext'
+import { AppRoute, isProtectedRoute, routes } from '@/config'
+import { useAuth } from '@/contexts'
 
 interface AuthGuardProps {
   children: React.ReactNode

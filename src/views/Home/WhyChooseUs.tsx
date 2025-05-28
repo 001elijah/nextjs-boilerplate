@@ -1,5 +1,6 @@
 import { BrainIcon, GraduationCapIcon, RocketIcon, ShieldCheck, TargetIcon, UserRoundCog } from 'lucide-react'
-import { Section } from '@/components/Section'
+import { Section } from '@/components'
+import { Container } from '@/components'
 
 export const WhyChooseUs = () => {
   const iconConfig = {
@@ -47,20 +48,22 @@ export const WhyChooseUs = () => {
 
   return (
     <Section ariaLabel="Why Choose Us section" id="why-choose-us">
-      <div className="max-w-7xl mx-auto text-center">
-        <h2 className="text-4xl sm:text-5xl font-bold mb-4">Why choose us</h2>
-        <p className="text-lg sm:text-xl text-gray-400 mb-12">Trusted by 2,100+ companies worldwide</p>
+      <Container>
+        <div className="max-w-7xl mx-auto text-center">
+          <h2 className="text-4xl sm:text-5xl font-bold mb-4">Why choose us</h2>
+          <p className="text-lg sm:text-xl text-gray-400 mb-12">Trusted by 2,100+ companies worldwide</p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {features.map((feature, index) => (
-            <div className="border-2 border-neutral-800 rounded-lg p-8 flex flex-col items-center text-center shadow-lg" key={index}>
-              {feature.icon}
-              <h3 className="text-2xl font-semibold mb-3">{feature.title}</h3>
-              <p className="text-gray-300">{feature.description}</p>
-            </div>
-          ))}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {features.map((feature, index) => (
+              <div className="border-2 border-neutral-800 rounded-lg p-6 sm:p-8 flex flex-col items-center text-center shadow-lg" key={index}>
+                {feature.icon}
+                <h3 className="text-2xl font-semibold mb-3">{feature.title}</h3>
+                <p className="text-gray-300">{feature.description}</p>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      </Container>
     </Section>
   )
 }

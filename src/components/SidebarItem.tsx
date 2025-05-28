@@ -1,7 +1,7 @@
 'use client'
 
 import { LucideIcon } from 'lucide-react'
-import { useGlobal } from '@/contexts/globalContext'
+import { useGlobal } from '@/contexts'
 import { cn } from '@/lib/utils'
 
 export interface SidebarItemInterface {

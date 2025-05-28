@@ -1,14 +1,13 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import { Geist, Geist_Mono } from 'next/font/google'
-import { AuthGuard } from '@/components/AuthGuard'
-import { Header } from '@/components/Header'
-import { NetworkMonitor } from '@/components/NetworkMonitor'
-import { ThemeProvider } from '@/components/ThemeProvider'
-import { Sidebar } from '@/components/ui/Sidebar'
-import { ToastProvider } from '@/components/ui/ToastProvidet'
-import { AuthProvider } from '@/contexts/authContext'
-import { GlobalProvider } from '@/contexts/globalContext'
+import { AuthGuard } from '@/components'
+import { NetworkMonitor } from '@/components'
+import { ThemeProvider } from '@/components'
+import { ToastProvider } from '@/components'
+import { AuthProvider } from '@/contexts'
+import { GlobalProvider } from '@/contexts'
+import { Layout } from '@/layout'
 
 const geistSans = Geist({
   subsets: ['latin'],
@@ -22,7 +21,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   description: 'advertiser',
-  title: 'apex'
+  title: 'dunamis'
 }
 
 export default function RootLayout({
@@ -38,19 +37,9 @@ export default function RootLayout({
             <ThemeProvider attribute="class" defaultTheme="dark" disableTransitionOnChange enableSystem={false}>
               <ToastProvider />
               <NetworkMonitor />
-              <div className="flex h-screen overflow-hidden">
-                <AuthGuard>
-                  <div className="flex flex-col flex-1 overflow-hidden">
-                    <Header />
-                    <div className="flex flex-1 overflow-hidden">
-                      <Sidebar />
-                      <div className="flex-1 flex flex-col overflow-hidden">
-                        <main className="flex-1 overflow-y-auto">{children}</main>
-                      </div>
-                    </div>
-                  </div>
-                </AuthGuard>
-              </div>
+              <AuthGuard>
+                <Layout>{children}</Layout>
+              </AuthGuard>
             </ThemeProvider>
           </AuthProvider>
         </GlobalProvider>

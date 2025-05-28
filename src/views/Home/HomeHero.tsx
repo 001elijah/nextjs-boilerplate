@@ -1,8 +1,8 @@
-import { Container } from '@/components/Container'
-import { Section } from '@/components/Section'
-import { Button } from '@/components/ui/Button'
+import { Container } from '@/components'
+import { Section } from '@/components'
+import { Button } from '@/components'
 
-export const Hero = () => {
+export const HomeHero = () => {
   return (
     <Section ariaLabel="Hero section" id="hero">
       <div className="w-full" style={{ backgroundImage: 'url(/bg-hero.jpg)', backgroundPosition: 'center', backgroundSize: 'cover' }}>

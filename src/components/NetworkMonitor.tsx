@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import { toast } from '@/components/ui/Toast'
+import { toast } from '@/components'
 
 export const NetworkMonitor = () => {
   const serviceErrorShown = useRef(false)

@@ -1,12 +1,12 @@
 'use client'
 
 import { ChevronLeft, Menu } from 'lucide-react'
-import { renderTitle } from '@/components/Chunks'
-import { Container } from '@/components/Container'
-import { ThemeToggle } from '@/components/ThemeToggle'
-import { Button } from '@/components/ui/Button'
-import { UserInfo } from '@/components/UserInfo'
-import { useGlobal } from '@/contexts/globalContext'
+import { renderTitle } from '@/components'
+import { Container } from '@/components'
+import { ThemeToggle } from '@/components'
+import { Button } from '@/components'
+import { UserInfo } from '@/components'
+import { useGlobal } from '@/contexts'
 
 export const Header = () => {
   const { isSidebarCollapsed, pageTitle, setIsSidebarCollapsed, title } = useGlobal()

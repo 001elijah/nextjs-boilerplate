@@ -1,4 +1,4 @@
-import { SidebarItem, SidebarItemInterface } from '@/components/ui/SidebarItem'
+import { SidebarItem, SidebarItemInterface } from '@/components'
 
 export const SidebarNav = ({ items }: { items: SidebarItemInterface[] }) => {
   return (
