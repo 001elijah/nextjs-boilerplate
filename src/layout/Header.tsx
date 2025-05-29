@@ -1,7 +1,7 @@
 'use client'
 
 import { ChevronLeft, Menu } from 'lucide-react'
-import { renderTitle } from '@/components'
+import { Title } from '@/components'
 import { Container } from '@/components'
 import { ThemeToggle } from '@/components'
 import { Button } from '@/components'
@@ -23,7 +23,9 @@ export const Header = () => {
             <Button className="h-8 w-8 -ml-2" onClick={toggleSidebar} size="icon" variant="ghost">
               {isSidebarCollapsed ? <Menu className="h-5 w-5" /> : <ChevronLeft className="h-5 w-5" />}
             </Button>
-            <div className="flex items-center gap-3">{renderTitle(title)}</div>
+            <div className="flex items-center gap-3">
+              <Title title={title} />
+            </div>
           </div>
 
           {/* Page title */}
