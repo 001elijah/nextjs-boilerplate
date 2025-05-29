@@ -2,7 +2,7 @@
 
 import { Star } from 'lucide-react'
 import Image from 'next/image'
-import { Button } from '@/components'
+import { Button, CardBorder } from '@/components'
 
 export interface ReviewInterface {
   feedback: string
@@ -16,7 +16,7 @@ export interface ReviewInterface {
 
 export const ReviewsCard = ({ review }: { review: ReviewInterface }) => {
   return (
-    <div className="flex flex-col items-center text-center p-6 border rounded-lg shadow-lg bg-card text-card-foreground">
+    <CardBorder className="p-6 bg-card text-center text-card-foreground">
       <Image alt={`${review.name}'s photo`} className="rounded-full mb-4" height={80} src={review.photoUrl} width={80} />
       <div className="flex mb-2">
         {[...Array(5)].map((_, i) => (
@@ -31,6 +31,6 @@ export const ReviewsCard = ({ review }: { review: ReviewInterface }) => {
           Read full Review
         </Button>
       )}
-    </div>
+    </CardBorder>
   )
 }

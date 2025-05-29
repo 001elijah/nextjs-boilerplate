@@ -1,3 +1,5 @@
+'use client'
+
 import { Activity, ArrowUp, Lightbulb } from 'lucide-react'
 import { Section } from '@/components'
 import { Container } from '@/components'

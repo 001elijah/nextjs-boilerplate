@@ -1,6 +1,6 @@
 import { size } from 'lodash'
 import Image from 'next/image'
-import { CaseCardWrapper } from '@/components'
+import { CardBorder } from '@/components'
 import { CaseInfo } from '@/components'
 
 export const CaseCard = ({
@@ -18,7 +18,7 @@ export const CaseCard = ({
 }) => {
   const { alt, src } = imageData
   return (
-    <CaseCardWrapper className="text-center">
+    <CardBorder className="text-center">
       <Image
         alt={alt}
         className="rounded-t-lg w-full max-h-1/2 object-cover"
@@ -35,6 +35,6 @@ export const CaseCard = ({
           <CaseInfo icon={info.icon} isLastItem={index === size(infoConfig) - 1} key={index} label={info.label} text={info.text} />
         ))}
       </div>
-    </CaseCardWrapper>
+    </CardBorder>
   )
 }

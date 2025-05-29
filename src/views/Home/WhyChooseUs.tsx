@@ -1,5 +1,5 @@
 import { BrainIcon, GraduationCapIcon, RocketIcon, ShieldCheck, TargetIcon, UserRoundCog } from 'lucide-react'
-import { Section } from '@/components'
+import { CardBorder, Section } from '@/components'
 import { Container } from '@/components'
 
 export const WhyChooseUs = () => {
@@ -55,11 +55,11 @@ export const WhyChooseUs = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature, index) => (
-              <div className="border-2 border-neutral-800 rounded-lg p-6 sm:p-8 flex flex-col items-center text-center shadow-lg" key={index}>
+              <CardBorder className="p-6 sm:p-8" key={index}>
                 {feature.icon}
                 <h3 className="text-2xl font-semibold mb-3">{feature.title}</h3>
                 <p className="text-gray-300">{feature.description}</p>
-              </div>
+              </CardBorder>
             ))}
           </div>
         </div>
