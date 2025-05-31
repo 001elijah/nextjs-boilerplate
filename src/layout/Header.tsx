@@ -9,7 +9,7 @@ import { UserInfo } from '@/components'
 import { useGlobal } from '@/contexts'
 
 export const Header = () => {
-  const { isSidebarCollapsed, pageTitle, setIsSidebarCollapsed, title } = useGlobal()
+  const { isMobile, isSidebarCollapsed, pageTitle, setIsSidebarCollapsed, title } = useGlobal()
 
   const toggleSidebar = () => {
     setIsSidebarCollapsed(!isSidebarCollapsed)
@@ -32,12 +32,16 @@ export const Header = () => {
           {pageTitle && <div className="text-lg font-semibold flex items-center gap-3  ml-auto mr-0">{pageTitle}</div>}
 
           {/* Right actions pushed to the edge */}
-          <div className="flex flex-wrap items-center gap-2 ml-auto mr-0">
-            <ThemeToggle />
-            <Button size="sm">Pro</Button>
-            <Button size="sm" variant="secondary">
-              SEO
-            </Button>
+          <div className="flex flex-wrap items-center gap-2 ml-auto">
+            {!isMobile && (
+              <>
+                <ThemeToggle />
+                <Button size="sm">Pro</Button>
+                <Button size="sm" variant="secondary">
+                  SEO
+                </Button>
+              </>
+            )}
             <UserInfo showName={false} />
           </div>
         </div>
