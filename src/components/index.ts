@@ -28,10 +28,12 @@ export * from './PricingCard'
 export * from './ProgressBar'
 export * from './QuizForm'
 export * from './QuizOption'
-// Reviews
-export * from './ReviewsCard'
+export * from './ReviewPagination'
 // -------------
 
+export * from './ReviewPaginationButtons'
+// Reviews
+export * from './ReviewsCard'
 export * from './Section'
 export * from './Sidebar'
 export * from './SidebarDesktop'

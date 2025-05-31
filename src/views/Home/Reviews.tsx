@@ -1,12 +1,11 @@
 'use client'
 
 import { size } from 'lodash'
-import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'
 import { useState } from 'react'
 import { Section } from '@/components'
-import { Button } from '@/components'
-import { ReviewInterface, ReviewsCard } from '@/components'
+import { ReviewInterface, ReviewPagination, ReviewPaginationButtons, ReviewsCard } from '@/components'
 import { Container } from '@/components'
+import { useGlobal } from '@/contexts'
 
 const mockReviews: ReviewInterface[] = [
   {
@@ -95,9 +94,11 @@ const mockReviews: ReviewInterface[] = [
 const CARDS_PER_PAGE = 3
 
 export const Reviews = () => {
+  const { isMobile } = useGlobal()
   const [currentPage, setCurrentPage] = useState(0)
 
   const totalPages = Math.ceil(size(mockReviews) / CARDS_PER_PAGE)
+  const showPagination = totalPages > 1
 
   const handleNext = () => {
     setCurrentPage(prev => (prev + 1) % totalPages)
@@ -119,41 +120,17 @@ export const Reviews = () => {
               <ReviewsCard key={review.id} review={review} />
             ))}
           </div>
-          {totalPages > 1 && (
-            <>
-              <Button
-                aria-label="Previous reviews"
-                className="text-muted-foreground absolute top-1/2 -translate-y-1/2 left-[-40px] md:left-[-45px] z-10 h-10 w-10 rounded-full"
-                onClick={handlePrev}
-                size="icon"
-                variant="ghost"
-              >
-                <ChevronLeftIcon className="size-9" />
-              </Button>
-              <Button
-                aria-label="Next reviews"
-                className="text-muted-foreground absolute top-1/2 -translate-y-1/2 right-[-40px] md:right-[-45px] z-10 h-10 w-10 rounded-full"
-                onClick={handleNext}
-                size="icon"
-                variant="ghost"
-              >
-                <ChevronRightIcon className="size-9" />
-              </Button>
-            </>
-          )}
+          {!isMobile && showPagination && <ReviewPaginationButtons handleNext={handleNext} handlePrev={handlePrev} />}
         </div>
-        {totalPages > 1 && (
-          <div className="flex justify-center mt-8 space-x-2">
-            {[...Array(totalPages)].map((_, i) => (
-              <button
-                aria-label={`Go to page ${i + 1}`}
-                className={`w-3 h-3 rounded-full ${currentPage === i ? 'bg-primary' : 'bg-gray-300 hover:bg-gray-400 cursor-pointer'}`}
-                key={i}
-                onClick={() => setCurrentPage(i)}
-              />
-            ))}
-          </div>
-        )}
+        {showPagination &&
+          (isMobile ? (
+            <div className="relative">
+              <ReviewPagination currentPage={currentPage} setCurrentPage={setCurrentPage} totalPages={totalPages} />
+              <ReviewPaginationButtons handleNext={handleNext} handlePrev={handlePrev} />
+            </div>
+          ) : (
+            <ReviewPagination currentPage={currentPage} setCurrentPage={setCurrentPage} totalPages={totalPages} />
+          ))}
       </Container>
     </Section>
   )
