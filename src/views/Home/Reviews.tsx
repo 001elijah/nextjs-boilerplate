@@ -1,5 +1,6 @@
 'use client'
 
+import { size } from 'lodash'
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'
 import { useState } from 'react'
 import { Section } from '@/components'
@@ -96,7 +97,7 @@ const CARDS_PER_PAGE = 3
 export const Reviews = () => {
   const [currentPage, setCurrentPage] = useState(0)
 
-  const totalPages = Math.ceil(mockReviews.length / CARDS_PER_PAGE)
+  const totalPages = Math.ceil(size(mockReviews) / CARDS_PER_PAGE)
 
   const handleNext = () => {
     setCurrentPage(prev => (prev + 1) % totalPages)

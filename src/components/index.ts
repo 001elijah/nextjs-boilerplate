@@ -25,13 +25,16 @@ export * from './NetworkMonitor'
 export * from './PricingCard'
 // -------------
 
+export * from './ProgressBar'
+export * from './QuizForm'
+export * from './QuizOption'
 // Reviews
 export * from './ReviewsCard'
+// -------------
+
 export * from './Section'
 export * from './Sidebar'
 export * from './SidebarDesktop'
-// -------------
-
 export * from './SidebarItem'
 export * from './SidebarMobile'
 export * from './SidebarNav'

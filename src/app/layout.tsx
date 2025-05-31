@@ -24,6 +24,8 @@ export const metadata: Metadata = {
   title: 'dunamis'
 }
 
+// TODO: update className to use cn from utils for conditional styling
+
 export default function RootLayout({
   children
 }: Readonly<{

@@ -1,6 +1,6 @@
 import { getDataAction } from '@/lib/getDataAction'
 import { folderPaths } from '@/utils/folderPaths'
-import { Pricing } from '@/views'
+import { Pricing, Quiz } from '@/views'
 import { Reviews } from '@/views'
 import { WhyChooseUs } from '@/views'
 import { CaseStudies } from '@/views'
@@ -8,7 +8,7 @@ import { HomeHero } from '@/views'
 
 export default function Home() {
   const { HOME } = folderPaths
-  const { hero, pricing } = getDataAction(HOME)
+  const { hero, pricing, quiz } = getDataAction(HOME)
   return (
     <>
       {/*@ts-expect-error TS2739: Type { [key: string]: any; } is missing the following properties from type*/}
@@ -22,6 +22,9 @@ export default function Home() {
 
       {/*@ts-expect-error TS2739: Type { [key: string]: any; } is missing the following properties from type*/}
       <Pricing pricing={pricing} />
+
+      {/*@ts-expect-error TS2739: Type { [key: string]: any; } is missing the following properties from type*/}
+      <Quiz quiz={quiz} />
     </>
   )
 }
