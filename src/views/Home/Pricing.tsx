@@ -62,7 +62,7 @@ export const Pricing = ({ pricing }: PricingProps) => {
 
           <Modal isOpen={isModalOpen} onCloseAction={closeModal} title={pricing?.modalHeading}>
             <p className="mb-4">{pricing?.modalPrompt}</p>
-            <div className="overflow-auto max-h-[calc(90vh-220px)] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="overflow-auto max-h-[calc(80vh-220px)] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {pricingCards.map((card, index) => (
                 <PricingCard buttonText={pricing?.modalAction} description={card.description} key={index} price={card.price} />
               ))}
