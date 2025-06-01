@@ -29,7 +29,7 @@ export const useGlobal = () => {
 export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
   const [isMobile, setIsMobile] = useState(false)
   const [isOnline, setIsOnline] = useState(true)
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false)
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(true)
   const [title] = useState('DUNAMIS')
   const [pageTitle, setPageTitle] = useState('')
 
