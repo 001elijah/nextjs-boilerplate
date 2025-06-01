@@ -23,22 +23,20 @@ export const QuizOption = ({
     isChecked = selectedOptions[currentStep] === option.text
   }
   return (
-    <div onClick={() => onChange(option.text)}>
-      <CardBorder className={cn('cursor-pointer p-0 text-left transition-all hover:shadow-md', isChecked && 'border-primary')}>
-        <label className="flex w-full cursor-pointer items-center p-4" htmlFor={inputId}>
-          <input
-            checked={isChecked}
-            className="mr-3 h-5 w-5 cursor-pointer text-primary focus:ring-primary"
-            id={inputId}
-            name={`step-${currentStep}-option`}
-            onChange={() => onChange(option.text)}
-            type={'multiSelect' in activeStepData && activeStepData?.multiSelect ? 'checkbox' : 'radio'}
-            value={option.text}
-          />
-          <span className="mr-3 text-2xl">{option.icon}</span>
-          <span>{option.text}</span>
-        </label>
-      </CardBorder>
-    </div>
+    <CardBorder className={cn('cursor-pointer p-0 text-left transition-all hover:shadow-md', isChecked && 'border-primary')}>
+      <label className="flex w-full cursor-pointer items-center p-4" htmlFor={inputId}>
+        <input
+          checked={isChecked}
+          className="mr-3 h-5 w-5 cursor-pointer text-primary focus:ring-primary"
+          id={inputId}
+          name={`step-${currentStep}-option`}
+          onChange={() => onChange(option.text)}
+          type={'multiSelect' in activeStepData && activeStepData?.multiSelect ? 'checkbox' : 'radio'}
+          value={option.text}
+        />
+        <span className="mr-3 text-2xl">{option.icon}</span>
+        <span>{option.text}</span>
+      </label>
+    </CardBorder>
   )
 }

@@ -67,7 +67,7 @@ export const QuizForm = ({ quiz }: QuizDataType) => {
   const questionOptions = !activeStepData.final && activeStepData.options ? (activeStepData.options as QuizOptionType[]) : []
   return (
     <form onSubmit={handleFormSubmit}>
-      <CardBorder className="p-8 h-[calc(100vh-250px)] md:h-[calc(100vh-200px)]">
+      <CardBorder className="p-8">
         <div className="w-full h-full flex flex-col justify-between text-center">
           <ProgressBar currentStep={currentStep} totalSteps={totalSteps} />
           <h2 className="mb-2 text-2xl font-semibold">{activeStepData.title.toUpperCase()}</h2>
@@ -77,7 +77,7 @@ export const QuizForm = ({ quiz }: QuizDataType) => {
             <p className="mb-6 text-gold">{activeStepData.question}</p>
           )}
           {!activeStepData.final && !isEmpty(questionOptions) && (
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 overflow-auto mb-6">
+            <div className="grid grid-cols-1 gap-4 mb-6">
               {questionOptions.map((option, index) => (
                 <QuizOption
                   activeStepData={activeStepData}
