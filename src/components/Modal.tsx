@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react'
 import { Button } from '@/components/Button'
 import { cn } from '@/lib/utils'
 
+// TODO: refactor to use radix-ui Dialog
+
 export const Modal = ({ children, isOpen, onCloseAction, title }: { children: React.ReactNode; isOpen: boolean; onCloseAction: () => any; title: string }) => {
   const [isAnimating, setIsAnimating] = useState(false)
 
