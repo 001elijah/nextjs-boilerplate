@@ -15,22 +15,23 @@ export * from './CaseInfo'
 export * from './Chunks'
 export * from './Container'
 export * from './DropdownMenu'
+export * from './FaqItem'
 export * from './Input'
 export * from './LoadingSpinner'
 export * from './Modal'
+// -------------
+
 export * from './NetworkMonitor'
 // -------------
 
 // -------------
 export * from './PricingCard'
-// -------------
-
 export * from './ProgressBar'
 export * from './QuizForm'
 export * from './QuizOption'
-export * from './ReviewPagination'
 // -------------
 
+export * from './ReviewPagination'
 export * from './ReviewPaginationButtons'
 // Reviews
 export * from './ReviewsCard'

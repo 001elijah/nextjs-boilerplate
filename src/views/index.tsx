@@ -1,6 +1,7 @@
 // Dashboard View
 export * from './Dashboard/AdGenerator'
 export * from './Home/CaseStudies'
+export * from './Home/Faq'
 // -------------
 // Home View
 export * from './Home/HomeHero'

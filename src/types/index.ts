@@ -1,3 +1,4 @@
+export * from './Home/faq'
 export * from './Home/homeHero'
 export * from './Home/howItWorks'
 export * from './Home/pricing'
