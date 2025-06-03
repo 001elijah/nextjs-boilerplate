@@ -9,7 +9,6 @@ export default function Home() {
   const { faq, hero, howItWorks, pricing, quiz, seoArticle } = getDataAction(HOME)
   return (
     <>
-      {/*@ts-expect-error TS2739: Type { [key: string]: any; } is missing the following properties from type*/}
       <HomeHero hero={hero} />
 
       <Reviews />

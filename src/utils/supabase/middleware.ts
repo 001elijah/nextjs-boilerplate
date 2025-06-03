@@ -33,11 +33,12 @@ export async function updateSession(request: NextRequest) {
     data: { user }
   } = await supabase.auth.getUser()
 
-  console.log({ user }, { request: request.nextUrl.pathname.startsWith(routes.home) })
-  if (!user && !request.nextUrl.pathname.startsWith(routes.home)) {
+  const currentPath = request.nextUrl.pathname
+
+  if (!user && !currentPath.startsWith(routes.home)) {
     // no user, potentially respond by redirecting the user to the login page
     const url = request.nextUrl.clone()
-    url.pathname = routes.dashboard
+    url.pathname = routes.home
     return NextResponse.redirect(url)
   }
 
