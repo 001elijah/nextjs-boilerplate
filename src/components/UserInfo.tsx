@@ -2,6 +2,7 @@
 
 import { LogOut, Settings, User } from 'lucide-react'
 import Link from 'next/link'
+import { login } from '@/app/actions'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components'
 import { Button } from '@/components'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components'
@@ -14,7 +15,7 @@ interface UserInfoProps {
 }
 
 export const UserInfo = ({ className, showName = true }: UserInfoProps) => {
-  const { signIn, signOut, user } = useAuth()
+  const { signOut, user } = useAuth()
 
   const renderIcon = (label: string) => {
     switch (label.toLowerCase()) {
@@ -74,7 +75,7 @@ export const UserInfo = ({ className, showName = true }: UserInfoProps) => {
         </DropdownMenu>
       ) : (
         <div className="flex items-center space-x-2">
-          <Button onClick={signIn} size="sm" variant="secondary">
+          <Button onClick={login} size="sm" variant="secondary">
             Sign In
           </Button>
         </div>
