@@ -4,23 +4,29 @@ export * from './AuthGuard'
 
 // UI
 export * from './Avatar'
+export * from './BeforeAfterClientsCard'
+export * from './BeforeAfterClientsPanel'
+export * from './BeforeAfterClientsWrapper'
+export * from './BeforeAfterSlider'
+// -------------
+
 export * from './Button'
 // Case Studies
 export * from './CardBorder'
 export * from './CaseCard'
 export * from './CaseCardMain'
-// -------------
-
 export * from './CaseInfo'
 export * from './Chunks'
 export * from './Container'
 export * from './DropdownMenu'
+// -------------
+
 export * from './FaqItem'
+// -------------
+
 export * from './Input'
 export * from './LoadingSpinner'
 export * from './Modal'
-// -------------
-
 export * from './NetworkMonitor'
 // -------------
 
@@ -29,8 +35,6 @@ export * from './PricingCard'
 export * from './ProgressBar'
 export * from './QuizForm'
 export * from './QuizOption'
-// -------------
-
 export * from './ReviewPagination'
 export * from './ReviewPaginationButtons'
 // Reviews
