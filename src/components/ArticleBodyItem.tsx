@@ -1,7 +1,7 @@
-import { SectionText } from '@/components/SectionText'
-import { SeoArticleBodyType } from '@/types'
+import { SectionText } from '@/components'
+import { ArticleBodyType } from '@/types'
 
-export const SeoArticleBodyItem = ({ bodyIndex, bodyItem }: { bodyIndex: number; bodyItem: SeoArticleBodyType }) => {
+export const ArticleBodyItem = ({ bodyIndex, bodyItem }: { bodyIndex: number; bodyItem: ArticleBodyType }) => {
   return (
     <>
       <SectionText className="text-gold">

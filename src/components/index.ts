@@ -1,15 +1,16 @@
-// Utils
-export * from './AuthGuard'
+export * from './ArticleBodyItem'
 // -------------
 
+// Utils
+export * from './AuthGuard'
 // UI
 export * from './Avatar'
 export * from './BeforeAfterClientsCard'
 export * from './BeforeAfterClientsPanel'
 export * from './BeforeAfterClientsWrapper'
-export * from './BeforeAfterSlider'
 // -------------
 
+export * from './BeforeAfterSlider'
 export * from './Button'
 // Case Studies
 export * from './CardBorder'
@@ -18,18 +19,18 @@ export * from './CaseCardMain'
 export * from './CaseInfo'
 export * from './Chunks'
 export * from './Container'
+// -------------
+
 export * from './DropdownMenu'
 // -------------
 
 export * from './FaqItem'
-// -------------
-
 export * from './Input'
 export * from './LoadingSpinner'
 export * from './Modal'
-export * from './NetworkMonitor'
 // -------------
 
+export * from './NetworkMonitor'
 // -------------
 export * from './PricingCard'
 export * from './ProgressBar'
@@ -43,7 +44,6 @@ export * from './Section'
 export * from './SectionHook'
 export * from './SectionText'
 export * from './SectionTitle'
-export * from './SeoArticleBodyItem'
 export * from './Sidebar'
 export * from './SidebarDesktop'
 export * from './SidebarItem'
