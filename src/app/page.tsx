@@ -6,12 +6,12 @@ import { Article, BeforeAfter, CaseStudies, Faq, HomeHero, HowItWorks, Pricing, 
 
 export default function Home() {
   const { HOME } = folderPaths
-  const { adsArticle, beforeAfter, faq, hero, howItWorks, pricing, quiz, seoArticle } = getDataAction(HOME)
+  const { adsArticle, beforeAfter, faq, hero, howItWorks, pricing, quiz, seoArticle, reviews } = getDataAction(HOME)
   return (
     <>
       <HomeHero hero={hero} />
 
-      <Reviews />
+      <Reviews reviews={reviews}/>
 
       <WhyChooseUs />
 

@@ -3,18 +3,9 @@
 import { Star } from 'lucide-react'
 import Image from 'next/image'
 import { Button, CardBorder } from '@/components'
+import { ReviewItemInterface } from '@/types'
 
-export interface ReviewInterface {
-  feedback: string
-  fullReviewUrl?: string // Optional: Link for "Read full Review"
-  id: number
-  name: string
-  photoUrl: string
-  position: string
-  rating: number
-}
-
-export const ReviewsCard = ({ review }: { review: ReviewInterface }) => {
+export const ReviewsCard = ({ review }: { review: ReviewItemInterface }) => {
   return (
     <CardBorder className="p-6 bg-card text-center text-card-foreground">
       <Image alt={`${review.name}'s photo`} className="rounded-full mb-4" height={80} src={review.photoUrl} width={80} />
