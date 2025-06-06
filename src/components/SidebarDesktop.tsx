@@ -1,7 +1,6 @@
 'use client'
 
-import { SidebarItemInterface } from '@/components'
-import { SidebarNav } from '@/components'
+import { SidebarItemInterface, SidebarNav } from '@/components'
 import { useGlobal } from '@/contexts'
 import { cn } from '@/lib/utils'
 

@@ -1,5 +1,4 @@
-import { Button } from '@/components/Button'
-import { CardBorder } from '@/components/CardBorder'
+import { Button, CardBorder } from '@/components'
 
 export const PricingCard = ({ buttonText, description, price }: { buttonText: string; description: string; price: number }) => {
   return (

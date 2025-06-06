@@ -2,10 +2,7 @@
 
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import { Button } from '@/components'
-import { Input } from '@/components'
-import { LoadingSpinner } from '@/components'
-import { Container } from '@/components'
+import { Button, Container, Input, LoadingSpinner } from '@/components'
 import { routes } from '@/config'
 import { useAuth } from '@/contexts'
 

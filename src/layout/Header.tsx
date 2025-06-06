@@ -1,11 +1,7 @@
 'use client'
 
 import { ChevronLeft, Menu } from 'lucide-react'
-import { Title } from '@/components'
-import { Container } from '@/components'
-import { ThemeToggle } from '@/components'
-import { Button } from '@/components'
-import { UserInfo } from '@/components'
+import { Button, Container, ThemeToggle, Title, UserInfo } from '@/components'
 import { useGlobal } from '@/contexts'
 
 export const Header = () => {

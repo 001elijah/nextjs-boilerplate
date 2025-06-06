@@ -1,4 +1,4 @@
-import { CardBorder } from '@/components/CardBorder'
+import { CardBorder } from '@/components'
 import { cn } from '@/lib/utils'
 import { QuizOptionType, QuizSelectedOptionsType, QuizStepType } from '@/types'
 

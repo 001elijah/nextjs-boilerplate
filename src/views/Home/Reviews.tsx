@@ -2,9 +2,7 @@
 
 import { size } from 'lodash'
 import { useState } from 'react'
-import { Section } from '@/components'
-import { ReviewPagination, ReviewPaginationButtons, ReviewsCard } from '@/components'
-import { Container } from '@/components'
+import { Container, ReviewPagination, ReviewPaginationButtons, ReviewsCard, Section } from '@/components'
 import { useGlobal } from '@/contexts'
 import { ReviewsProps } from '@/types'
 

@@ -2,10 +2,7 @@
 
 import { isEmpty, size } from 'lodash'
 import { FormEvent, useState } from 'react'
-import { Button } from '@/components/Button'
-import { CardBorder } from '@/components/CardBorder'
-import { ProgressBar } from '@/components/ProgressBar'
-import { QuizOption } from '@/components/QuizOption'
+import { Button, CardBorder, ProgressBar, QuizOption } from '@/components'
 import { QuizDataType, QuizOptionType, QuizSelectedOptionsType, QuizStepType } from '@/types'
 
 export const QuizForm = ({ quiz }: QuizDataType) => {

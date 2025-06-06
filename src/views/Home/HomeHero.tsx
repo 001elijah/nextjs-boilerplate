@@ -1,6 +1,4 @@
-import { Container } from '@/components'
-import { Section } from '@/components'
-import { Button } from '@/components'
+import { Button, Container, Section } from '@/components'
 import { HomeHeroProps } from '@/types'
 
 export const HomeHero = ({ hero }: HomeHeroProps) => {

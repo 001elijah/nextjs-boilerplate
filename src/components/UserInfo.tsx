@@ -3,9 +3,18 @@
 import { LogOut, Settings, User } from 'lucide-react'
 import Link from 'next/link'
 import { login } from '@/app/actions'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components'
-import { Button } from '@/components'
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components'
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+  Button,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger
+} from '@/components'
 import { navigation } from '@/config'
 import { useAuth } from '@/contexts'
 

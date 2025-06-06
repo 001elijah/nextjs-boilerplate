@@ -6,7 +6,7 @@ import { Article, BeforeAfter, CaseStudies, Faq, HomeHero, HowItWorks, Pricing, 
 
 export default function Home() {
   const { HOME } = folderPaths
-  const { adsArticle, beforeAfter, faq, hero, howItWorks, pricing, quiz, reviews, seoArticle, whyChooseUs } = getDataAction(HOME)
+  const { adsArticle, beforeAfter, caseStudies, faq, hero, howItWorks, pricing, quiz, reviews, seoArticle, whyChooseUs } = getDataAction(HOME)
   return (
     <>
       <HomeHero hero={hero} />
@@ -15,7 +15,7 @@ export default function Home() {
 
       <WhyChooseUs whyChooseUs={whyChooseUs} />
 
-      <CaseStudies />
+      <CaseStudies caseStudies={caseStudies} />
 
       <Pricing pricing={pricing} />
 

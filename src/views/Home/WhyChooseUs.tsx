@@ -1,6 +1,5 @@
 import { BrainIcon, GraduationCapIcon, LucideProps, RocketIcon, ShieldCheck, TargetIcon, UserRoundCog } from 'lucide-react'
-import { CardBorder, Section } from '@/components'
-import { Container } from '@/components'
+import { CardBorder, Container, Section } from '@/components'
 import { FeatureItemInterface, WhyChooseUsProps } from '@/types'
 
 const iconComponents: Record<FeatureItemInterface['icon'], React.ElementType<LucideProps>> = {

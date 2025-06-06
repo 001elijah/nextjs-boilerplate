@@ -1,21 +1,9 @@
 import { size } from 'lodash'
 import Image from 'next/image'
-import { CardBorder } from '@/components'
-import { CaseInfo } from '@/components'
+import { CardBorder, CaseInfo } from '@/components'
+import { CaseStudyInterface } from '@/types'
 
-export const CaseCard = ({
-  imageData,
-  infoConfig,
-  title
-}: {
-  imageData: { alt: string; src: string }
-  infoConfig: {
-    icon: React.ReactNode
-    label: string
-    text: string | string[]
-  }[]
-  title: string
-}) => {
+export const CaseCard = ({ imageData, infoConfig, title }: CaseStudyInterface) => {
   const { alt, src } = imageData
   return (
     <CardBorder className="text-center">
@@ -32,7 +20,7 @@ export const CaseCard = ({
       <div className="w-full px-6 py-4 md:px-4 ">
         <h5 className="text-xl sm:text-2xl font-semibold mb-2 md:mb-4">{title}</h5>
         {infoConfig.map((info, index) => (
-          <CaseInfo icon={info.icon} isLastItem={index === size(infoConfig) - 1} key={index} label={info.label} text={info.text} />
+          <CaseInfo infoConfig={info} isLastItem={index === size(infoConfig) - 1} key={index} />
         ))}
       </div>
     </CardBorder>

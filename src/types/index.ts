@@ -1,5 +1,6 @@
 export * from './Home/article'
 export * from './Home/beforeAfter'
+export * from './Home/caseStudies'
 export * from './Home/faq'
 export * from './Home/homeHero'
 export * from './Home/howItWorks'
