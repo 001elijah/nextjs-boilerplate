@@ -7,12 +7,14 @@ import { cn } from '@/lib/utils'
 
 interface ModalProps {
   children: React.ReactNode
+  className?: string
   isOpen: boolean
   onOpenChange: (open: boolean) => void
   title: string
+  withCloseButton?: boolean
 }
 
-export const Modal = ({ children, isOpen, onOpenChange, title }: ModalProps) => {
+export const Modal = ({ children, className, isOpen, onOpenChange, title, withCloseButton }: ModalProps) => {
   return (
     <DialogPrimitive.Root onOpenChange={onOpenChange} open={isOpen}>
       <DialogPrimitive.Portal>
@@ -32,24 +34,27 @@ export const Modal = ({ children, isOpen, onOpenChange, title }: ModalProps) => 
             'duration-300 ease-in-out', // Base animation properties from original
             // Standard Radix/shadcn-like animations
             'data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95',
-            'data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95'
+            'data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95',
+            className
           )}
         >
           <div className="flex justify-between items-center mb-4">
             <DialogPrimitive.Title className="text-xl font-bold">{title}</DialogPrimitive.Title>
-            <DialogPrimitive.Close asChild>
+            <DialogPrimitive.Close asChild className="cursor-pointer">
               <X />
             </DialogPrimitive.Close>
           </div>
           <div className="modal-content">
             {children}
-            <div className="mt-6 flex justify-end">
-              <DialogPrimitive.Close asChild>
-                <Button aria-label="Close" variant={'secondary'}>
-                  CLOSE
-                </Button>
-              </DialogPrimitive.Close>
-            </div>
+            {withCloseButton && (
+              <div className="mt-6 flex justify-end">
+                <DialogPrimitive.Close asChild>
+                  <Button aria-label="Close" variant={'secondary'}>
+                    CLOSE
+                  </Button>
+                </DialogPrimitive.Close>
+              </div>
+            )}
           </div>
         </DialogPrimitive.Content>
       </DialogPrimitive.Portal>

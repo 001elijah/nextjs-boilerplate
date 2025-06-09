@@ -60,7 +60,7 @@ export const Pricing = ({ pricing }: PricingProps) => {
             </div>
           </Container>
 
-          <Modal isOpen={isModalOpen} onOpenChange={closeModal} title={pricing?.modalHeading}>
+          <Modal isOpen={isModalOpen} onOpenChange={closeModal} title={pricing?.modalHeading} withCloseButton>
             <p className="mb-4">{pricing?.modalPrompt}</p>
             <div className="overflow-auto max-h-[calc(80vh-220px)] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {pricingCards.map((card, index) => (
