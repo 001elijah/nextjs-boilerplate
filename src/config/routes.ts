@@ -3,7 +3,8 @@ import { BookOpen, LayoutDashboard, Settings, User } from 'lucide-react'
 export const routes = {
   advertisement: (id: string) => `/advertisement/${id}`,
   auth: {
-    callback: '/auth/callback'
+    callback: '/auth/callback',
+    confirm: '/auth/confirm'
   },
   createTransformation: '/create-transformation',
   dashboard: '/dashboard',

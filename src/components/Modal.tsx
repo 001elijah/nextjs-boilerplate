@@ -5,7 +5,7 @@ import { X } from 'lucide-react'
 import { Button } from '@/components'
 import { cn } from '@/lib/utils'
 
-interface ModalProps {
+export interface ModalProps {
   children: React.ReactNode
   className?: string
   isOpen: boolean
