@@ -9,6 +9,7 @@ import { createClient } from '@/utils/supabase/client'
 
 interface AuthContextType {
   loading: boolean
+  loginWithEmail: (formData: FormData) => Promise<{ error: null | { message: string } }>
   signIn: () => Promise<void>
   signOut: () => Promise<void>
   signUp: () => Promise<void>
@@ -17,6 +18,9 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType>({
   loading: true,
+  loginWithEmail: async () => {
+    return { error: null }
+  },
   signIn: async () => {},
   signOut: async () => {},
   signUp: async () => {},
@@ -32,8 +36,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     // Check active sessions and sets the user
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null)
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      setUser(user ?? null)
       setLoading(false)
     })
 
@@ -61,6 +65,20 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     if (error) console.error('Error signing in:', error.message)
   }
 
+  const loginWithEmail = async (formData: FormData) => {
+    const data = {
+      email: formData.get('email') as string,
+      password: formData.get('password') as string
+    }
+
+    const { error } = await supabase.auth.signInWithPassword(data)
+
+    if (error) {
+      return { error: { message: error.message } }
+    }
+    return { error: null }
+  }
+
   const signUp = async () => {
     // For now, sign up is the same as sign in with Google
     await signIn()
@@ -78,7 +96,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     router.push(routes.home)
   }
 
-  return <AuthContext.Provider value={{ loading, signIn, signOut, signUp, user }}>{children}</AuthContext.Provider>
+  return <AuthContext.Provider value={{ loading, loginWithEmail, signIn, signOut, signUp, user }}>{children}</AuthContext.Provider>
 }
 
 export const useAuth = () => {

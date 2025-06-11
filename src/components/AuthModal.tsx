@@ -1,8 +1,11 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import { login, loginWithGoogle, signup } from '@/app/actions'
-import { Button, EmailPasswordForm, Modal, ModalProps, SignupSuccessCard } from '@/components'
+import { loginWithGoogle, signup } from '@/app/actions'
+import { Button, EmailPasswordForm, LoadingSpinner, Modal, ModalProps, SignupSuccessCard } from '@/components'
+import { routes } from '@/config'
+import { useAuth, useGlobal } from '@/contexts'
 
 interface AuthModalProps {
   isOpen: ModalProps['isOpen']
@@ -12,6 +15,9 @@ interface AuthModalProps {
 type AuthView = 'initial' | 'login' | 'signup' | 'signup_success'
 
 export const AuthModal = ({ isOpen, onOpenChange }: AuthModalProps) => {
+  const router = useRouter()
+  const { loginWithEmail } = useAuth()
+  const { loading, setLoading } = useGlobal()
   const [view, setView] = useState<AuthView>('initial')
 
   const handleSignup = async (email: string, password: string) => {
@@ -29,13 +35,19 @@ export const AuthModal = ({ isOpen, onOpenChange }: AuthModalProps) => {
     const formData = new FormData()
     formData.append('email', email)
     formData.append('password', password)
-    return await login(formData)
+    const result = await loginWithEmail(formData)
+    if (result.error) {
+      return { error: result.error }
+    }
+    router.push(routes.dashboard)
   }
 
   const handleGoogleLogin = async () => {
+    setLoading(true)
     await loginWithGoogle()
     onOpenChange(false)
     setView('initial')
+    setLoading(false)
   }
 
   const handleAppleLogin = () => {
@@ -68,13 +80,13 @@ export const AuthModal = ({ isOpen, onOpenChange }: AuthModalProps) => {
   }
 
   return (
-    <Modal className="w-[300px] md:w-[50%]" isOpen={isOpen} onOpenChange={handleModalOpenChange} title={getTitle()}>
+    <Modal className="w-[300px] md:w-[30%]" isOpen={isOpen} onOpenChange={handleModalOpenChange} title={getTitle()}>
       {view === 'initial' && (
         <div className="flex flex-col items-center gap-2 py-4">
-          <Button className="w-full" onClick={() => setView('signup')}>
+          <Button className="w-full" disabled={loading} onClick={() => setView('signup')}>
             Sign up with email
           </Button>
-          <Button className="w-full" onClick={() => setView('login')} variant="outline">
+          <Button className="w-full" disabled={loading} onClick={() => setView('login')} variant="outline">
             Login with email
           </Button>
           <div className="relative flex py-2 items-center w-full">
@@ -82,7 +94,7 @@ export const AuthModal = ({ isOpen, onOpenChange }: AuthModalProps) => {
             <span className="flex-shrink mx-4 text-muted-foreground">or</span>
             <div className="flex-grow border-t border-border" />
           </div>
-          <Button className="w-full" onClick={handleGoogleLogin} variant="outline">
+          <Button className="w-full" disabled={loading} onClick={handleGoogleLogin} variant="outline">
             <svg style={{ display: 'block' }} viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"
@@ -102,9 +114,9 @@ export const AuthModal = ({ isOpen, onOpenChange }: AuthModalProps) => {
               />
               <path d="M0 0h48v48H0z" fill="none" />
             </svg>
-            Continue with Google
+            {loading ? <LoadingSpinner className="text-foreground" /> : 'Continue with Google'}
           </Button>
-          <Button className="w-full" onClick={handleAppleLogin} variant="outline">
+          <Button className="w-full" disabled={loading} onClick={handleAppleLogin} variant="outline">
             <svg viewBox="0 0 41.5 51" xmlns="http://www.w3.org/2000/svg" xmlSpace="preserve">
               <path
                 d="M40.2 17.4c-3.4 2.1-5.5 5.7-5.5 9.7 0 4.5 2.7 8.6 6.8 10.3-.8 2.6-2 5-3.5 7.2-2.2 3.1-4.5 6.3-7.9 6.3s-4.4-2-8.4-2c-3.9 0-5.3 2.1-8.5 2.1s-5.4-2.9-7.9-6.5C2 39.5.1 33.7 0 27.6c0-9.9 6.4-15.2 12.8-15.2 3.4 0 6.2 2.2 8.3 2.2 2 0 5.2-2.3 9-2.3 4-.1 7.8 1.8 10.1 5.1zM28.3 8.1C30 6.1 30.9 3.6 31 1c0-.3 0-.7-.1-1-2.9.3-5.6 1.7-7.5 3.9-1.7 1.9-2.7 4.3-2.8 6.9 0 .3 0 .6.1.9.2 0 .5.1.7.1 2.7-.2 5.2-1.6 6.9-3.7z"

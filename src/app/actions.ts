@@ -48,34 +48,6 @@ export const loginWithApple = async () => {
   }
 }
 
-export const logout = async () => {
-  const supabase = await createServerSupabaseClient()
-  const { error } = await supabase.auth.signOut()
-  if (error) {
-    console.error('Error signing out:', error.message)
-  } else {
-    revalidatePath(routes.home, 'layout')
-    redirect(routes.home)
-  }
-}
-
-export const login = async (formData: FormData) => {
-  const supabase = await createServerSupabaseClient()
-  // type-casting here for convenience
-  // in practice, you should validate your inputs
-  const data = {
-    email: formData.get('email') as string,
-    password: formData.get('password') as string
-  }
-  const { error } = await supabase.auth.signInWithPassword(data)
-  if (error) {
-    console.log('Error signing up:', error.message)
-    return { error: { message: error.message } }
-  }
-  revalidatePath('/', 'layout')
-  redirect('/dashboard')
-}
-
 export async function signup(formData: FormData) {
   const supabase = await createServerSupabaseClient()
   const data = {
