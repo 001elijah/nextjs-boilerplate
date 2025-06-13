@@ -3,10 +3,11 @@
 import { getDataAction } from '@/lib/getDataAction'
 import { folderPaths } from '@/utils/folderPaths'
 import { Article, BeforeAfter, CaseStudies, Faq, HomeHero, HowItWorks, Pricing, Quiz, Reviews, WhyChooseUs } from '@/views'
+import { CallToAction } from '@/views/Home/CallToAction'
 
 export default function Home() {
   const { HOME } = folderPaths
-  const { adsArticle, beforeAfter, caseStudies, faq, hero, howItWorks, pricing, quiz, reviews, seoArticle, whyChooseUs } = getDataAction(HOME)
+  const { adsArticle, beforeAfter, callToAction, caseStudies, faq, hero, howItWorks, pricing, quiz, reviews, seoArticle, whyChooseUs } = getDataAction(HOME)
   return (
     <>
       <HomeHero hero={hero} />
@@ -30,6 +31,8 @@ export default function Home() {
       <BeforeAfter beforeAfter={beforeAfter} />
 
       <Article article={adsArticle} />
+
+      <CallToAction callToAction={callToAction} />
     </>
   )
 }

@@ -14,22 +14,23 @@ export * from './BeforeAfterClientsPanel'
 export * from './BeforeAfterClientsWrapper'
 export * from './BeforeAfterSlider'
 export * from './Button'
+export * from './CallToActionCard'
 // Case Studies
 export * from './CardBorder'
 export * from './CaseCard'
 export * from './CaseCardMain'
+// -------------
+
 export * from './CaseInfo'
 // -------------
 
 export * from './Chunks'
-// -------------
-
 export * from './Container'
 export * from './DropdownMenu'
 export * from './EmailPasswordForm'
-export * from './FaqItem'
 // -------------
 
+export * from './FaqItem'
 export * from './Input'
 export * from './LoadingSpinner'
 export * from './Modal'
