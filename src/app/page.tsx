@@ -2,12 +2,40 @@
 // @ts-nocheck
 import { getDataAction } from '@/lib/getDataAction'
 import { folderPaths } from '@/utils/folderPaths'
-import { Article, BeforeAfter, BoostYourSocials, CallToAction, CaseStudies, Faq, HomeHero, HowItWorks, Pricing, Quiz, Reviews, WhyChooseUs } from '@/views'
+import {
+  Article,
+  BeforeAfter,
+  BoostYourSocials,
+  CallToAction,
+  CaseStudies,
+  Faq,
+  HomeHero,
+  HowItWorks,
+  Pricing,
+  Quiz,
+  Reviews,
+  TrustBlock,
+  WhyChooseUs
+} from '@/views'
 
 export default function Home() {
   const { HOME } = folderPaths
-  const { adsArticle, beforeAfter, boostYourSocials, callToAction, caseStudies, faq, hero, howItWorks, pricing, quiz, reviews, seoArticle, whyChooseUs } =
-    getDataAction(HOME)
+  const {
+    adsArticle,
+    beforeAfter,
+    boostYourSocials,
+    callToAction,
+    caseStudies,
+    faq,
+    hero,
+    howItWorks,
+    pricing,
+    quiz,
+    reviews,
+    seoArticle,
+    trustBlock,
+    whyChooseUs
+  } = getDataAction(HOME)
   return (
     <>
       <HomeHero hero={hero} />
@@ -35,6 +63,8 @@ export default function Home() {
       <Article article={adsArticle} />
 
       <CallToAction callToAction={callToAction} />
+
+      <TrustBlock trustBlock={trustBlock} />
     </>
   )
 }

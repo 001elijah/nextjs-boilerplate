@@ -13,5 +13,6 @@ export * from './Home/HowItWorks'
 export * from './Home/Pricing'
 export * from './Home/Quiz'
 export * from './Home/Reviews'
+export * from './Home/TrustBlock'
 export * from './Home/WhyChooseUs'
 // -------------

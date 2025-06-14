@@ -26,10 +26,11 @@ export * from './CaseCardMain'
 
 export * from './CaseInfo'
 export * from './Chunks'
+export * from './CompanyLogoCard'
 export * from './ConcernCard'
-export * from './Container'
 // -------------
 
+export * from './Container'
 export * from './DropdownMenu'
 export * from './EmailPasswordForm'
 export * from './FaqItem'
