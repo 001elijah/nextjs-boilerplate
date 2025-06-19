@@ -2,20 +2,16 @@
 
 import { usePathname, useRouter } from 'next/navigation'
 import { useEffect } from 'react'
-import { AppRoute, isProtectedRoute, routes } from '@/config'
+import { isProtectedRoute, routes } from '@/config/routes'
 import { useAuth } from '@/contexts'
 
-interface AuthGuardProps {
-  children: React.ReactNode
-}
-
-export const AuthGuard = ({ children }: AuthGuardProps) => {
+export const AuthGuard = ({ children }: { children: React.ReactNode }) => {
   const { loading, user } = useAuth()
   const router = useRouter()
   const pathname = usePathname()
 
   useEffect(() => {
-    if (!loading && isProtectedRoute(pathname as AppRoute) && !user) {
+    if (!loading && isProtectedRoute(pathname) && !user) {
       router.push(routes.home)
     }
   }, [loading, pathname, user, router])
@@ -28,8 +24,8 @@ export const AuthGuard = ({ children }: AuthGuardProps) => {
     )
   }
 
-  // Don't render protected content if user is not authenticated
-  if (isProtectedRoute(pathname as AppRoute) && !user) {
+  // Don't render protected content if the user is not authenticated
+  if (isProtectedRoute(pathname) && !user) {
     return null
   }
 

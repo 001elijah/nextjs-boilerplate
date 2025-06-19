@@ -18,13 +18,12 @@ interface SidebarItemProps {
 }
 
 export const SidebarItem = ({ item }: SidebarItemProps) => {
-  const { isMobile, isSidebarCollapsed, setIsSidebarCollapsed } = useGlobal()
+  const { isMobile, isSidebarCollapsed } = useGlobal()
   const accentPrefix = !isMobile ? 'sidebar-' : ''
 
   const handleClick = () => {
     if (item.isDisabled) return
     if (item.onClick) item.onClick()
-    if (!isMobile) setIsSidebarCollapsed(true)
   }
 
   return (

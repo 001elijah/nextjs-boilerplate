@@ -1,10 +1,9 @@
 'use client'
 
-import { BookOpen, LayoutDashboard, Plus } from 'lucide-react'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import { SidebarDesktop, SidebarItemInterface, SidebarMobile, UserInfo } from '@/components'
-import { routes } from '@/config'
+import { navigation, routes } from '@/config'
 import { useAuth, useGlobal } from '@/contexts'
 
 interface SidebarProps {
@@ -13,22 +12,22 @@ interface SidebarProps {
 }
 
 export const Sidebar = ({ className, defaultCollapsed = true }: SidebarProps) => {
+  const router = useRouter()
+  const pathname = usePathname()
   const { isMobile, setIsSidebarCollapsed } = useGlobal()
+  const { user } = useAuth()
 
   useEffect(() => {
+    const isProfilePage = pathname.startsWith(routes.profile.root)
     const checkMobile = () => {
       if (isMobile) {
         setIsSidebarCollapsed(true)
       } else {
-        setIsSidebarCollapsed(defaultCollapsed)
+        setIsSidebarCollapsed(isProfilePage ? false : defaultCollapsed)
       }
     }
     checkMobile()
-  }, [isMobile, setIsSidebarCollapsed, defaultCollapsed])
-
-  const { user } = useAuth()
-  // TODO: const pathname = usePathname()
-  const router = useRouter()
+  }, [isMobile, setIsSidebarCollapsed, defaultCollapsed, pathname])
   // TODO: const [history, setHistory] = useState<HistoryTitle[]>([])
   // TODO: const { history } = useDbStore()
 
@@ -41,20 +40,18 @@ export const Sidebar = ({ className, defaultCollapsed = true }: SidebarProps) =>
   const items: SidebarItemInterface[] = []
 
   if (user) {
-    items.push({
-      icon: Plus,
-      isActive: false,
-      label: 'Try a new Ad generation',
-      onClick: () => router.push(routes.storyNew)
-    })
-    items.push({ isDisabled: true, label: '' })
+    const isProfilePage = pathname.startsWith(routes.profile.root)
+    const currentNav = isProfilePage ? navigation.profile : navigation.main
 
-    items.push({
-      icon: BookOpen,
-      isActive: false,
-      label: 'History',
-      onClick: () => router.push(routes.stories)
+    currentNav.forEach(route => {
+      items.push({
+        icon: route.icon,
+        isActive: pathname === route.href,
+        label: route.label,
+        onClick: () => router.push(route.href)
+      })
     })
+
     // TODO: history?.forEach(story => {
     //   items.push({
     //     icon: Shrub,
@@ -64,20 +61,7 @@ export const Sidebar = ({ className, defaultCollapsed = true }: SidebarProps) =>
     //     level: 2
     //   })
     // })
-
-    items.push({
-      isActive: false,
-      isDisabled: true,
-      label: ''
-    })
   }
-
-  items.push({
-    icon: LayoutDashboard,
-    isActive: false,
-    label: 'Dashboard',
-    onClick: () => router.push(routes.dashboard)
-  })
 
   // Mobile sidebar with overlay
   if (isMobile) {
