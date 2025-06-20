@@ -4,27 +4,27 @@ import { useEffect, useState } from 'react'
 import { Button, Container, Modal, PricingCard, Section } from '@/components'
 import { PricingProps } from '@/types'
 
+export const pricingCards = [
+  {
+    description: 'Perfect for small businesses',
+    price: 40
+  },
+  {
+    description: 'Perfect for medium businesses',
+    price: 70
+  },
+  {
+    description: 'Perfect for large businesses',
+    price: 120
+  },
+  {
+    description: 'Perfect for startups',
+    price: 240
+  }
+]
+
 export const Pricing = ({ pricing }: PricingProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
-
-  const pricingCards = [
-    {
-      description: 'Perfect for small businesses',
-      price: 40
-    },
-    {
-      description: 'Perfect for medium businesses',
-      price: 70
-    },
-    {
-      description: 'Perfect for large businesses',
-      price: 120
-    },
-    {
-      description: 'Perfect for startups',
-      price: 240
-    }
-  ]
 
   const openModal = () => setIsModalOpen(true)
   const closeModal = () => setIsModalOpen(false)
