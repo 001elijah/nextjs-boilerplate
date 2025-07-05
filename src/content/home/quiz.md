@@ -2,7 +2,7 @@
 nextButtonText: "Next"
 steps:
   - step: 1
-    statusIcon: "✅"
+    inputType: "singleSelect"
     title: "Your advertising goal"
     question: "What do you want your ad to achieve?"
     options:
@@ -16,7 +16,7 @@ steps:
         text: "Drive traffic to my website"
 
   - step: 2
-    statusIcon: "✅"
+    inputType: "singleSelect"
     title: "The type of your business"
     question: "What category best describes your product or service?"
     options:
@@ -34,7 +34,7 @@ steps:
         text: "Other"
 
   - step: 3
-    statusIcon: "✅"
+    inputType: "singleSelect"
     title: "Your preferred tone of voice"
     question: "What style of communication feels right for you?"
     options:
@@ -48,10 +48,9 @@ steps:
         text: "Trendy and modern"
 
   - step: 4
-    statusIcon: "✅"
+    inputType: "multiSelect"
     title: "Your ad usage"
     question: "Which platforms will you run the ad on?"
-    multiSelect: true
     options:
       - icon: "📷"
         text: "Instagram"
@@ -67,7 +66,7 @@ steps:
         text: "All of the above"
 
   - step: 5
-    statusIcon: "✅"
+    inputType: "singleSelect"
     title: "Your ad budget"
     question: "What’s your typical monthly ad budget?"
     options:
@@ -81,7 +80,7 @@ steps:
         text: "$2000+ (Scaling aggressively)"
 
   - step: 6
-    statusIcon: "✅"
+    inputType: "singleSelect"
     title: "Your experience"
     question: "Is this your first time running ads?"
     options:
@@ -95,7 +94,7 @@ steps:
         text: "I'm an agency or pro marketer"
 
   - step: 7
-    statusIcon: "✅"
+    inputType: "singleSelect"
     title: "Your challenge curve"
     question: "What part of creating ads feels hardest?"
     options:
@@ -111,7 +110,7 @@ steps:
         text: "Not sure where to start"
 
   - step: 8
-    statusIcon: "✅"
+    inputType: "final"
     title: "Ready to generate your ad?"
     final: true
     description: "✨ Based on your answers, we’ll generate a free creative preview tailored to your business."

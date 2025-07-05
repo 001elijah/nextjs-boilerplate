@@ -15,7 +15,6 @@ export type QuizSelectedOptionsType = Record<number, QuizOptionType['text'] | Qu
 export type QuizStepType = FinalStepType | QuestionStepType
 
 interface BaseQuizStepType {
-  statusIcon: string
   step: number
   title: string
 }
