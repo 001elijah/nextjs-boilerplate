@@ -969,27 +969,32 @@ export const presetFormConfig: Step[] = [
     categories: [
       {
         id: 'country',
-        inputType: 'singleSelect',
+        inputType: 'textInput',
+        placeholder: 'Enter country',
         title: 'Country'
       },
       {
         id: 'state',
-        inputType: 'singleSelect',
+        inputType: 'textInput',
+        placeholder: 'Enter state / province',
         title: 'State / Province'
       },
       {
         id: 'region',
-        inputType: 'singleSelect',
+        inputType: 'textInput',
+        placeholder: 'Enter region',
         title: 'Region'
       },
       {
         id: 'city',
-        inputType: 'singleSelect',
+        inputType: 'textInput',
+        placeholder: 'Enter city',
         title: 'City'
       },
       {
         id: 'zip',
-        inputType: 'singleSelect',
+        inputType: 'textInput',
+        placeholder: 'Enter ZIP / Postal Code',
         title: 'ZIP / Postal Code'
       }
     ],

@@ -192,12 +192,21 @@ export interface CustomerData {
   professionalType: string
 }
 
+export interface LocationData {
+  city: string
+  country: string
+  region: string
+  state: string
+  zip: string
+}
+
 export type Option = SelectOption | TextInputOption
 
 export interface PresetFormState {
   category: BusinessSubcategoryOption['value']
   customer: CustomerData
   error: string
+  location: LocationData
   name: string
   type: BusinessType
 }

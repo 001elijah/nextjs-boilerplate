@@ -95,6 +95,7 @@ export * from './PresetTypeBadge'
 // Profile |- Presets |- Create
 export * from './BusinessCategoryStep'
 export * from './BusinessCustomerStep'
+export * from './BusinessLocationStep'
 export * from './BusinessTitleStep'
 export * from './BusinessTypeStep'
 export * from './MainCategory'

@@ -2,10 +2,10 @@
 
 import { ChangeEvent, useActionState, useState, useTransition } from 'react'
 import { cancelPresetForm, submitPresetForm } from '@/app/profile/presets/actions'
-import { BusinessCategoryStep, BusinessCustomerStep, BusinessTitleStep, BusinessTypeStep, Button } from '@/components'
+import { BusinessCategoryStep, BusinessCustomerStep, BusinessLocationStep, BusinessTitleStep, BusinessTypeStep, Button } from '@/components'
 import { presetFormConfig as presetSteps } from '@/config/presets'
 import { useBusinessCategory } from '@/hooks/useBusinessCategory'
-import { BusinessSubcategoryOption, BusinessTitle, BusinessType, CustomerData, isValidBusinessType, PresetFormState, PresetsProps } from '@/types'
+import { BusinessSubcategoryOption, BusinessTitle, BusinessType, CustomerData, isValidBusinessType, LocationData, PresetFormState, PresetsProps } from '@/types'
 
 export const PresetAddForm = ({ presets }: PresetsProps) => {
   const { cancelButtonText, cancelTransitionButtonText, submitButtonText, submitPendingButtonText } = presets
@@ -22,6 +22,13 @@ export const PresetAddForm = ({ presets }: PresetsProps) => {
       professionalType: 'small business owners'
     },
     error: '',
+    location: {
+      city: '',
+      country: '',
+      region: '',
+      state: '',
+      zip: ''
+    },
     name: '',
     type: 'online'
   }
@@ -31,6 +38,7 @@ export const PresetAddForm = ({ presets }: PresetsProps) => {
   const [businessTitle] = useState<BusinessTitle>(state.name)
   const [businessCategory] = useState<BusinessSubcategoryOption['value']>(state.category)
   const [customerData, setCustomerData] = useState<CustomerData>(state.customer)
+  const [locationData] = useState<LocationData>(state.location)
 
   const handleBusinessTypeChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value as BusinessType
@@ -57,6 +65,7 @@ export const PresetAddForm = ({ presets }: PresetsProps) => {
   const businessTitleStep = presetSteps.find(step => step.id === 'name')
   const businessCategoryStep = presetSteps.find(step => step.id === 'category')
   const businessCustomerStep = presetSteps.find(step => step.id === 'customer')
+  const businessLocationStep = presetSteps.find(step => step.id === 'location')
 
   return (
     <form action={action} className="w-full">
@@ -78,6 +87,8 @@ export const PresetAddForm = ({ presets }: PresetsProps) => {
         )}
 
         {businessCustomerStep && <BusinessCustomerStep customerData={customerData} onChange={handleCustomerDataChange} step={businessCustomerStep} />}
+
+        {businessLocationStep && <BusinessLocationStep defaultValue={locationData} step={businessLocationStep} />}
 
         {/* Action Buttons */}
         <Button disabled={isLoading} type="submit">
