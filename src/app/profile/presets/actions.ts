@@ -1,7 +1,7 @@
 'use server'
 
 import { redirect } from 'next/navigation'
-import { BusinessSubcategoryOption, BusinessType, CustomerData, LocationData, PresetFormState } from '@/types'
+import { BusinessSubcategoryOption, BusinessType, CustomerData, LocationData, PresetFormState, RegionsData } from '@/types'
 
 const extractFormData = (formData: FormData) => {
   const type = formData.get('type') as BusinessType
@@ -19,8 +19,10 @@ const extractFormData = (formData: FormData) => {
     state: (formData.get('state') as string) || '',
     zip: (formData.get('zip') as string) || ''
   }
+  const regionsRaw = formData.get('regions') as null | string
+  const regions: RegionsData = regionsRaw ? JSON.parse(regionsRaw) : []
 
-  return { category, customer, location, name, type }
+  return { category, customer, location, name, regions, type }
 }
 
 export async function cancelPresetForm() {
@@ -28,7 +30,7 @@ export async function cancelPresetForm() {
 }
 
 export async function submitPresetForm(previousState: PresetFormState, formData: FormData): Promise<PresetFormState> {
-  const { category, customer, location, name, type } = extractFormData(formData)
+  const { category, customer, location, name, regions, type } = extractFormData(formData)
 
   try {
     await new Promise(resolve => setTimeout(resolve, 2000))
@@ -41,6 +43,7 @@ export async function submitPresetForm(previousState: PresetFormState, formData:
         error: 'Business name is required',
         location,
         name,
+        regions,
         type // Use the current form data, not previous state
       }
     }
@@ -52,11 +55,12 @@ export async function submitPresetForm(previousState: PresetFormState, formData:
         error: 'Business name must be at least 3 characters long',
         location,
         name,
+        regions,
         type // Use the current form data, not previous state
       }
     }
 
-    console.log('Submitting preset form', { category, customer, location, name, type })
+    console.log('Submitting preset form', { category, customer, location, name, regions, type })
 
     // Simulate potential server error
     // Remove this in production
@@ -70,6 +74,7 @@ export async function submitPresetForm(previousState: PresetFormState, formData:
       error: '', // Clear any previous errors
       location: { city: '', country: '', region: '', state: '', zip: '' },
       name: '',
+      regions: [],
       type: 'online'
     }
   } catch (error) {
@@ -80,6 +85,7 @@ export async function submitPresetForm(previousState: PresetFormState, formData:
       error: error instanceof Error ? error.message : 'An unexpected error occurred',
       location,
       name,
+      regions,
       type
     }
   }

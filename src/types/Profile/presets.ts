@@ -200,6 +200,8 @@ export interface LocationData {
   zip: string
 }
 
+export type RegionsData = string[]
+
 export type Option = SelectOption | TextInputOption
 
 export interface PresetFormState {
@@ -208,6 +210,7 @@ export interface PresetFormState {
   error: string
   location: LocationData
   name: string
+  regions: RegionsData
   type: BusinessType
 }
 

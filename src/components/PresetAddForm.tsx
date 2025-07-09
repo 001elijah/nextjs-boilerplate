@@ -1,17 +1,34 @@
 'use client'
 
-import { ChangeEvent, useActionState, useState, useTransition } from 'react'
+import { ChangeEvent, useActionState, useEffect, useState, useTransition } from 'react'
 import { cancelPresetForm, submitPresetForm } from '@/app/profile/presets/actions'
-import { BusinessCategoryStep, BusinessCustomerStep, BusinessLocationStep, BusinessTitleStep, BusinessTypeStep, Button } from '@/components'
+import {
+  BusinessCategoryStep,
+  BusinessCustomerStep,
+  BusinessLocationStep,
+  BusinessRegionsStep,
+  BusinessTitleStep,
+  BusinessTypeStep,
+  Button
+} from '@/components'
 import { presetFormConfig as presetSteps } from '@/config/presets'
 import { useBusinessCategory } from '@/hooks/useBusinessCategory'
-import { BusinessSubcategoryOption, BusinessTitle, BusinessType, CustomerData, isValidBusinessType, LocationData, PresetFormState, PresetsProps } from '@/types'
+import {
+  BusinessSubcategoryOption,
+  BusinessTitle,
+  BusinessType,
+  CustomerData,
+  isValidBusinessType,
+  LocationData,
+  PresetFormState,
+  PresetsProps,
+  RegionsData
+} from '@/types'
 
 export const PresetAddForm = ({ presets }: PresetsProps) => {
   const { cancelButtonText, cancelTransitionButtonText, submitButtonText, submitPendingButtonText } = presets
   const [isPending, startTransition] = useTransition()
 
-  // Use the custom hook for category state management
   const { resetCategoryState } = useBusinessCategory()
 
   const initialState: PresetFormState = {
@@ -30,6 +47,7 @@ export const PresetAddForm = ({ presets }: PresetsProps) => {
       zip: ''
     },
     name: '',
+    regions: [],
     type: 'online'
   }
 
@@ -39,6 +57,11 @@ export const PresetAddForm = ({ presets }: PresetsProps) => {
   const [businessCategory] = useState<BusinessSubcategoryOption['value']>(state.category)
   const [customerData, setCustomerData] = useState<CustomerData>(state.customer)
   const [locationData] = useState<LocationData>(state.location)
+  const [regionsData, setRegionsData] = useState<RegionsData>(state.regions)
+
+  useEffect(() => {
+    setRegionsData(state.regions)
+  }, [state.regions])
 
   const handleBusinessTypeChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value as BusinessType
@@ -66,6 +89,7 @@ export const PresetAddForm = ({ presets }: PresetsProps) => {
   const businessCategoryStep = presetSteps.find(step => step.id === 'category')
   const businessCustomerStep = presetSteps.find(step => step.id === 'customer')
   const businessLocationStep = presetSteps.find(step => step.id === 'location')
+  const businessRegionsStep = presetSteps.find(step => step.id === 'regions')
 
   return (
     <form action={action} className="w-full">
@@ -89,6 +113,8 @@ export const PresetAddForm = ({ presets }: PresetsProps) => {
         {businessCustomerStep && <BusinessCustomerStep customerData={customerData} onChange={handleCustomerDataChange} step={businessCustomerStep} />}
 
         {businessLocationStep && <BusinessLocationStep defaultValue={locationData} step={businessLocationStep} />}
+
+        {businessRegionsStep && <BusinessRegionsStep defaultValue={regionsData} onRegionsChange={setRegionsData} step={businessRegionsStep} />}
 
         {/* Action Buttons */}
         <Button disabled={isLoading} type="submit">

@@ -1009,7 +1009,387 @@ export const presetFormConfig: Step[] = [
         icon: '',
         id: 'target-regions',
         inputType: 'multiSelect',
-        label: 'Select regions'
+        label: 'Select regions',
+        options: [
+          {
+            icon: '🇺🇸',
+            id: 'USA',
+            label: 'United States',
+            value: 'united states'
+          },
+          {
+            icon: '🇨🇦',
+            id: 'CAN',
+            label: 'Canada',
+            value: 'canada'
+          },
+          {
+            icon: '🇬🇧',
+            id: 'GBR',
+            label: 'United Kingdom',
+            value: 'united kingdom'
+          },
+          {
+            icon: '🇩🇪',
+            id: 'DEU',
+            label: 'Germany',
+            value: 'germany'
+          },
+          {
+            icon: '🇫🇷',
+            id: 'FRA',
+            label: 'France',
+            value: 'france'
+          },
+          {
+            icon: '🇮🇹',
+            id: 'ITA',
+            label: 'Italy',
+            value: 'italy'
+          },
+          {
+            icon: '🇪🇸',
+            id: 'ESP',
+            label: 'Spain',
+            value: 'spain'
+          },
+          {
+            icon: '🇳🇱',
+            id: 'NLD',
+            label: 'Netherlands',
+            value: 'netherlands'
+          },
+          {
+            icon: '🇸🇪',
+            id: 'SWE',
+            label: 'Sweden',
+            value: 'sweden'
+          },
+          {
+            icon: '🇳🇴',
+            id: 'NOR',
+            label: 'Norway',
+            value: 'norway'
+          },
+          {
+            icon: '🇩🇰',
+            id: 'DNK',
+            label: 'Denmark',
+            value: 'denmark'
+          },
+          {
+            icon: '🇫🇮',
+            id: 'FIN',
+            label: 'Finland',
+            value: 'finland'
+          },
+          {
+            icon: '🇨🇭',
+            id: 'CHE',
+            label: 'Switzerland',
+            value: 'switzerland'
+          },
+          {
+            icon: '🇦🇹',
+            id: 'AUT',
+            label: 'Austria',
+            value: 'austria'
+          },
+          {
+            icon: '🇧🇪',
+            id: 'BEL',
+            label: 'Belgium',
+            value: 'belgium'
+          },
+          {
+            icon: '🇮🇪',
+            id: 'IRL',
+            label: 'Ireland',
+            value: 'ireland'
+          },
+          {
+            icon: '🇵🇹',
+            id: 'PRT',
+            label: 'Portugal',
+            value: 'portugal'
+          },
+          {
+            icon: '🇬🇷',
+            id: 'GRC',
+            label: 'Greece',
+            value: 'greece'
+          },
+          {
+            icon: '🇵🇱',
+            id: 'POL',
+            label: 'Poland',
+            value: 'poland'
+          },
+          {
+            icon: '🇨🇿',
+            id: 'CZE',
+            label: 'Czech Republic',
+            value: 'czech republic'
+          },
+          {
+            icon: '🇭🇺',
+            id: 'HUN',
+            label: 'Hungary',
+            value: 'hungary'
+          },
+          {
+            icon: '🇸🇰',
+            id: 'SVK',
+            label: 'Slovakia',
+            value: 'slovakia'
+          },
+          {
+            icon: '🇸🇮',
+            id: 'SVN',
+            label: 'Slovenia',
+            value: 'slovenia'
+          },
+          {
+            icon: '🇭🇷',
+            id: 'HRV',
+            label: 'Croatia',
+            value: 'croatia'
+          },
+          {
+            icon: '🇷🇴',
+            id: 'ROU',
+            label: 'Romania',
+            value: 'romania'
+          },
+          {
+            icon: '🇧🇬',
+            id: 'BGR',
+            label: 'Bulgaria',
+            value: 'bulgaria'
+          },
+          {
+            icon: '🇷🇺',
+            id: 'RUS',
+            label: 'Russia',
+            value: 'russia'
+          },
+          {
+            icon: '🇺🇦',
+            id: 'UKR',
+            label: 'Ukraine',
+            value: 'ukraine'
+          },
+          {
+            icon: '🇧🇾',
+            id: 'BLR',
+            label: 'Belarus',
+            value: 'belarus'
+          },
+          {
+            icon: '🇱🇹',
+            id: 'LTU',
+            label: 'Lithuania',
+            value: 'lithuania'
+          },
+          {
+            icon: '🇱🇻',
+            id: 'LVA',
+            label: 'Latvia',
+            value: 'latvia'
+          },
+          {
+            icon: '🇪🇪',
+            id: 'EST',
+            label: 'Estonia',
+            value: 'estonia'
+          },
+          {
+            icon: '🇮🇸',
+            id: 'ISL',
+            label: 'Iceland',
+            value: 'iceland'
+          },
+          {
+            icon: '🇦🇺',
+            id: 'AUS',
+            label: 'Australia',
+            value: 'australia'
+          },
+          {
+            icon: '🇳🇿',
+            id: 'NZL',
+            label: 'New Zealand',
+            value: 'new zealand'
+          },
+          {
+            icon: '🇯🇵',
+            id: 'JPN',
+            label: 'Japan',
+            value: 'japan'
+          },
+          {
+            icon: '🇰🇷',
+            id: 'KOR',
+            label: 'South Korea',
+            value: 'south korea'
+          },
+          {
+            icon: '🇨🇳',
+            id: 'CHN',
+            label: 'China',
+            value: 'china'
+          },
+          {
+            icon: '🇮🇳',
+            id: 'IND',
+            label: 'India',
+            value: 'india'
+          },
+          {
+            icon: '🇸🇬',
+            id: 'SGP',
+            label: 'Singapore',
+            value: 'singapore'
+          },
+          {
+            icon: '🇭🇰',
+            id: 'HKG',
+            label: 'Hong Kong',
+            value: 'hong kong'
+          },
+          {
+            icon: '🇹🇼',
+            id: 'TWN',
+            label: 'Taiwan',
+            value: 'taiwan'
+          },
+          {
+            icon: '🇹🇭',
+            id: 'THA',
+            label: 'Thailand',
+            value: 'thailand'
+          },
+          {
+            icon: '🇻🇳',
+            id: 'VNM',
+            label: 'Vietnam',
+            value: 'vietnam'
+          },
+          {
+            icon: '🇵🇭',
+            id: 'PHL',
+            label: 'Philippines',
+            value: 'philippines'
+          },
+          {
+            icon: '🇮🇩',
+            id: 'IDN',
+            label: 'Indonesia',
+            value: 'indonesia'
+          },
+          {
+            icon: '🇲🇾',
+            id: 'MYS',
+            label: 'Malaysia',
+            value: 'malaysia'
+          },
+          {
+            icon: '🇧🇷',
+            id: 'BRA',
+            label: 'Brazil',
+            value: 'brazil'
+          },
+          {
+            icon: '🇦🇷',
+            id: 'ARG',
+            label: 'Argentina',
+            value: 'argentina'
+          },
+          {
+            icon: '🇲🇽',
+            id: 'MEX',
+            label: 'Mexico',
+            value: 'mexico'
+          },
+          {
+            icon: '🇨🇱',
+            id: 'CHL',
+            label: 'Chile',
+            value: 'chile'
+          },
+          {
+            icon: '🇨🇴',
+            id: 'COL',
+            label: 'Colombia',
+            value: 'colombia'
+          },
+          {
+            icon: '🇵🇪',
+            id: 'PER',
+            label: 'Peru',
+            value: 'peru'
+          },
+          {
+            icon: '🇺🇾',
+            id: 'URY',
+            label: 'Uruguay',
+            value: 'uruguay'
+          },
+          {
+            icon: '🇿🇦',
+            id: 'ZAF',
+            label: 'South Africa',
+            value: 'south africa'
+          },
+          {
+            icon: '🇳🇬',
+            id: 'NGA',
+            label: 'Nigeria',
+            value: 'nigeria'
+          },
+          {
+            icon: '🇪🇬',
+            id: 'EGY',
+            label: 'Egypt',
+            value: 'egypt'
+          },
+          {
+            icon: '🇰🇪',
+            id: 'KEN',
+            label: 'Kenya',
+            value: 'kenya'
+          },
+          {
+            icon: '🇲🇦',
+            id: 'MAR',
+            label: 'Morocco',
+            value: 'morocco'
+          },
+          {
+            icon: '🇹🇷',
+            id: 'TUR',
+            label: 'Turkey',
+            value: 'turkey'
+          },
+          {
+            icon: '🇮🇱',
+            id: 'ISR',
+            label: 'Israel',
+            value: 'israel'
+          },
+          {
+            icon: '🇸🇦',
+            id: 'SAU',
+            label: 'Saudi Arabia',
+            value: 'saudi arabia'
+          },
+          {
+            icon: '🇦🇪',
+            id: 'ARE',
+            label: 'United Arab Emirates',
+            value: 'united arab emirates'
+          }
+        ]
       },
       {
         icon: '✨',
