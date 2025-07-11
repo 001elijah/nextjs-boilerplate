@@ -1,7 +1,7 @@
 'use server'
 
 import { redirect } from 'next/navigation'
-import { BusinessSubcategoryOption, BusinessType, CustomerData, LocationData, PresetFormState, RegionsData } from '@/types'
+import { BusinessSubcategoryOption, BusinessType, CustomerData, LanguageData, LocationData, PresetFormState, RegionsData } from '@/types'
 
 const extractFormData = (formData: FormData) => {
   const type = formData.get('type') as BusinessType
@@ -12,6 +12,7 @@ const extractFormData = (formData: FormData) => {
     painPoint: (formData.get('painPoint') as string) || '',
     professionalType: (formData.get('professionalType') as string) || ''
   }
+  const language: LanguageData = (formData.get('language') as LanguageData) || ''
   const location: LocationData = {
     city: (formData.get('city') as string) || '',
     country: (formData.get('country') as string) || '',
@@ -22,7 +23,7 @@ const extractFormData = (formData: FormData) => {
   const regionsRaw = formData.get('regions') as null | string
   const regions: RegionsData = regionsRaw ? JSON.parse(regionsRaw) : []
 
-  return { category, customer, location, name, regions, type }
+  return { category, customer, language, location, name, regions, type }
 }
 
 export async function cancelPresetForm() {
@@ -30,7 +31,7 @@ export async function cancelPresetForm() {
 }
 
 export async function submitPresetForm(previousState: PresetFormState, formData: FormData): Promise<PresetFormState> {
-  const { category, customer, location, name, regions, type } = extractFormData(formData)
+  const { category, customer, language, location, name, regions, type } = extractFormData(formData)
 
   try {
     await new Promise(resolve => setTimeout(resolve, 2000))
@@ -41,6 +42,7 @@ export async function submitPresetForm(previousState: PresetFormState, formData:
         category,
         customer,
         error: 'Business name is required',
+        language,
         location,
         name,
         regions,
@@ -53,6 +55,7 @@ export async function submitPresetForm(previousState: PresetFormState, formData:
         category,
         customer,
         error: 'Business name must be at least 3 characters long',
+        language,
         location,
         name,
         regions,
@@ -60,7 +63,7 @@ export async function submitPresetForm(previousState: PresetFormState, formData:
       }
     }
 
-    console.log('Submitting preset form', { category, customer, location, name, regions, type })
+    console.log('Submitting preset form', { category, customer, language, location, name, regions, type })
 
     // Simulate potential server error
     // Remove this in production
@@ -72,6 +75,7 @@ export async function submitPresetForm(previousState: PresetFormState, formData:
       category: '',
       customer: { demographics: '', painPoint: '', professionalType: '' },
       error: '', // Clear any previous errors
+      language: '',
       location: { city: '', country: '', region: '', state: '', zip: '' },
       name: '',
       regions: [],
@@ -83,6 +87,7 @@ export async function submitPresetForm(previousState: PresetFormState, formData:
       category,
       customer,
       error: error instanceof Error ? error.message : 'An unexpected error occurred',
+      language,
       location,
       name,
       regions,

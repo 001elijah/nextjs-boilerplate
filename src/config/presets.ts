@@ -1411,7 +1411,544 @@ export const presetFormConfig: Step[] = [
         icon: '',
         id: 'audience-language',
         inputType: 'singleSelect',
-        label: 'Select language'
+        label: 'Select language',
+        options: [
+          {
+            id: 'lang-en',
+            label: 'English',
+            value: 'en'
+          },
+          {
+            id: 'lang-es',
+            label: 'Spanish',
+            value: 'es'
+          },
+          {
+            id: 'lang-fr',
+            label: 'French',
+            value: 'fr'
+          },
+          {
+            id: 'lang-de',
+            label: 'German',
+            value: 'de'
+          },
+          {
+            id: 'lang-zh',
+            label: 'Chinese (Simplified)',
+            value: 'zh'
+          },
+          {
+            id: 'lang-ja',
+            label: 'Japanese',
+            value: 'ja'
+          },
+          {
+            id: 'lang-ru',
+            label: 'Russian',
+            value: 'ru'
+          },
+          {
+            id: 'lang-pt',
+            label: 'Portuguese',
+            value: 'pt'
+          },
+          {
+            id: 'lang-it',
+            label: 'Italian',
+            value: 'it'
+          },
+          {
+            id: 'lang-ko',
+            label: 'Korean',
+            value: 'ko'
+          },
+          {
+            id: 'lang-hi',
+            label: 'Hindi',
+            value: 'hi'
+          },
+          {
+            id: 'lang-ar',
+            label: 'Arabic',
+            value: 'ar'
+          },
+          {
+            id: 'lang-tr',
+            label: 'Turkish',
+            value: 'tr'
+          },
+          {
+            id: 'lang-pl',
+            label: 'Polish',
+            value: 'pl'
+          },
+          {
+            id: 'lang-nl',
+            label: 'Dutch',
+            value: 'nl'
+          },
+          {
+            id: 'lang-sv',
+            label: 'Swedish',
+            value: 'sv'
+          },
+          {
+            id: 'lang-no',
+            label: 'Norwegian',
+            value: 'no'
+          },
+          {
+            id: 'lang-da',
+            label: 'Danish',
+            value: 'da'
+          },
+          {
+            id: 'lang-fi',
+            label: 'Finnish',
+            value: 'fi'
+          },
+          {
+            id: 'lang-el',
+            label: 'Greek',
+            value: 'el'
+          },
+          {
+            id: 'lang-id',
+            label: 'Indonesian',
+            value: 'id'
+          },
+          {
+            id: 'lang-ms',
+            label: 'Malay',
+            value: 'ms'
+          },
+          {
+            id: 'lang-th',
+            label: 'Thai',
+            value: 'th'
+          },
+          {
+            id: 'lang-vi',
+            label: 'Vietnamese',
+            value: 'vi'
+          },
+          {
+            id: 'lang-he',
+            label: 'Hebrew',
+            value: 'he'
+          },
+          {
+            id: 'lang-fa',
+            label: 'Persian',
+            value: 'fa'
+          },
+          {
+            id: 'lang-bn',
+            label: 'Bengali',
+            value: 'bn'
+          },
+          {
+            id: 'lang-ur',
+            label: 'Urdu',
+            value: 'ur'
+          },
+          {
+            id: 'lang-am',
+            label: 'Amharic',
+            value: 'am'
+          },
+          {
+            id: 'lang-af',
+            label: 'Afrikaans',
+            value: 'af'
+          },
+          {
+            id: 'lang-sq',
+            label: 'Albanian',
+            value: 'sq'
+          },
+          {
+            id: 'lang-hy',
+            label: 'Armenian',
+            value: 'hy'
+          },
+          {
+            id: 'lang-az',
+            label: 'Azerbaijani',
+            value: 'az'
+          },
+          {
+            id: 'lang-be',
+            label: 'Belarusian',
+            value: 'be'
+          },
+          {
+            id: 'lang-bs',
+            label: 'Bosnian',
+            value: 'bs'
+          },
+          {
+            id: 'lang-bg',
+            label: 'Bulgarian',
+            value: 'bg'
+          },
+          {
+            id: 'lang-my',
+            label: 'Burmese',
+            value: 'my'
+          },
+          {
+            id: 'lang-km',
+            label: 'Khmer',
+            value: 'km'
+          },
+          {
+            id: 'lang-hr',
+            label: 'Croatian',
+            value: 'hr'
+          },
+          {
+            id: 'lang-cs',
+            label: 'Czech',
+            value: 'cs'
+          },
+          {
+            id: 'lang-et',
+            label: 'Estonian',
+            value: 'et'
+          },
+          {
+            id: 'lang-fil',
+            label: 'Filipino',
+            value: 'fil'
+          },
+          {
+            id: 'lang-ka',
+            label: 'Georgian',
+            value: 'ka'
+          },
+          {
+            id: 'lang-hu',
+            label: 'Hungarian',
+            value: 'hu'
+          },
+          {
+            id: 'lang-is',
+            label: 'Icelandic',
+            value: 'is'
+          },
+          {
+            id: 'lang-ga',
+            label: 'Irish',
+            value: 'ga'
+          },
+          {
+            id: 'lang-kk',
+            label: 'Kazakh',
+            value: 'kk'
+          },
+          {
+            id: 'lang-lo',
+            label: 'Lao',
+            value: 'lo'
+          },
+          {
+            id: 'lang-lv',
+            label: 'Latvian',
+            value: 'lv'
+          },
+          {
+            id: 'lang-lt',
+            label: 'Lithuanian',
+            value: 'lt'
+          },
+          {
+            id: 'lang-mk',
+            label: 'Macedonian',
+            value: 'mk'
+          },
+          {
+            id: 'lang-mg',
+            label: 'Malagasy',
+            value: 'mg'
+          },
+          {
+            id: 'lang-mt',
+            label: 'Maltese',
+            value: 'mt'
+          },
+          {
+            id: 'lang-mn',
+            label: 'Mongolian',
+            value: 'mn'
+          },
+          {
+            id: 'lang-ne',
+            label: 'Nepali',
+            value: 'ne'
+          },
+          {
+            id: 'lang-ro',
+            label: 'Romanian',
+            value: 'ro'
+          },
+          {
+            id: 'lang-sr',
+            label: 'Serbian',
+            value: 'sr'
+          },
+          {
+            id: 'lang-sk',
+            label: 'Slovak',
+            value: 'sk'
+          },
+          {
+            id: 'lang-sl',
+            label: 'Slovenian',
+            value: 'sl'
+          },
+          {
+            id: 'lang-so',
+            label: 'Somali',
+            value: 'so'
+          },
+          {
+            id: 'lang-ss',
+            label: 'Swati',
+            value: 'ss'
+          },
+          {
+            id: 'lang-tg',
+            label: 'Tajik',
+            value: 'tg'
+          },
+          {
+            id: 'lang-sw',
+            label: 'Swahili',
+            value: 'sw'
+          },
+          {
+            id: 'lang-uk',
+            label: 'Ukrainian',
+            value: 'uk'
+          },
+          {
+            id: 'lang-uz',
+            label: 'Uzbek',
+            value: 'uz'
+          },
+          {
+            id: 'lang-sn',
+            label: 'Shona',
+            value: 'sn'
+          },
+          {
+            id: 'lang-zu',
+            label: 'Zulu',
+            value: 'zu'
+          },
+          {
+            id: 'lang-eu',
+            label: 'Basque',
+            value: 'eu'
+          },
+          {
+            id: 'lang-gu',
+            label: 'Gujarati',
+            value: 'gu'
+          },
+          {
+            id: 'lang-kn',
+            label: 'Kannada',
+            value: 'kn'
+          },
+          {
+            id: 'lang-ml',
+            label: 'Malayalam',
+            value: 'ml'
+          },
+          {
+            id: 'lang-mr',
+            label: 'Marathi',
+            value: 'mr'
+          },
+          {
+            id: 'lang-pa',
+            label: 'Punjabi',
+            value: 'pa'
+          },
+          {
+            id: 'lang-ta',
+            label: 'Tamil',
+            value: 'ta'
+          },
+          {
+            id: 'lang-te',
+            label: 'Telugu',
+            value: 'te'
+          },
+          {
+            id: 'lang-as',
+            label: 'Assamese',
+            value: 'as'
+          },
+          {
+            id: 'lang-iu',
+            label: 'Inuktitut',
+            value: 'iu'
+          },
+          {
+            id: 'lang-mi',
+            label: 'Maori',
+            value: 'mi'
+          },
+          {
+            id: 'lang-si',
+            label: 'Sinhala',
+            value: 'si'
+          },
+          {
+            id: 'lang-cy',
+            label: 'Welsh',
+            value: 'cy'
+          },
+          {
+            id: 'lang-gaa',
+            label: 'Ga',
+            value: 'gaa'
+          },
+          {
+            id: 'lang-ha',
+            label: 'Hausa',
+            value: 'ha'
+          },
+          {
+            id: 'lang-ig',
+            label: 'Igbo',
+            value: 'ig'
+          },
+          {
+            id: 'lang-yo',
+            label: 'Yoruba',
+            value: 'yo'
+          },
+          {
+            id: 'lang-ak',
+            label: 'Akan',
+            value: 'ak'
+          },
+          {
+            id: 'lang-dz',
+            label: 'Dzongkha',
+            value: 'dz'
+          },
+          {
+            id: 'lang-fj',
+            label: 'Fijian',
+            value: 'fj'
+          },
+          {
+            id: 'lang-ht',
+            label: 'Haitian Creole',
+            value: 'ht'
+          },
+          {
+            id: 'lang-ik',
+            label: 'Inupiaq',
+            value: 'ik'
+          },
+          {
+            id: 'lang-kl',
+            label: 'Kalaallisut',
+            value: 'kl'
+          },
+          {
+            id: 'lang-ky',
+            label: 'Kyrgyz',
+            value: 'ky'
+          },
+          {
+            id: 'lang-lb',
+            label: 'Luxembourgish',
+            value: 'lb'
+          },
+          {
+            id: 'lang-ln',
+            label: 'Lingala',
+            value: 'ln'
+          },
+          {
+            id: 'lang-lu',
+            label: 'Luba-Katanga',
+            value: 'lu'
+          },
+          {
+            id: 'lang-lg',
+            label: 'Ganda',
+            value: 'lg'
+          },
+          {
+            id: 'lang-na',
+            label: 'Nauru',
+            value: 'na'
+          },
+          {
+            id: 'lang-oc',
+            label: 'Occitan',
+            value: 'oc'
+          },
+          {
+            id: 'lang-om',
+            label: 'Oromo',
+            value: 'om'
+          },
+          {
+            id: 'lang-ps',
+            label: 'Pashto',
+            value: 'ps'
+          },
+          {
+            id: 'lang-qu',
+            label: 'Quechua',
+            value: 'qu'
+          },
+          {
+            id: 'lang-sg',
+            label: 'Sango',
+            value: 'sg'
+          },
+          {
+            id: 'lang-tl',
+            label: 'Tagalog',
+            value: 'tl'
+          },
+          {
+            id: 'lang-tk',
+            label: 'Turkmen',
+            value: 'tk'
+          },
+          {
+            id: 'lang-ts',
+            label: 'Tsonga',
+            value: 'ts'
+          },
+          {
+            id: 'lang-wo',
+            label: 'Wolof',
+            value: 'wo'
+          },
+          {
+            id: 'lang-xh',
+            label: 'Xhosa',
+            value: 'xh'
+          },
+          {
+            id: 'lang-yi',
+            label: 'Yiddish',
+            value: 'yi'
+          }
+        ]
       },
       {
         icon: '✨',

@@ -5,6 +5,7 @@ import { cancelPresetForm, submitPresetForm } from '@/app/profile/presets/action
 import {
   BusinessCategoryStep,
   BusinessCustomerStep,
+  BusinessLanguageStep,
   BusinessLocationStep,
   BusinessRegionsStep,
   BusinessTitleStep,
@@ -39,6 +40,7 @@ export const PresetAddForm = ({ presets }: PresetsProps) => {
       professionalType: 'small business owners'
     },
     error: '',
+    language: '',
     location: {
       city: '',
       country: '',
@@ -88,6 +90,7 @@ export const PresetAddForm = ({ presets }: PresetsProps) => {
   const businessTitleStep = presetSteps.find(step => step.id === 'name')
   const businessCategoryStep = presetSteps.find(step => step.id === 'category')
   const businessCustomerStep = presetSteps.find(step => step.id === 'customer')
+  const businessLanguageStep = presetSteps.find(step => step.id === 'language')
   const businessLocationStep = presetSteps.find(step => step.id === 'location')
   const businessRegionsStep = presetSteps.find(step => step.id === 'regions')
 
@@ -115,6 +118,8 @@ export const PresetAddForm = ({ presets }: PresetsProps) => {
         {businessLocationStep && <BusinessLocationStep defaultValue={locationData} step={businessLocationStep} />}
 
         {businessRegionsStep && <BusinessRegionsStep defaultValue={regionsData} onRegionsChange={setRegionsData} step={businessRegionsStep} />}
+
+        {businessLanguageStep && <BusinessLanguageStep defaultValue={state.language} error={state.error} isLoading={isLoading} step={businessLanguageStep} />}
 
         {/* Action Buttons */}
         <Button disabled={isLoading} type="submit">
