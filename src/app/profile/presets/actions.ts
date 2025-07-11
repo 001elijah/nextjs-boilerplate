@@ -25,7 +25,9 @@ const extractFormData = (formData: FormData) => {
   const regionsRaw = formData.get('regions') as null | string
   const regions: RegionsData = regionsRaw ? JSON.parse(regionsRaw) : []
 
-  return { category, channels, customer, language, location, name, regions, type }
+  const tone = (formData.get('tone') as string) || ''
+
+  return { category, channels, customer, language, location, name, regions, tone, type }
 }
 
 export async function cancelPresetForm() {
@@ -33,7 +35,7 @@ export async function cancelPresetForm() {
 }
 
 export async function submitPresetForm(previousState: PresetFormState, formData: FormData): Promise<PresetFormState> {
-  const { category, channels, customer, language, location, name, regions, type } = extractFormData(formData)
+  const { category, channels, customer, language, location, name, regions, tone, type } = extractFormData(formData)
 
   try {
     await new Promise(resolve => setTimeout(resolve, 2000))
@@ -49,6 +51,7 @@ export async function submitPresetForm(previousState: PresetFormState, formData:
         location,
         name,
         regions,
+        tone,
         type // Use the current form data, not previous state
       }
     }
@@ -63,11 +66,12 @@ export async function submitPresetForm(previousState: PresetFormState, formData:
         location,
         name,
         regions,
+        tone,
         type // Use the current form data, not previous state
       }
     }
 
-    console.log('Submitting preset form', { category, channels, customer, language, location, name, regions, type })
+    console.log('Submitting preset form', { category, channels, customer, language, location, name, regions, tone, type })
 
     // Simulate potential server error
     // Remove this in production
@@ -84,6 +88,7 @@ export async function submitPresetForm(previousState: PresetFormState, formData:
       location: { city: '', country: '', region: '', state: '', zip: '' },
       name: '',
       regions: [],
+      tone: '',
       type: 'online'
     }
   } catch (error) {
@@ -97,6 +102,7 @@ export async function submitPresetForm(previousState: PresetFormState, formData:
       location,
       name,
       regions,
+      tone,
       type
     }
   }

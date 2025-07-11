@@ -10,6 +10,7 @@ import {
   BusinessLocationStep,
   BusinessRegionsStep,
   BusinessTitleStep,
+  BusinessToneStep,
   BusinessTypeStep,
   Button
 } from '@/components'
@@ -52,6 +53,7 @@ export const PresetAddForm = ({ presets }: PresetsProps) => {
     },
     name: '',
     regions: [],
+    tone: '',
     type: 'online'
   }
 
@@ -101,6 +103,7 @@ export const PresetAddForm = ({ presets }: PresetsProps) => {
   const businessLanguageStep = presetSteps.find(step => step.id === 'language')
   const businessLocationStep = presetSteps.find(step => step.id === 'location')
   const businessRegionsStep = presetSteps.find(step => step.id === 'regions')
+  const businessToneStep = presetSteps.find(step => step.id === 'tone')
 
   return (
     <form action={action} className="w-full">
@@ -130,6 +133,8 @@ export const PresetAddForm = ({ presets }: PresetsProps) => {
         {businessLanguageStep && <BusinessLanguageStep defaultValue={state.language} error={state.error} isLoading={isLoading} step={businessLanguageStep} />}
 
         {businessChannelsStep && <BusinessChannelsStep defaultValue={channelsData} onChannelsChange={setChannelsData} step={businessChannelsStep} />}
+
+        {businessToneStep && <BusinessToneStep defaultValue={state.tone} error={state.error} isLoading={isLoading} step={businessToneStep} />}
 
         {/* Action Buttons */}
         <Button disabled={isLoading} type="submit">

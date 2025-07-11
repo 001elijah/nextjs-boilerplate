@@ -2032,48 +2032,55 @@ export const presetFormConfig: Step[] = [
     title: 'Promotion Channels'
   },
   {
-    id: 'tone',
-    inputType: 'singleSelect',
-    options: [
-      {
-        icon: '',
-        id: 'expert',
-        label: 'Expert',
-        value: 'expert'
-      },
-      {
-        icon: '',
-        id: 'friendly',
-        label: 'Friendly',
-        value: 'friendly'
-      },
-      {
-        icon: '',
-        id: 'bold',
-        label: 'Bold',
-        value: 'bold'
-      },
+    categories: [
       {
         icon: '',
         id: '',
-        label: 'Premium',
-        value: 'premium'
-      },
-      {
-        icon: '❤️',
-        id: 'emotional',
-        label: 'Emotional',
-        value: 'emotional'
+        inputType: 'singleSelect',
+        label: '',
+        options: [
+          {
+            icon: '',
+            id: 'expert',
+            label: 'Expert',
+            value: 'expert'
+          },
+          {
+            icon: '',
+            id: 'friendly',
+            label: 'Friendly',
+            value: 'friendly'
+          },
+          {
+            icon: '',
+            id: 'bold',
+            label: 'Bold',
+            value: 'bold'
+          },
+          {
+            icon: '',
+            id: '',
+            label: 'Premium',
+            value: 'premium'
+          },
+          {
+            icon: '❤️',
+            id: 'emotional',
+            label: 'Emotional',
+            value: 'emotional'
+          }
+        ]
       },
       {
         icon: '✨',
         id: 'other',
         inputType: 'textInput',
         label: 'Other',
-        placeholder: 'Enter your option',
+        placeholder: 'Enter custom region',
         value: ''
       }
     ],
+    id: 'tone',
     question: 'Brand tone / communication style:',
     step: 9,
     title: 'Brand Tone'

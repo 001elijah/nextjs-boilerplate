@@ -206,6 +206,8 @@ export type ChannelsData = string[]
 
 export type LanguageData = string
 
+export type ToneData = string
+
 export type Option = SelectOption | TextInputOption
 
 export interface PresetFormState {
@@ -217,6 +219,7 @@ export interface PresetFormState {
   location: LocationData
   name: string
   regions: RegionsData
+  tone: ToneData
   type: BusinessType
 }
 
