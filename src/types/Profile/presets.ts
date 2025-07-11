@@ -208,6 +208,8 @@ export type LanguageData = string
 
 export type ToneData = string
 
+export type PromotionsData = string[]
+
 export type Option = SelectOption | TextInputOption
 
 export interface PresetFormState {
@@ -218,6 +220,7 @@ export interface PresetFormState {
   language: LanguageData
   location: LocationData
   name: string
+  promotions: PromotionsData
   regions: RegionsData
   tone: ToneData
   type: BusinessType

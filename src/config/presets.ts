@@ -1971,7 +1971,7 @@ export const presetFormConfig: Step[] = [
         icon: '',
         id: 'promotion-channels',
         inputType: 'multiSelect',
-        label: '',
+        label: 'Select promotion channels',
         options: [
           {
             icon: '',
@@ -2022,7 +2022,7 @@ export const presetFormConfig: Step[] = [
         id: 'other',
         inputType: 'textInput',
         label: 'Other',
-        placeholder: 'Enter custom region',
+        placeholder: 'Enter custom channel',
         value: ''
       }
     ],
@@ -2035,9 +2035,9 @@ export const presetFormConfig: Step[] = [
     categories: [
       {
         icon: '',
-        id: '',
+        id: 'brand-tone',
         inputType: 'singleSelect',
-        label: '',
+        label: 'Select brand tone',
         options: [
           {
             icon: '',
@@ -2076,7 +2076,7 @@ export const presetFormConfig: Step[] = [
         id: 'other',
         inputType: 'textInput',
         label: 'Other',
-        placeholder: 'Enter custom region',
+        placeholder: 'Enter custom tone',
         value: ''
       }
     ],
@@ -2086,51 +2086,58 @@ export const presetFormConfig: Step[] = [
     title: 'Brand Tone'
   },
   {
-    id: 'promotion',
-    inputType: 'multiSelect',
-    options: [
+    categories: [
       {
         icon: '',
-        id: 'product',
-        label: 'Product',
-        value: 'product'
-      },
-      {
-        icon: '️',
-        id: 'service',
-        label: 'Service',
-        value: 'service'
-      },
-      {
-        icon: '',
-        id: 'event',
-        label: 'Event',
-        value: 'event'
-      },
-      {
-        icon: '️',
-        id: 'promo-or-discount',
-        label: 'Promo/Discount',
-        value: 'promo or discount'
-      },
-      {
-        icon: '',
-        id: 'brand-awareness',
-        label: 'Brand Awareness',
-        value: 'brand awareness'
+        id: 'current-promotions',
+        inputType: 'multiSelect',
+        label: 'Select current promotion',
+        options: [
+          {
+            icon: '',
+            id: 'product',
+            label: 'Product',
+            value: 'product'
+          },
+          {
+            icon: '',
+            id: 'service',
+            label: 'Service',
+            value: 'service'
+          },
+          {
+            icon: '',
+            id: 'event',
+            label: 'Event',
+            value: 'event'
+          },
+          {
+            icon: '',
+            id: 'promo-or-discount',
+            label: 'Promo/Discount',
+            value: 'promo or discount'
+          },
+          {
+            icon: '',
+            id: 'brand-awareness',
+            label: 'Brand Awareness',
+            value: 'brand awareness'
+          }
+        ]
       },
       {
         icon: '✨',
         id: 'other',
         inputType: 'textInput',
         label: 'Other',
-        placeholder: 'Enter your option',
+        placeholder: 'Enter custom promotion',
         value: ''
       }
     ],
+    id: 'promotions',
     question: 'What are you promoting right now?',
     step: 10,
-    title: 'Current Promotion'
+    title: 'Current Promotions'
   },
   {
     id: 'visuals',

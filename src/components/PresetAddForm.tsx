@@ -8,6 +8,7 @@ import {
   BusinessCustomerStep,
   BusinessLanguageStep,
   BusinessLocationStep,
+  BusinessPromotionsStep,
   BusinessRegionsStep,
   BusinessTitleStep,
   BusinessToneStep,
@@ -52,6 +53,7 @@ export const PresetAddForm = ({ presets }: PresetsProps) => {
       zip: ''
     },
     name: '',
+    promotions: [],
     regions: [],
     tone: '',
     type: 'online'
@@ -65,6 +67,7 @@ export const PresetAddForm = ({ presets }: PresetsProps) => {
   const [locationData] = useState<LocationData>(state.location)
   const [regionsData, setRegionsData] = useState<RegionsData>(state.regions)
   const [channelsData, setChannelsData] = useState<RegionsData>(state.regions)
+  const [promotionsData, setPromotionsData] = useState<RegionsData>(state.regions)
 
   useEffect(() => {
     setRegionsData(state.regions)
@@ -73,6 +76,10 @@ export const PresetAddForm = ({ presets }: PresetsProps) => {
   useEffect(() => {
     setChannelsData(state.channels)
   }, [state.channels])
+
+  useEffect(() => {
+    setPromotionsData(state.promotions)
+  }, [state.promotions])
 
   const handleBusinessTypeChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value as BusinessType
@@ -104,6 +111,7 @@ export const PresetAddForm = ({ presets }: PresetsProps) => {
   const businessLocationStep = presetSteps.find(step => step.id === 'location')
   const businessRegionsStep = presetSteps.find(step => step.id === 'regions')
   const businessToneStep = presetSteps.find(step => step.id === 'tone')
+  const businessPromotionsStep = presetSteps.find(step => step.id === 'promotions')
 
   return (
     <form action={action} className="w-full">
@@ -135,6 +143,10 @@ export const PresetAddForm = ({ presets }: PresetsProps) => {
         {businessChannelsStep && <BusinessChannelsStep defaultValue={channelsData} onChannelsChange={setChannelsData} step={businessChannelsStep} />}
 
         {businessToneStep && <BusinessToneStep defaultValue={state.tone} error={state.error} isLoading={isLoading} step={businessToneStep} />}
+
+        {businessPromotionsStep && (
+          <BusinessPromotionsStep defaultValue={promotionsData} onPromotionsChange={setPromotionsData} step={businessPromotionsStep} />
+        )}
 
         {/* Action Buttons */}
         <Button disabled={isLoading} type="submit">

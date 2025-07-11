@@ -24,14 +24,14 @@ export const BusinessToneStep = ({ defaultValue, error, isLoading, step }: Busin
       <PresetStepTitle question={step.question || ''} title={step.title} />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {/* Dropdown for predefined languages */}
+        {/* Dropdown for predefined tones */}
         {dropdownCategory && (
           <div className="flex flex-col gap-2">
             <label className="text-sm font-medium">{dropdownCategory.title}</label>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button className="w-full justify-between" variant="outline">
-                  {selectedOption ? `${selectedOption.icon ?? ''} ${selectedOption.label}` : 'Select language'}
+                  {selectedOption ? `${selectedOption.icon ?? ''} ${selectedOption.label}` : 'Select tone'}
                   <ChevronDownIcon className="h-4 w-4 opacity-50" />
                 </Button>
               </DropdownMenuTrigger>
@@ -46,7 +46,7 @@ export const BusinessToneStep = ({ defaultValue, error, isLoading, step }: Busin
           </div>
         )}
 
-        {/* Custom language input */}
+        {/* Custom tone input */}
         {customInputCategory && (
           <div className="flex flex-col gap-2">
             <label className="text-sm font-medium">{customInputCategory.title}</label>

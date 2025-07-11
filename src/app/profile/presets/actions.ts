@@ -1,7 +1,17 @@
 'use server'
 
 import { redirect } from 'next/navigation'
-import { BusinessSubcategoryOption, BusinessType, ChannelsData, CustomerData, LanguageData, LocationData, PresetFormState, RegionsData } from '@/types'
+import {
+  BusinessSubcategoryOption,
+  BusinessType,
+  ChannelsData,
+  CustomerData,
+  LanguageData,
+  LocationData,
+  PresetFormState,
+  PromotionsData,
+  RegionsData
+} from '@/types'
 
 const extractFormData = (formData: FormData) => {
   const type = formData.get('type') as BusinessType
@@ -27,7 +37,10 @@ const extractFormData = (formData: FormData) => {
 
   const tone = (formData.get('tone') as string) || ''
 
-  return { category, channels, customer, language, location, name, regions, tone, type }
+  const promotionsRaw = formData.get('promotions') as null | string
+  const promotions: PromotionsData = promotionsRaw ? JSON.parse(promotionsRaw) : []
+
+  return { category, channels, customer, language, location, name, promotions, regions, tone, type }
 }
 
 export async function cancelPresetForm() {
@@ -35,7 +48,7 @@ export async function cancelPresetForm() {
 }
 
 export async function submitPresetForm(previousState: PresetFormState, formData: FormData): Promise<PresetFormState> {
-  const { category, channels, customer, language, location, name, regions, tone, type } = extractFormData(formData)
+  const { category, channels, customer, language, location, name, promotions, regions, tone, type } = extractFormData(formData)
 
   try {
     await new Promise(resolve => setTimeout(resolve, 2000))
@@ -50,6 +63,7 @@ export async function submitPresetForm(previousState: PresetFormState, formData:
         language,
         location,
         name,
+        promotions,
         regions,
         tone,
         type // Use the current form data, not previous state
@@ -65,13 +79,14 @@ export async function submitPresetForm(previousState: PresetFormState, formData:
         language,
         location,
         name,
+        promotions,
         regions,
         tone,
         type // Use the current form data, not previous state
       }
     }
 
-    console.log('Submitting preset form', { category, channels, customer, language, location, name, regions, tone, type })
+    console.log('Submitting preset form', { category, channels, customer, language, location, name, promotions, regions, tone, type })
 
     // Simulate potential server error
     // Remove this in production
@@ -87,6 +102,7 @@ export async function submitPresetForm(previousState: PresetFormState, formData:
       language: '',
       location: { city: '', country: '', region: '', state: '', zip: '' },
       name: '',
+      promotions: [],
       regions: [],
       tone: '',
       type: 'online'
@@ -101,6 +117,7 @@ export async function submitPresetForm(previousState: PresetFormState, formData:
       language,
       location,
       name,
+      promotions,
       regions,
       tone,
       type
