@@ -1966,60 +1966,67 @@ export const presetFormConfig: Step[] = [
   },
 
   {
-    id: 'channels',
-    inputType: 'multiSelect',
-    options: [
+    categories: [
       {
         icon: '',
-        id: 'instagram',
-        label: 'Instagram',
-        value: 'Instagram'
-      },
-      {
-        icon: '',
-        id: 'facebook',
-        label: 'Facebook',
-        value: 'Facebook'
-      },
-      {
-        icon: '',
-        id: 'tiktok',
-        label: 'TikTok',
-        value: 'TikTok'
-      },
-      {
-        icon: '',
-        id: 'youtube',
-        label: 'YouTube',
-        value: 'YouTube'
-      },
-      {
-        icon: '',
-        id: 'linkedin',
-        label: 'LinkedIn',
-        value: 'LinkedIn'
-      },
-      {
-        icon: '',
-        id: 'email',
-        label: 'Email',
-        value: 'email'
-      },
-      {
-        icon: '',
-        id: 'website',
-        label: 'Website',
-        value: 'website'
+        id: 'promotion-channels',
+        inputType: 'multiSelect',
+        label: '',
+        options: [
+          {
+            icon: '',
+            id: 'instagram',
+            label: 'Instagram',
+            value: 'instagram'
+          },
+          {
+            icon: '',
+            id: 'facebook',
+            label: 'Facebook',
+            value: 'facebook'
+          },
+          {
+            icon: '',
+            id: 'tiktok',
+            label: 'TikTok',
+            value: 'tiktok'
+          },
+          {
+            icon: '',
+            id: 'youtube',
+            label: 'YouTube',
+            value: 'youtube'
+          },
+          {
+            icon: '',
+            id: 'linkedin',
+            label: 'LinkedIn',
+            value: 'linkedin'
+          },
+          {
+            icon: '',
+            id: 'email',
+            label: 'Email',
+            value: 'email'
+          },
+          {
+            icon: '',
+            id: 'website',
+            label: 'Website',
+            value: 'website'
+          }
+        ]
       },
       {
         icon: '✨',
         id: 'other',
         inputType: 'textInput',
         label: 'Other',
-        placeholder: 'Enter your option',
+        placeholder: 'Enter custom region',
         value: ''
       }
     ],
+    id: 'channels',
     question: 'What platforms or channels do you primarily use for promotion?',
     step: 8,
     title: 'Promotion Channels'

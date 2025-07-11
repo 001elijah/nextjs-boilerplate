@@ -4,6 +4,7 @@ import { ChangeEvent, useActionState, useEffect, useState, useTransition } from 
 import { cancelPresetForm, submitPresetForm } from '@/app/profile/presets/actions'
 import {
   BusinessCategoryStep,
+  BusinessChannelsStep,
   BusinessCustomerStep,
   BusinessLanguageStep,
   BusinessLocationStep,
@@ -34,6 +35,7 @@ export const PresetAddForm = ({ presets }: PresetsProps) => {
 
   const initialState: PresetFormState = {
     category: '',
+    channels: [],
     customer: {
       demographics: 'female 18 to 25',
       painPoint: 'looking for a service like yours',
@@ -60,10 +62,15 @@ export const PresetAddForm = ({ presets }: PresetsProps) => {
   const [customerData, setCustomerData] = useState<CustomerData>(state.customer)
   const [locationData] = useState<LocationData>(state.location)
   const [regionsData, setRegionsData] = useState<RegionsData>(state.regions)
+  const [channelsData, setChannelsData] = useState<RegionsData>(state.regions)
 
   useEffect(() => {
     setRegionsData(state.regions)
   }, [state.regions])
+
+  useEffect(() => {
+    setChannelsData(state.channels)
+  }, [state.channels])
 
   const handleBusinessTypeChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value as BusinessType
@@ -89,6 +96,7 @@ export const PresetAddForm = ({ presets }: PresetsProps) => {
   const businessTypeStep = presetSteps.find(step => step.id === 'type')
   const businessTitleStep = presetSteps.find(step => step.id === 'name')
   const businessCategoryStep = presetSteps.find(step => step.id === 'category')
+  const businessChannelsStep = presetSteps.find(step => step.id === 'channels')
   const businessCustomerStep = presetSteps.find(step => step.id === 'customer')
   const businessLanguageStep = presetSteps.find(step => step.id === 'language')
   const businessLocationStep = presetSteps.find(step => step.id === 'location')
@@ -120,6 +128,8 @@ export const PresetAddForm = ({ presets }: PresetsProps) => {
         {businessRegionsStep && <BusinessRegionsStep defaultValue={regionsData} onRegionsChange={setRegionsData} step={businessRegionsStep} />}
 
         {businessLanguageStep && <BusinessLanguageStep defaultValue={state.language} error={state.error} isLoading={isLoading} step={businessLanguageStep} />}
+
+        {businessChannelsStep && <BusinessChannelsStep defaultValue={channelsData} onChannelsChange={setChannelsData} step={businessChannelsStep} />}
 
         {/* Action Buttons */}
         <Button disabled={isLoading} type="submit">

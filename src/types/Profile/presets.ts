@@ -202,12 +202,15 @@ export interface LocationData {
 
 export type RegionsData = string[]
 
+export type ChannelsData = string[]
+
 export type LanguageData = string
 
 export type Option = SelectOption | TextInputOption
 
 export interface PresetFormState {
   category: BusinessSubcategoryOption['value']
+  channels: ChannelsData
   customer: CustomerData
   error: string
   language: LanguageData
