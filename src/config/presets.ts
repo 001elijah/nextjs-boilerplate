@@ -2148,7 +2148,7 @@ export const presetFormConfig: Step[] = [
     uploads: [
       {
         accept: 'image/*',
-        id: 'photo',
+        id: 'face',
         label: 'Upload face photo',
         maxSize: '5Mb',
         optional: true,
@@ -2156,7 +2156,7 @@ export const presetFormConfig: Step[] = [
       },
       {
         accept: 'image/*',
-        id: 'photo',
+        id: 'brand',
         label: 'Upload brand photo',
         maxSize: '5Mb',
         optional: true,
@@ -2164,7 +2164,7 @@ export const presetFormConfig: Step[] = [
       },
       {
         accept: 'image/*',
-        id: 'photo',
+        id: 'banner',
         label: 'Upload banner or ad image',
         maxSize: '5Mb',
         optional: true,

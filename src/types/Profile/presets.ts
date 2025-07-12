@@ -210,6 +210,12 @@ export type ToneData = string
 
 export type PromotionsData = string[]
 
+export interface VisualFile extends File {
+  id: string
+}
+
+export type VisualsData = VisualFile[]
+
 export type Option = SelectOption | TextInputOption
 
 export interface PresetFormState {
@@ -224,6 +230,7 @@ export interface PresetFormState {
   regions: RegionsData
   tone: ToneData
   type: BusinessType
+  visuals: VisualsData
 }
 
 // Main export type

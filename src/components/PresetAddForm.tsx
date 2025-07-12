@@ -13,6 +13,7 @@ import {
   BusinessTitleStep,
   BusinessToneStep,
   BusinessTypeStep,
+  BusinessVisualsStep,
   Button
 } from '@/components'
 import { presetFormConfig as presetSteps } from '@/config/presets'
@@ -56,7 +57,8 @@ export const PresetAddForm = ({ presets }: PresetsProps) => {
     promotions: [],
     regions: [],
     tone: '',
-    type: 'online'
+    type: 'online',
+    visuals: []
   }
 
   const [state, action, isLoading] = useActionState(submitPresetForm, initialState)
@@ -112,6 +114,7 @@ export const PresetAddForm = ({ presets }: PresetsProps) => {
   const businessRegionsStep = presetSteps.find(step => step.id === 'regions')
   const businessToneStep = presetSteps.find(step => step.id === 'tone')
   const businessPromotionsStep = presetSteps.find(step => step.id === 'promotions')
+  const businessVisualsStep = presetSteps.find(step => step.id === 'visuals')
 
   return (
     <form action={action} className="w-full">
@@ -147,6 +150,8 @@ export const PresetAddForm = ({ presets }: PresetsProps) => {
         {businessPromotionsStep && (
           <BusinessPromotionsStep defaultValue={promotionsData} onPromotionsChange={setPromotionsData} step={businessPromotionsStep} />
         )}
+
+        {businessVisualsStep && <BusinessVisualsStep defaultValue={state.visuals} isLoading={isLoading} step={businessVisualsStep} />}
 
         {/* Action Buttons */}
         <Button disabled={isLoading} type="submit">

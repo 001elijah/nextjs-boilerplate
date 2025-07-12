@@ -10,7 +10,8 @@ import {
   LocationData,
   PresetFormState,
   PromotionsData,
-  RegionsData
+  RegionsData,
+  VisualsData
 } from '@/types'
 
 const extractFormData = (formData: FormData) => {
@@ -40,7 +41,10 @@ const extractFormData = (formData: FormData) => {
   const promotionsRaw = formData.get('promotions') as null | string
   const promotions: PromotionsData = promotionsRaw ? JSON.parse(promotionsRaw) : []
 
-  return { category, channels, customer, language, location, name, promotions, regions, tone, type }
+  const visualsRaw = formData.get('visuals') as null | string
+  const visuals: VisualsData = visualsRaw ? JSON.parse(visualsRaw) : []
+
+  return { category, channels, customer, language, location, name, promotions, regions, tone, type, visuals }
 }
 
 export async function cancelPresetForm() {
@@ -48,7 +52,7 @@ export async function cancelPresetForm() {
 }
 
 export async function submitPresetForm(previousState: PresetFormState, formData: FormData): Promise<PresetFormState> {
-  const { category, channels, customer, language, location, name, promotions, regions, tone, type } = extractFormData(formData)
+  const { category, channels, customer, language, location, name, promotions, regions, tone, type, visuals } = extractFormData(formData)
 
   try {
     await new Promise(resolve => setTimeout(resolve, 2000))
@@ -66,7 +70,8 @@ export async function submitPresetForm(previousState: PresetFormState, formData:
         promotions,
         regions,
         tone,
-        type // Use the current form data, not previous state
+        type, // Use the current form data, not previous state
+        visuals
       }
     }
 
@@ -82,11 +87,12 @@ export async function submitPresetForm(previousState: PresetFormState, formData:
         promotions,
         regions,
         tone,
-        type // Use the current form data, not previous state
+        type, // Use the current form data, not previous state
+        visuals
       }
     }
 
-    console.log('Submitting preset form', { category, channels, customer, language, location, name, promotions, regions, tone, type })
+    console.log('Submitting preset form', { category, channels, customer, language, location, name, promotions, regions, tone, type, visuals })
 
     // Simulate potential server error
     // Remove this in production
@@ -105,7 +111,8 @@ export async function submitPresetForm(previousState: PresetFormState, formData:
       promotions: [],
       regions: [],
       tone: '',
-      type: 'online'
+      type: 'online',
+      visuals: []
     }
   } catch (error) {
     // Preserve the current form input values
@@ -120,7 +127,8 @@ export async function submitPresetForm(previousState: PresetFormState, formData:
       promotions,
       regions,
       tone,
-      type
+      type,
+      visuals
     }
   }
 }
