@@ -48,7 +48,7 @@ export default [
     }
   },
   {
-    files: ['src/components/index.ts', 'src/views/index.tsx', 'src/types/Profile/presets.ts'],
+    files: ['src/components/index.ts', 'src/views/index.tsx', 'src/types/Profile/presets.ts', 'src/types/Profile/campaigns.ts'],
     rules: {
       'perfectionist/sort-imports': 'off',
       'perfectionist/sort-exports': 'off',

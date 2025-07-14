@@ -18,6 +18,11 @@ export * from './Home/WhyChooseUs'
 export * from './Dashboard/AdGenerator'
 // -------------
 
+// Campaign View
+export * from './Profile/Campaigns'
+export * from './Profile/CreateCampaign'
+// -------------
+
 // Profile View
 export * from './Profile/Presets'
 export * from './Profile/CreatePreset'
