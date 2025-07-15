@@ -7,7 +7,8 @@ import { ICampaignFormState } from '@/types'
 const extractFormData = (formData: FormData) => {
   const goal = (formData.get('goal') as ICampaignFormState['goal']) || ''
   const temperature = (formData.get('temperature') as ICampaignFormState['temperature']) || ''
-  return { goal, temperature }
+  const approach = (formData.get('approach') as ICampaignFormState['approach']) || ''
+  return { approach, goal, temperature }
 }
 
 export async function cancelCampaignForm() {
@@ -15,13 +16,14 @@ export async function cancelCampaignForm() {
 }
 
 export async function submitCampaignForm(previousState: ICampaignFormState, formData: FormData): Promise<ICampaignFormState> {
-  const { goal, temperature } = extractFormData(formData)
+  const { approach, goal, temperature } = extractFormData(formData)
 
   try {
     await new Promise(resolve => setTimeout(resolve, 2000))
     // Add validation
     if (!goal || goal.trim().length === 0) {
       return {
+        approach,
         // Use the current form data, not previous state
         error: 'Goal is required',
         goal,
@@ -31,6 +33,7 @@ export async function submitCampaignForm(previousState: ICampaignFormState, form
 
     if (goal.length < 3) {
       return {
+        approach,
         // Use the current form data, not previous state
         error: 'Goal must be at least 3 characters long',
         goal,
@@ -38,7 +41,7 @@ export async function submitCampaignForm(previousState: ICampaignFormState, form
       }
     }
 
-    console.log('Submitting campaign form', { goal, temperature })
+    console.log('Submitting campaign form', { approach, goal, temperature })
 
     // Simulate potential server error
     // Remove this in production
@@ -47,6 +50,7 @@ export async function submitCampaignForm(previousState: ICampaignFormState, form
     }
 
     return {
+      approach: '',
       error: '', // Clear any previous errors
       goal: '',
       temperature: ''
@@ -54,6 +58,7 @@ export async function submitCampaignForm(previousState: ICampaignFormState, form
   } catch (error) {
     // Preserve the current form input values
     return {
+      approach,
       error: error instanceof Error ? error.message : 'An unexpected error occurred',
       goal,
       temperature

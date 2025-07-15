@@ -59,9 +59,9 @@ export const campaignFormConfig: ICampaignFormStep[] = [
     categories: [
       {
         icon: '',
-        id: 'campaign-goal',
+        id: 'campaign-temperature',
         inputType: 'singleSelect',
-        label: 'Select campaign goal',
+        label: 'Select campaign audience temperature',
         options: [
           {
             icon: '',
@@ -96,5 +96,59 @@ export const campaignFormConfig: ICampaignFormStep[] = [
     question: 'What is your audience temperature?',
     step: 2,
     title: 'Audience Temperature'
+  },
+  {
+    categories: [
+      {
+        icon: '',
+        id: 'campaign-approach',
+        inputType: 'singleSelect',
+        label: 'Select campaign approach',
+        options: [
+          {
+            icon: '',
+            id: 'problem-focused',
+            label: 'Problem-focused',
+            value: 'problem-focused'
+          },
+          {
+            icon: '',
+            id: 'case-study',
+            label: 'Case study / testimonial',
+            value: 'case-study'
+          },
+          {
+            icon: '',
+            id: 'light',
+            label: 'Humor / light tone',
+            value: 'light'
+          },
+          {
+            icon: '',
+            id: 'expert',
+            label: 'Expert authority',
+            value: 'expert'
+          },
+          {
+            icon: '',
+            id: 'emotional',
+            label: 'Emotional / storytelling',
+            value: 'emotional'
+          }
+        ]
+      },
+      {
+        icon: '✨',
+        id: 'other',
+        inputType: 'textInput',
+        label: 'Other',
+        placeholder: 'Enter custom promotion',
+        value: ''
+      }
+    ],
+    id: 'approach',
+    question: 'What is your campaign approach?',
+    step: 3,
+    title: 'Campaign Angle / Approach'
   }
 ]

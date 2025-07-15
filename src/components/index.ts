@@ -97,6 +97,7 @@ export * from './PresetTypeBadge'
 export * from './CampaignAddForm'
 export * from './CampaignGoalStep'
 export * from './CampaignTemperatureStep'
+export * from './CampaignApproachStep'
 // -------------
 
 // Profile |- Presets |- Create
