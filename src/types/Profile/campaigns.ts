@@ -17,9 +17,17 @@ export interface ICampaignGoalStepProps {
   step: ICampaignFormStep
 }
 
+export interface ICampaignTemperatureStepProps {
+  defaultValue: string | TCampaignFormTemperatureStepValue
+  error: ICampaignFormState['error']
+  isLoading: boolean
+  step: ICampaignFormStep
+}
+
 export interface ICampaignFormState {
   error: string
   goal: string | TCampaignFormGoalStepValue
+  temperature: string | TCampaignFormTemperatureStepValue
 }
 
 type TCampaignFormInput = 'multiselect' | 'singleSelect'
@@ -29,7 +37,7 @@ interface ICampaignFormOption {
   icon: string
   id: string
   label: string
-  value: TCampaignFormGoalStepValue
+  value: TCampaignFormGoalStepValue | TCampaignFormTemperatureStepValue
 }
 
 interface ICampaignFormCategory {
@@ -58,3 +66,4 @@ export interface ICampaignFormStep {
 }
 
 type TCampaignFormGoalStepValue = 'attention' | 'bring back past clients' | 'convert to sale' | 'test new offer' | 'warm up audience'
+type TCampaignFormTemperatureStepValue = 'cold' | 'hot' | 'warm'

@@ -2,7 +2,7 @@
 
 import { useActionState, useTransition } from 'react'
 import { cancelCampaignForm, submitCampaignForm } from '@/app/profile/campaigns/actions'
-import { CampaignGoalStep } from '@/components'
+import { CampaignGoalStep, CampaignTemperatureStep } from '@/components'
 import { Button } from '@/components/Button'
 import { campaignFormConfig } from '@/config/campaigns'
 import { ICampaignFormState, ICampaignsProps } from '@/types'
@@ -12,12 +12,14 @@ export const CampaignAddForm = ({ campaigns }: ICampaignsProps) => {
   const [isPending, startTransition] = useTransition()
   const initialState: ICampaignFormState = {
     error: '',
-    goal: ''
+    goal: '',
+    temperature: ''
   }
 
   const [state, action, isLoading] = useActionState(submitCampaignForm, initialState)
 
   const campaignGoalStep = campaignFormConfig.find(step => step.id === 'goal')
+  const campaignTemperatureStep = campaignFormConfig.find(step => step.id === 'temperature')
 
   const handleCancel = () => {
     startTransition(async () => {
@@ -29,6 +31,10 @@ export const CampaignAddForm = ({ campaigns }: ICampaignsProps) => {
     <form action={action} className="w-full">
       <div className="flex flex-col gap-4">
         {campaignGoalStep && <CampaignGoalStep defaultValue={state.goal} error={state.error} isLoading={isLoading} step={campaignGoalStep} />}
+
+        {campaignTemperatureStep && (
+          <CampaignTemperatureStep defaultValue={state.temperature} error={state.error} isLoading={isLoading} step={campaignTemperatureStep} />
+        )}
         {/* Action Buttons */}
         <Button disabled={isLoading} type="submit">
           {isLoading ? submitPendingButtonText : submitButtonText}

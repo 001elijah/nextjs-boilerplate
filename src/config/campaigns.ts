@@ -54,5 +54,47 @@ export const campaignFormConfig: ICampaignFormStep[] = [
     question: 'What is your campaign goal?',
     step: 1,
     title: 'Campaign Goal'
+  },
+  {
+    categories: [
+      {
+        icon: '',
+        id: 'campaign-goal',
+        inputType: 'singleSelect',
+        label: 'Select campaign goal',
+        options: [
+          {
+            icon: '',
+            id: 'cold',
+            label: 'Cold (never heard of you)',
+            value: 'cold'
+          },
+          {
+            icon: '',
+            id: 'warm',
+            label: 'Warm (familiar, not yet buying)',
+            value: 'warm'
+          },
+          {
+            icon: '',
+            id: 'hot',
+            label: 'Hot (already interacted or bought)',
+            value: 'hot'
+          }
+        ]
+      },
+      {
+        icon: '✨',
+        id: 'other',
+        inputType: 'textInput',
+        label: 'Other',
+        placeholder: 'Enter custom promotion',
+        value: ''
+      }
+    ],
+    id: 'temperature',
+    question: 'What is your audience temperature?',
+    step: 2,
+    title: 'Audience Temperature'
   }
 ]

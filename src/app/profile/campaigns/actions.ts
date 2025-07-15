@@ -6,7 +6,8 @@ import { ICampaignFormState } from '@/types'
 
 const extractFormData = (formData: FormData) => {
   const goal = (formData.get('goal') as ICampaignFormState['goal']) || ''
-  return { goal }
+  const temperature = (formData.get('temperature') as ICampaignFormState['temperature']) || ''
+  return { goal, temperature }
 }
 
 export async function cancelCampaignForm() {
@@ -14,7 +15,7 @@ export async function cancelCampaignForm() {
 }
 
 export async function submitCampaignForm(previousState: ICampaignFormState, formData: FormData): Promise<ICampaignFormState> {
-  const { goal } = extractFormData(formData)
+  const { goal, temperature } = extractFormData(formData)
 
   try {
     await new Promise(resolve => setTimeout(resolve, 2000))
@@ -23,7 +24,8 @@ export async function submitCampaignForm(previousState: ICampaignFormState, form
       return {
         // Use the current form data, not previous state
         error: 'Goal is required',
-        goal
+        goal,
+        temperature
       }
     }
 
@@ -31,11 +33,12 @@ export async function submitCampaignForm(previousState: ICampaignFormState, form
       return {
         // Use the current form data, not previous state
         error: 'Goal must be at least 3 characters long',
-        goal
+        goal,
+        temperature
       }
     }
 
-    console.log('Submitting campaign form', { goal })
+    console.log('Submitting campaign form', { goal, temperature })
 
     // Simulate potential server error
     // Remove this in production
@@ -45,13 +48,15 @@ export async function submitCampaignForm(previousState: ICampaignFormState, form
 
     return {
       error: '', // Clear any previous errors
-      goal: ''
+      goal: '',
+      temperature: ''
     }
   } catch (error) {
     // Preserve the current form input values
     return {
       error: error instanceof Error ? error.message : 'An unexpected error occurred',
-      goal
+      goal,
+      temperature
     }
   }
 }
