@@ -4,14 +4,14 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Input } from '@/components/Input'
 import { PresetStepTitle } from '@/components/PresetStepTitle'
 import { useCampaignApproach } from '@/hooks/useCampaignApproach'
-import { Category, ICampaignApproachStepProps } from '@/types'
+import { ICampaignApproachStepProps, ICampaignFormCategory, ICampaignOtherFormCategory } from '@/types'
 
 export const CampaignApproachStep = ({ defaultValue, error, isLoading, step }: ICampaignApproachStepProps) => {
   const { approachData, customApproach, handleCustomApproachChange, selectApproach } = useCampaignApproach({ defaultValue, error, isLoading })
 
-  const categories = step.categories as Category[]
-  const dropdownCategory = categories?.find(cat => cat.inputType === 'singleSelect')
-  const customInputCategory = categories?.find(cat => cat.inputType === 'textInput')
+  const categories = step.categories as (ICampaignFormCategory | ICampaignOtherFormCategory)[]
+  const dropdownCategory = categories?.find(cat => cat.inputType === 'singleSelect') as ICampaignFormCategory | undefined
+  const customInputCategory = categories?.find(cat => cat.inputType === 'textInput') as ICampaignOtherFormCategory | undefined
 
   const selectedOption = dropdownCategory?.options?.find(option => option.value === approachData)
 
@@ -23,7 +23,7 @@ export const CampaignApproachStep = ({ defaultValue, error, isLoading, step }: I
         {/* Dropdown for predefined approaches */}
         {dropdownCategory && (
           <div className="flex flex-col gap-2">
-            <label className="text-sm font-medium">{dropdownCategory.title}</label>
+            <label className="text-sm font-medium">{dropdownCategory.label}</label>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button className="w-full justify-between" variant="outline">
@@ -45,11 +45,13 @@ export const CampaignApproachStep = ({ defaultValue, error, isLoading, step }: I
         {/* Custom approach input */}
         {customInputCategory && (
           <div className="flex flex-col gap-2">
-            <label className="text-sm font-medium">{customInputCategory.title}</label>
+            <label className="text-sm font-medium">
+              {customInputCategory.icon} {customInputCategory.label}
+            </label>
             <Input
               className="w-full"
               onChange={e => handleCustomApproachChange(e.target.value)}
-              placeholder={('placeholder' in customInputCategory ? customInputCategory.placeholder : undefined) || customInputCategory.title}
+              placeholder={('placeholder' in customInputCategory ? customInputCategory.placeholder : undefined) || customInputCategory.label}
               value={customApproach}
             />
           </div>

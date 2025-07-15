@@ -46,7 +46,7 @@ export const campaignFormConfig: ICampaignFormStep[] = [
         id: 'other',
         inputType: 'textInput',
         label: 'Other',
-        placeholder: 'Enter custom promotion',
+        placeholder: 'Enter custom goal',
         value: ''
       }
     ],
@@ -88,7 +88,7 @@ export const campaignFormConfig: ICampaignFormStep[] = [
         id: 'other',
         inputType: 'textInput',
         label: 'Other',
-        placeholder: 'Enter custom promotion',
+        placeholder: 'Enter custom audience temperature',
         value: ''
       }
     ],
@@ -142,7 +142,7 @@ export const campaignFormConfig: ICampaignFormStep[] = [
         id: 'other',
         inputType: 'textInput',
         label: 'Other',
-        placeholder: 'Enter custom promotion',
+        placeholder: 'Enter custom approach',
         value: ''
       }
     ],
@@ -150,5 +150,71 @@ export const campaignFormConfig: ICampaignFormStep[] = [
     question: 'What is your campaign approach?',
     step: 3,
     title: 'Campaign Angle / Approach'
+  },
+  {
+    categories: [
+      {
+        icon: '',
+        id: 'campaign-channels',
+        inputType: 'multiSelect',
+        label: 'Select campaign channels',
+        options: [
+          {
+            icon: '',
+            id: 'instagram',
+            label: 'Instagram',
+            value: 'instagram'
+          },
+          {
+            icon: '',
+            id: 'facebook',
+            label: 'Facebook',
+            value: 'facebook'
+          },
+          {
+            icon: '',
+            id: 'tiktok',
+            label: 'TikTok',
+            value: 'tiktok'
+          },
+          {
+            icon: '',
+            id: 'youtube',
+            label: 'YouTube',
+            value: 'youtube'
+          },
+          {
+            icon: '',
+            id: 'linkedin',
+            label: 'LinkedIn',
+            value: 'linkedin'
+          },
+          {
+            icon: '',
+            id: 'email',
+            label: 'Email',
+            value: 'email'
+          },
+          {
+            icon: '',
+            id: 'website',
+            label: 'Website',
+            value: 'website'
+          }
+        ]
+      },
+      {
+        icon: '✨',
+        id: 'other',
+        inputType: 'textInput',
+        label: 'Other',
+        placeholder: 'Enter custom channel',
+        value: ''
+      }
+    ],
+    id: 'channels',
+    question: 'Where will you publish this campaign?',
+    step: 4,
+    title: 'Channels'
   }
 ]

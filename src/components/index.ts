@@ -98,6 +98,7 @@ export * from './CampaignAddForm'
 export * from './CampaignGoalStep'
 export * from './CampaignTemperatureStep'
 export * from './CampaignApproachStep'
+export * from './CampaignChannelsStep'
 // -------------
 
 // Profile |- Presets |- Create

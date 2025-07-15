@@ -4,14 +4,14 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Input } from '@/components/Input'
 import { PresetStepTitle } from '@/components/PresetStepTitle'
 import { useCampaignTemperature } from '@/hooks/useCampaignTemperature'
-import { Category, ICampaignTemperatureStepProps } from '@/types'
+import { ICampaignFormCategory, ICampaignOtherFormCategory, ICampaignTemperatureStepProps } from '@/types'
 
 export const CampaignTemperatureStep = ({ defaultValue, error, isLoading, step }: ICampaignTemperatureStepProps) => {
   const { customTemperature, handleCustomTemperatureChange, selectTemperature, temperatureData } = useCampaignTemperature({ defaultValue, error, isLoading })
 
-  const categories = step.categories as Category[]
-  const dropdownCategory = categories?.find(cat => cat.inputType === 'singleSelect')
-  const customInputCategory = categories?.find(cat => cat.inputType === 'textInput')
+  const categories = step.categories as (ICampaignFormCategory | ICampaignOtherFormCategory)[]
+  const dropdownCategory = categories?.find(cat => cat.inputType === 'singleSelect') as ICampaignFormCategory | undefined
+  const customInputCategory = categories?.find(cat => cat.inputType === 'textInput') as ICampaignOtherFormCategory | undefined
 
   const selectedOption = dropdownCategory?.options?.find(option => option.value === temperatureData)
 
@@ -23,7 +23,7 @@ export const CampaignTemperatureStep = ({ defaultValue, error, isLoading, step }
         {/* Dropdown for predefined temperatures */}
         {dropdownCategory && (
           <div className="flex flex-col gap-2">
-            <label className="text-sm font-medium">{dropdownCategory.title}</label>
+            <label className="text-sm font-medium">{dropdownCategory.label}</label>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button className="w-full justify-between" variant="outline">
@@ -45,11 +45,13 @@ export const CampaignTemperatureStep = ({ defaultValue, error, isLoading, step }
         {/* Custom temperature input */}
         {customInputCategory && (
           <div className="flex flex-col gap-2">
-            <label className="text-sm font-medium">{customInputCategory.title}</label>
+            <label className="text-sm font-medium">
+              {customInputCategory.icon} {customInputCategory.label}
+            </label>
             <Input
               className="w-full"
               onChange={e => handleCustomTemperatureChange(e.target.value)}
-              placeholder={('placeholder' in customInputCategory ? customInputCategory.placeholder : undefined) || customInputCategory.title}
+              placeholder={('placeholder' in customInputCategory ? customInputCategory.placeholder : undefined) || customInputCategory.label}
               value={customTemperature}
             />
           </div>
