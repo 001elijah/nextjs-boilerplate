@@ -100,6 +100,7 @@ export * from './CampaignTemperatureStep'
 export * from './CampaignApproachStep'
 export * from './CampaignChannelsStep'
 export * from './CampaignPromotionStep'
+export * from './CampaignToneStep'
 // -------------
 
 // Profile |- Presets |- Create

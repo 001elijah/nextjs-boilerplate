@@ -258,5 +258,59 @@ export const campaignFormConfig: ICampaignFormStep[] = [
     question: 'What’s your promotion style?',
     step: 5,
     title: 'Promotion'
+  },
+  {
+    categories: [
+      {
+        icon: '',
+        id: 'campaign-tone',
+        inputType: 'singleSelect',
+        label: 'Select campaign tone',
+        options: [
+          {
+            icon: '',
+            id: 'expert',
+            label: 'Confident / Expert',
+            value: 'expert'
+          },
+          {
+            icon: '',
+            id: 'friendly',
+            label: 'Friendly / Relatable',
+            value: 'friendly'
+          },
+          {
+            icon: '',
+            id: 'emotional',
+            label: 'Emotional / Storytelling',
+            value: 'emotional'
+          },
+          {
+            icon: '',
+            id: 'bold',
+            label: 'Bold / Attention-grabbing',
+            value: 'bold'
+          },
+          {
+            icon: '',
+            id: 'premium',
+            label: 'Premium / Minimalist',
+            value: 'premium'
+          }
+        ]
+      },
+      {
+        icon: '✨',
+        id: 'other',
+        inputType: 'textInput',
+        label: 'Other',
+        placeholder: 'Enter custom tone',
+        value: ''
+      }
+    ],
+    id: 'tone',
+    question: 'What tone fits your brand best?',
+    step: 6,
+    title: 'Tone'
   }
 ]

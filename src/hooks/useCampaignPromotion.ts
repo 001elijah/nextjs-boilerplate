@@ -29,11 +29,11 @@ export const useCampaignPromotion = ({ defaultValue, error, isLoading }: Omit<IC
   }
 
   return {
-    promotionData,
     customPromotion,
     handleCustomPromotionChange,
+    promotionData,
     selectPromotion,
-    setPromotionData,
-    setCustomPromotion
+    setCustomPromotion,
+    setPromotionData
   }
 }

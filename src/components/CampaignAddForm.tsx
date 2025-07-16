@@ -2,13 +2,7 @@
 
 import { useActionState, useTransition } from 'react'
 import { cancelCampaignForm, submitCampaignForm } from '@/app/profile/campaigns/actions'
-import {
-  CampaignApproachStep,
-  CampaignChannelsStep,
-  CampaignGoalStep,
-  CampaignPromotionStep,
-  CampaignTemperatureStep
-} from '@/components'
+import { CampaignApproachStep, CampaignChannelsStep, CampaignGoalStep, CampaignPromotionStep, CampaignTemperatureStep, CampaignToneStep } from '@/components'
 import { Button } from '@/components/Button'
 import { campaignFormConfig } from '@/config/campaigns'
 import { ICampaignFormState, ICampaignsProps } from '@/types'
@@ -21,8 +15,9 @@ export const CampaignAddForm = ({ campaigns }: ICampaignsProps) => {
     channels: [],
     error: '',
     goal: '',
+    promotion: '',
     temperature: '',
-    promotion: ''
+    tone: ''
   }
 
   const [state, action, isLoading] = useActionState(submitCampaignForm, initialState)
@@ -32,6 +27,7 @@ export const CampaignAddForm = ({ campaigns }: ICampaignsProps) => {
   const campaignApproachStep = campaignFormConfig.find(step => step.id === 'approach')
   const campaignChannelsStep = campaignFormConfig.find(step => step.id === 'channels')
   const campaignPromotionStep = campaignFormConfig.find(step => step.id === 'promotion')
+  const campaignToneStep = campaignFormConfig.find(step => step.id === 'tone')
 
   const handleCancel = () => {
     startTransition(async () => {
@@ -52,7 +48,11 @@ export const CampaignAddForm = ({ campaigns }: ICampaignsProps) => {
 
         {campaignChannelsStep && <CampaignChannelsStep defaultValue={state.channels} error={state.error} isLoading={isLoading} step={campaignChannelsStep} />}
 
-        {campaignPromotionStep && <CampaignPromotionStep defaultValue={state.promotion} error={state.error} isLoading={isLoading} step={campaignPromotionStep} />}
+        {campaignPromotionStep && (
+          <CampaignPromotionStep defaultValue={state.promotion} error={state.error} isLoading={isLoading} step={campaignPromotionStep} />
+        )}
+
+        {campaignToneStep && <CampaignToneStep defaultValue={state.tone} error={state.error} isLoading={isLoading} step={campaignToneStep} />}
 
         {/* Action Buttons */}
         <Button disabled={isLoading} type="submit">

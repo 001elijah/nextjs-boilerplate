@@ -39,7 +39,14 @@ export interface ICampaignChannelsStepProps {
 }
 
 export interface ICampaignPromotionStepProps {
-  defaultValue: string | ICampaignFormPromotionStepValue
+  defaultValue: ICampaignFormPromotionStepValue | string
+  error: ICampaignFormState['error']
+  isLoading: boolean
+  step: ICampaignFormStep
+}
+
+export interface ICampaignToneStepProps {
+  defaultValue: ICampaignFormToneStepValue | string
   error: ICampaignFormState['error']
   isLoading: boolean
   step: ICampaignFormStep
@@ -50,8 +57,9 @@ export interface ICampaignFormState {
   channels: (string | TCampaignFormChannelStepValue)[]
   error: string
   goal: string | TCampaignFormGoalStepValue
+  promotion: ICampaignFormPromotionStepValue | string
   temperature: string | TCampaignFormTemperatureStepValue
-  promotion: string | ICampaignFormPromotionStepValue
+  tone: ICampaignFormToneStepValue | string
 }
 
 type TCampaignFormInput = 'multiSelect' | 'singleSelect'
@@ -61,7 +69,13 @@ interface ICampaignFormOption {
   icon: string
   id: string
   label: string
-  value: TCampaignFormApproachStepValue | TCampaignFormChannelStepValue | TCampaignFormGoalStepValue | TCampaignFormTemperatureStepValue | ICampaignFormPromotionStepValue
+  value:
+    | ICampaignFormPromotionStepValue
+    | ICampaignFormToneStepValue
+    | TCampaignFormApproachStepValue
+    | TCampaignFormChannelStepValue
+    | TCampaignFormGoalStepValue
+    | TCampaignFormTemperatureStepValue
 }
 
 export interface ICampaignFormCategory {
@@ -93,4 +107,5 @@ type TCampaignFormGoalStepValue = 'attention' | 'bring back past clients' | 'con
 type TCampaignFormTemperatureStepValue = 'cold' | 'hot' | 'warm'
 type TCampaignFormApproachStepValue = 'case-study' | 'emotional' | 'expert' | 'light' | 'problem-focused'
 type TCampaignFormChannelStepValue = 'email' | 'facebook' | 'instagram' | 'linkedin' | 'tiktok' | 'website' | 'youtube'
-type ICampaignFormPromotionStepValue = 'organic' | 'paid' | 'mixed'
+type ICampaignFormPromotionStepValue = 'mixed' | 'organic' | 'paid'
+type ICampaignFormToneStepValue = 'bold' | 'emotional' | 'expert' | 'friendly' | 'premium'

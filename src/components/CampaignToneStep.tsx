@@ -3,37 +3,37 @@ import { Button } from '@/components/Button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/DropdownMenu'
 import { Input } from '@/components/Input'
 import { PresetStepTitle } from '@/components/PresetStepTitle'
-import { useCampaignPromotion } from '@/hooks/useCampaignPromotion'
-import { ICampaignFormCategory, ICampaignOtherFormCategory, ICampaignPromotionStepProps } from '@/types'
+import { useCampaignTone } from '@/hooks/useCampaignTone'
+import { ICampaignFormCategory, ICampaignOtherFormCategory, ICampaignToneStepProps } from '@/types'
 
-export const CampaignPromotionStep = ({ defaultValue, error, isLoading, step }: ICampaignPromotionStepProps) => {
-  const { customPromotion, handleCustomPromotionChange, promotionData, selectPromotion } = useCampaignPromotion({ defaultValue, error, isLoading })
+export const CampaignToneStep = ({ defaultValue, error, isLoading, step }: ICampaignToneStepProps) => {
+  const { customTone, handleCustomToneChange, selectTone, toneData } = useCampaignTone({ defaultValue, error, isLoading })
 
   const categories = step.categories as (ICampaignFormCategory | ICampaignOtherFormCategory)[]
   const dropdownCategory = categories?.find(cat => cat.inputType === 'singleSelect') as ICampaignFormCategory | undefined
   const customInputCategory = categories?.find(cat => cat.inputType === 'textInput') as ICampaignOtherFormCategory | undefined
 
-  const selectedOption = dropdownCategory?.options?.find(option => option.value === promotionData)
+  const selectedOption = dropdownCategory?.options?.find(option => option.value === toneData)
 
   return (
     <div className="flex flex-col gap-2">
       <PresetStepTitle question={step.question || ''} title={step.title} />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {/* Dropdown for predefined promotions */}
+        {/* Dropdown for predefined tones */}
         {dropdownCategory && (
           <div className="flex flex-col gap-2">
             <label className="text-sm font-medium">{dropdownCategory.label}</label>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button className="w-full justify-between" variant="outline">
-                  {selectedOption ? `${selectedOption.icon ?? ''} ${selectedOption.label}` : 'Select promotion'}
+                  {selectedOption ? `${selectedOption.icon ?? ''} ${selectedOption.label}` : 'Select tone'}
                   <ChevronDownIcon className="h-4 w-4 opacity-50" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="min-w-[var(--radix-dropdown-menu-trigger-width)] max-h-48">
                 {dropdownCategory.options?.map(option => (
-                  <DropdownMenuItem key={option.id} onSelect={() => selectPromotion(option.value)}>
+                  <DropdownMenuItem key={option.id} onSelect={() => selectTone(option.value)}>
                     {`${option.icon ?? ''} ${option.label}`}
                   </DropdownMenuItem>
                 ))}
@@ -42,7 +42,7 @@ export const CampaignPromotionStep = ({ defaultValue, error, isLoading, step }: 
           </div>
         )}
 
-        {/* Custom promotion input */}
+        {/* Custom tone input */}
         {customInputCategory && (
           <div className="flex flex-col gap-2">
             <label className="text-sm font-medium">
@@ -50,15 +50,15 @@ export const CampaignPromotionStep = ({ defaultValue, error, isLoading, step }: 
             </label>
             <Input
               className="w-full"
-              onChange={e => handleCustomPromotionChange(e.target.value)}
+              onChange={e => handleCustomToneChange(e.target.value)}
               placeholder={('placeholder' in customInputCategory ? customInputCategory.placeholder : undefined) || customInputCategory.label}
-              value={customPromotion}
+              value={customTone}
             />
           </div>
         )}
 
         {/* Hidden input for form submission */}
-        <input name={step.id} type="hidden" value={promotionData} />
+        <input name={step.id} type="hidden" value={toneData} />
       </div>
     </div>
   )
