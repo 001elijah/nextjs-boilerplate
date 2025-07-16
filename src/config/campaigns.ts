@@ -216,5 +216,47 @@ export const campaignFormConfig: ICampaignFormStep[] = [
     question: 'Where will you publish this campaign?',
     step: 4,
     title: 'Channels'
+  },
+  {
+    categories: [
+      {
+        icon: '',
+        id: 'campaign-promotion-style',
+        inputType: 'singleSelect',
+        label: 'Select campaign promotion style',
+        options: [
+          {
+            icon: '',
+            id: 'organic',
+            label: 'Organic only (no paid ads)',
+            value: 'organic'
+          },
+          {
+            icon: '',
+            id: 'paid',
+            label: 'Paid promotion (any budget)',
+            value: 'paid'
+          },
+          {
+            icon: '',
+            id: 'mixed',
+            label: 'Mix of organic and paid',
+            value: 'mixed'
+          }
+        ]
+      },
+      {
+        icon: '✨',
+        id: 'other',
+        inputType: 'textInput',
+        label: 'Other',
+        placeholder: 'Enter custom promotion style',
+        value: ''
+      }
+    ],
+    id: 'promotion',
+    question: 'What’s your promotion style?',
+    step: 5,
+    title: 'Promotion'
   }
 ]

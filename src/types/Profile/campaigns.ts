@@ -38,12 +38,20 @@ export interface ICampaignChannelsStepProps {
   step: ICampaignFormStep
 }
 
+export interface ICampaignPromotionStepProps {
+  defaultValue: string | ICampaignFormPromotionStepValue
+  error: ICampaignFormState['error']
+  isLoading: boolean
+  step: ICampaignFormStep
+}
+
 export interface ICampaignFormState {
   approach: string | TCampaignFormApproachStepValue
   channels: (string | TCampaignFormChannelStepValue)[]
   error: string
   goal: string | TCampaignFormGoalStepValue
   temperature: string | TCampaignFormTemperatureStepValue
+  promotion: string | ICampaignFormPromotionStepValue
 }
 
 type TCampaignFormInput = 'multiSelect' | 'singleSelect'
@@ -53,7 +61,7 @@ interface ICampaignFormOption {
   icon: string
   id: string
   label: string
-  value: TCampaignFormApproachStepValue | TCampaignFormChannelStepValue | TCampaignFormGoalStepValue | TCampaignFormTemperatureStepValue
+  value: TCampaignFormApproachStepValue | TCampaignFormChannelStepValue | TCampaignFormGoalStepValue | TCampaignFormTemperatureStepValue | ICampaignFormPromotionStepValue
 }
 
 export interface ICampaignFormCategory {
@@ -85,3 +93,4 @@ type TCampaignFormGoalStepValue = 'attention' | 'bring back past clients' | 'con
 type TCampaignFormTemperatureStepValue = 'cold' | 'hot' | 'warm'
 type TCampaignFormApproachStepValue = 'case-study' | 'emotional' | 'expert' | 'light' | 'problem-focused'
 type TCampaignFormChannelStepValue = 'email' | 'facebook' | 'instagram' | 'linkedin' | 'tiktok' | 'website' | 'youtube'
+type ICampaignFormPromotionStepValue = 'organic' | 'paid' | 'mixed'
