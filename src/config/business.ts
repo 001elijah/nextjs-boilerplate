@@ -1,6 +1,6 @@
 import { Step } from '@/types'
 
-export const presetFormConfig: Step[] = [
+export const presetBusinessFormConfig: Step[] = [
   {
     id: 'type',
     inputType: 'singleSelect',

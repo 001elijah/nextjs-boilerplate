@@ -16,7 +16,7 @@ const extractFormData = (formData: FormData) => {
 }
 
 export async function cancelCampaignForm() {
-  redirect(routes.profile.campaigns)
+  redirect(routes.profile.presets.root)
 }
 
 export async function submitCampaignForm(previousState: ICampaignFormState, formData: FormData): Promise<ICampaignFormState> {

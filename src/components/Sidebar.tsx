@@ -46,7 +46,7 @@ export const Sidebar = ({ className, defaultCollapsed = true }: SidebarProps) =>
     currentNav.forEach(route => {
       items.push({
         icon: route.icon,
-        isActive: pathname === route.href,
+        isActive: pathname.includes(route.href),
         label: route.label,
         onClick: () => router.push(route.href)
       })

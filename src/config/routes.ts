@@ -11,8 +11,17 @@ export const routes = {
   home: '/',
   login: '/auth/login',
   profile: {
-    campaigns: '/profile/campaigns',
-    presets: '/profile/presets',
+    content: {
+      generate: '/profile/content/generate',
+      root: '/profile/content'
+    },
+    presets: {
+      new: {
+        business: '/profile/presets/new/business',
+        campaign: '/profile/presets/new/campaign'
+      },
+      root: '/profile/presets'
+    },
     referral: '/profile/referral',
     root: '/profile',
     settings: '/profile/settings',
@@ -71,8 +80,8 @@ export const navigation = {
     { href: routes.dashboard, icon: ChevronLeft, label: 'Back to Dashboard' },
     { href: '', icon: undefined, label: '' },
     { href: routes.profile.settings, icon: Settings, label: 'Profile settings' },
-    { href: routes.profile.campaigns, icon: Plus, label: 'Campaign generation' },
-    { href: routes.profile.presets, icon: LayoutDashboard, label: 'Campaign profile presets' },
+    { href: routes.profile.content.root, icon: Plus, label: 'Content generation' },
+    { href: routes.profile.presets.root, icon: LayoutDashboard, label: 'Profile presets' },
     { href: routes.profile.socials, icon: User, label: 'Socials' },
     { href: routes.profile.subscriptions, icon: BookOpen, label: 'Subscriptions' },
     { href: routes.profile.referral, icon: User, label: 'Referral' }

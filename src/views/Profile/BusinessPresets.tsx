@@ -1,9 +1,10 @@
 import { Plus } from 'lucide-react'
 import Link from 'next/link'
-import { Button, Container, PresetCard, Section, SectionTitle } from '@/components'
+import { BusinessPresetCard, Button, Container, Section, SectionTitle } from '@/components'
 import { PresetType } from '@/components/PresetTypeBadge'
+import { routes } from '@/config'
 
-type Preset = {
+type BusinessPreset = {
   description: string
   platform: string
   tags: string[]
@@ -11,7 +12,7 @@ type Preset = {
   type: PresetType
 }
 
-const presetItems: Preset[] = [
+const businessPresetsItems: BusinessPreset[] = [
   {
     description: 'A template for our weekly Q&A sessions, including branding and common hashtags.',
     platform: 'Instagram',
@@ -42,23 +43,23 @@ const presetItems: Preset[] = [
   }
 ]
 
-export const Presets = () => {
+export const BusinessPresets = () => {
   return (
-    <Section ariaLabel="Presets" className="py-8" id="presets">
+    <Section ariaLabel="Business Presets" className="py-8" id="business-presets">
       <Container>
         <div className="flex items-center justify-between">
-          <SectionTitle fallbackTitle="Presets" sectionTitle="Content & Campaign Presets" />
-          <Link href="/profile/presets/create">
+          <SectionTitle fallbackTitle="Business Presets" sectionTitle="Business Presets" />
+          <Link href={routes.profile.presets.new.business}>
             <Button className="border-gold font-bold text-foreground hover:bg-gold" type="submit" variant="outline">
               <Plus className="-ml-1 mr-2 size-4" />
-              Create Preset
+              Create Business Preset
             </Button>
           </Link>
         </div>
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-          {presetItems.map((presetData, index) => (
-            <PresetCard key={index} presetData={presetData} />
+          {businessPresetsItems.map((presetData, index) => (
+            <BusinessPresetCard businessPresetData={presetData} key={index} />
           ))}
         </div>
       </Container>

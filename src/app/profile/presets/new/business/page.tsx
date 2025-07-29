@@ -2,11 +2,11 @@
 // @ts-nocheck
 import { getDataAction } from '@/lib/getDataAction'
 import { folderPaths } from '@/utils/folderPaths'
-import { CreateCampaign } from '@/views'
+import { CreateBusinessPreset } from '@/views'
 
-export default function CreateCampaignPage() {
+export default async function CreateBusinessPresetPage() {
   const { PROFILE } = folderPaths
-  const { campaigns } = getDataAction(PROFILE)
+  const { business } = getDataAction(PROFILE)
 
-  return <CreateCampaign campaigns={campaigns} />
+  return <CreateBusinessPreset business={business} />
 }

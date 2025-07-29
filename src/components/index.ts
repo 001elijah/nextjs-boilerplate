@@ -88,13 +88,13 @@ export * from './CallToActionCard'
 export * from './CompanyLogoCard'
 // -------------
 
-// Profile |- Presets
-export * from './PresetCard'
+// Profile |- Business Presets
+export * from './BusinessPresetCard'
 export * from './PresetTypeBadge'
 // -------------
 
 // Profile |- Presets |- Create
-export * from './CampaignAddForm'
+export * from './CampaignPresetAddForm'
 export * from './CampaignGoalStep'
 export * from './CampaignTemperatureStep'
 export * from './CampaignApproachStep'
@@ -117,7 +117,7 @@ export * from './BusinessTypeStep'
 export * from './BusinessVisualsStep'
 export * from './MainCategory'
 export * from './MainCategoryControlHeader'
-export * from './PresetAddForm'
+export * from './BusinessPresetAddForm'
 export * from './PresetStepTitle'
 export * from './SubcategoryCustomOption'
 export * from './SubcategoryHeader'

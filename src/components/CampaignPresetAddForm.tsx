@@ -1,13 +1,13 @@
 'use client'
 
 import { useActionState, useTransition } from 'react'
-import { cancelCampaignForm, submitCampaignForm } from '@/app/profile/campaigns/actions'
+import { cancelCampaignForm, submitCampaignForm } from '@/app/profile/presets/new/campaign/actions'
 import { CampaignApproachStep, CampaignChannelsStep, CampaignGoalStep, CampaignPromotionStep, CampaignTemperatureStep, CampaignToneStep } from '@/components'
 import { Button } from '@/components/Button'
 import { campaignFormConfig } from '@/config/campaigns'
 import { ICampaignFormState, ICampaignsProps } from '@/types'
 
-export const CampaignAddForm = ({ campaigns }: ICampaignsProps) => {
+export const CampaignPresetAddForm = ({ campaigns }: ICampaignsProps) => {
   const { cancelButtonText, cancelTransitionButtonText, submitButtonText, submitPendingButtonText } = campaigns
   const [isPending, startTransition] = useTransition()
   const initialState: ICampaignFormState = {

@@ -1,7 +1,7 @@
 'use client'
 
 import { ChangeEvent, useActionState, useEffect, useState, useTransition } from 'react'
-import { cancelPresetForm, submitPresetForm } from '@/app/profile/presets/actions'
+import { cancelBusinessForm, submitBusinessForm } from '@/app/profile/presets/new/business/actions'
 import {
   BusinessCategoryStep,
   BusinessChannelsStep,
@@ -16,27 +16,27 @@ import {
   BusinessVisualsStep,
   Button
 } from '@/components'
-import { presetFormConfig as presetSteps } from '@/config/presets'
+import { presetBusinessFormConfig as businessPresetSteps } from '@/config/business'
 import { useBusinessCategory } from '@/hooks/useBusinessCategory'
 import {
+  BusinessFormProps,
+  BusinessFormState,
   BusinessSubcategoryOption,
   BusinessTitle,
   BusinessType,
   CustomerData,
   isValidBusinessType,
   LocationData,
-  PresetFormState,
-  PresetsProps,
   RegionsData
 } from '@/types'
 
-export const PresetAddForm = ({ presets }: PresetsProps) => {
-  const { cancelButtonText, cancelTransitionButtonText, submitButtonText, submitPendingButtonText } = presets
+export const BusinessPresetAddForm = ({ business }: BusinessFormProps) => {
+  const { cancelButtonText, cancelTransitionButtonText, submitButtonText, submitPendingButtonText } = business
   const [isPending, startTransition] = useTransition()
 
   const { resetCategoryState } = useBusinessCategory()
 
-  const initialState: PresetFormState = {
+  const initialState: BusinessFormState = {
     category: '',
     channels: [],
     customer: {
@@ -61,7 +61,7 @@ export const PresetAddForm = ({ presets }: PresetsProps) => {
     visuals: []
   }
 
-  const [state, action, isLoading] = useActionState(submitPresetForm, initialState)
+  const [state, action, isLoading] = useActionState(submitBusinessForm, initialState)
   const [businessType, setBusinessType] = useState<BusinessType>(state.type)
   const [businessTitle] = useState<BusinessTitle>(state.name)
   const [businessCategory] = useState<BusinessSubcategoryOption['value']>(state.category)
@@ -100,21 +100,21 @@ export const PresetAddForm = ({ presets }: PresetsProps) => {
 
   const handleCancel = () => {
     startTransition(async () => {
-      await cancelPresetForm()
+      await cancelBusinessForm()
     })
   }
 
-  const businessTypeStep = presetSteps.find(step => step.id === 'type')
-  const businessTitleStep = presetSteps.find(step => step.id === 'name')
-  const businessCategoryStep = presetSteps.find(step => step.id === 'category')
-  const businessChannelsStep = presetSteps.find(step => step.id === 'channels')
-  const businessCustomerStep = presetSteps.find(step => step.id === 'customer')
-  const businessLanguageStep = presetSteps.find(step => step.id === 'language')
-  const businessLocationStep = presetSteps.find(step => step.id === 'location')
-  const businessRegionsStep = presetSteps.find(step => step.id === 'regions')
-  const businessToneStep = presetSteps.find(step => step.id === 'tone')
-  const businessPromotionsStep = presetSteps.find(step => step.id === 'promotions')
-  const businessVisualsStep = presetSteps.find(step => step.id === 'visuals')
+  const businessTypeStep = businessPresetSteps.find(step => step.id === 'type')
+  const businessTitleStep = businessPresetSteps.find(step => step.id === 'name')
+  const businessCategoryStep = businessPresetSteps.find(step => step.id === 'category')
+  const businessChannelsStep = businessPresetSteps.find(step => step.id === 'channels')
+  const businessCustomerStep = businessPresetSteps.find(step => step.id === 'customer')
+  const businessLanguageStep = businessPresetSteps.find(step => step.id === 'language')
+  const businessLocationStep = businessPresetSteps.find(step => step.id === 'location')
+  const businessRegionsStep = businessPresetSteps.find(step => step.id === 'regions')
+  const businessToneStep = businessPresetSteps.find(step => step.id === 'tone')
+  const businessPromotionsStep = businessPresetSteps.find(step => step.id === 'promotions')
+  const businessVisualsStep = businessPresetSteps.find(step => step.id === 'visuals')
 
   return (
     <form action={action} className="w-full">

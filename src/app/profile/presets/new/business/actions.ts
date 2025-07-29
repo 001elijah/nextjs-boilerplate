@@ -1,20 +1,21 @@
 'use server'
 
 import { redirect } from 'next/navigation'
+import { routes } from '@/config'
 import {
+  BusinessFormState,
   BusinessSubcategoryOption,
   BusinessType,
   ChannelsData,
   CustomerData,
   LanguageData,
   LocationData,
-  PresetFormState,
   PromotionsData,
   RegionsData,
   VisualsData
 } from '@/types'
 
-const extractFormData = (formData: FormData) => {
+const extractBusinessFormData = (formData: FormData) => {
   const type = formData.get('type') as BusinessType
   const name = formData.get('name') as string
   const category = formData.get('category') as BusinessSubcategoryOption['value']
@@ -47,12 +48,12 @@ const extractFormData = (formData: FormData) => {
   return { category, channels, customer, language, location, name, promotions, regions, tone, type, visuals }
 }
 
-export async function cancelPresetForm() {
-  redirect('/profile/presets')
+export async function cancelBusinessForm() {
+  redirect(routes.profile.presets.root)
 }
 
-export async function submitPresetForm(previousState: PresetFormState, formData: FormData): Promise<PresetFormState> {
-  const { category, channels, customer, language, location, name, promotions, regions, tone, type, visuals } = extractFormData(formData)
+export async function submitBusinessForm(previousState: BusinessFormState, formData: FormData): Promise<BusinessFormState> {
+  const { category, channels, customer, language, location, name, promotions, regions, tone, type, visuals } = extractBusinessFormData(formData)
 
   try {
     await new Promise(resolve => setTimeout(resolve, 2000))
@@ -92,7 +93,7 @@ export async function submitPresetForm(previousState: PresetFormState, formData:
       }
     }
 
-    console.log('Submitting preset form', { category, channels, customer, language, location, name, promotions, regions, tone, type, visuals })
+    console.log('Submitting business form', { category, channels, customer, language, location, name, promotions, regions, tone, type, visuals })
 
     // Simulate potential server error
     // Remove this in production

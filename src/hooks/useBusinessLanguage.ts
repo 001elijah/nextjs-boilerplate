@@ -1,11 +1,11 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { LanguageData, PresetFormState } from '@/types'
+import { BusinessFormState, LanguageData } from '@/types'
 
 interface UseBusinessLanguageProps {
   defaultValue: LanguageData
-  error: PresetFormState['error']
+  error: BusinessFormState['error']
   isLoading: boolean
 }
 

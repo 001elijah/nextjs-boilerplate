@@ -1,8 +1,12 @@
 import { Box, Megaphone, Pencil, Tag, Trash2 } from 'lucide-react'
 import { Button, CardBorder, PresetType, PresetTypeBadge } from '@/components'
 
-export const PresetCard = ({ presetData }: { presetData: { description: string; platform: string; tags: string[]; title: string; type: PresetType } }) => {
-  const { description, platform, tags, title, type } = presetData
+export const BusinessPresetCard = ({
+  businessPresetData
+}: {
+  businessPresetData: { description: string; platform: string; tags: string[]; title: string; type: PresetType }
+}) => {
+  const { description, platform, tags, title, type } = businessPresetData
   return (
     <CardBorder className="items-start border-gold/50 bg-background/30 p-6">
       <div className="flex w-full items-center justify-between">

@@ -218,7 +218,7 @@ export type VisualsData = VisualFile[]
 
 export type Option = SelectOption | TextInputOption
 
-export interface PresetFormState {
+export interface BusinessFormState {
   category: BusinessSubcategoryOption['value']
   channels: ChannelsData
   customer: CustomerData
@@ -234,8 +234,8 @@ export interface PresetFormState {
 }
 
 // Main export type
-export interface PresetsProps {
-  presets: PresetConfig
+export interface BusinessFormProps {
+  business: BusinessFormConfig
 }
 
 // Main step interface
@@ -281,7 +281,7 @@ interface FileUploadOption {
 type InputType = 'fileUpload' | 'multiSelect' | 'singleSelect' | 'textInput'
 
 // Root configuration
-interface PresetConfig {
+interface BusinessFormConfig {
   cancelButtonText: string
   cancelTransitionButtonText: string
   nextButtonText: string

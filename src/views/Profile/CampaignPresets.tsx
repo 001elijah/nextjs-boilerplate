@@ -1,6 +1,7 @@
 import { BarChart, Calendar, LucideIcon, Megaphone, MousePointerClick, Plus, Users } from 'lucide-react'
 import Link from 'next/link'
 import { Button, CardBorder, Container, Section, SectionTitle } from '@/components'
+import { routes } from '@/config'
 
 type Campaign = {
   clicks: string
@@ -77,13 +78,13 @@ const Metric = ({ icon: Icon, label, value }: { icon: LucideIcon; label: string;
   </div>
 )
 
-export const Campaigns = () => {
+export const CampaignPresets = () => {
   return (
     <Section ariaLabel="Campaigns" className="py-8" id="campaigns">
       <Container>
         <div className="flex items-center justify-between">
-          <SectionTitle fallbackTitle="Campaigns" sectionTitle="Campaigns" />
-          <Link href="/profile/campaigns/create">
+          <SectionTitle fallbackTitle="Campaign Presets" sectionTitle="Campaign Presets" />
+          <Link href={routes.profile.presets.new.campaign}>
             <Button className="border-gold font-bold text-foreground hover:bg-gold" variant="outline">
               <Plus className="-ml-1 mr-2 size-4" />
               New Campaign
