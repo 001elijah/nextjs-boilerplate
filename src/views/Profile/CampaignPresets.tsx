@@ -1,73 +1,20 @@
-import { BarChart, Calendar, LucideIcon, Megaphone, MousePointerClick, Plus, Users } from 'lucide-react'
+'use client'
+
+import { size } from 'lodash'
+import { BarChart, LucideIcon, Megaphone, MessageSquare, Plus, Users } from 'lucide-react'
 import Link from 'next/link'
-import { Button, CardBorder, Container, Section, SectionTitle } from '@/components'
+import { useEffect, useState } from 'react'
+import { getUserCampaigns } from '@/app/profile/presets/actions'
+import { deleteCampaign } from '@/app/profile/presets/new/campaign/actions'
+import { Button, CardBorder, Container, LoadingSpinner, Section, SectionTitle, toast } from '@/components'
 import { routes } from '@/config'
+import { useAuth } from '@/contexts'
+import { ICampaignData } from '@/types'
 
-type Campaign = {
-  clicks: string
-  endDate: string
-  engagement: string
-  platform: string
-  reach: string
-  startDate: string
-  status: CampaignStatus
-  title: string
+interface ICampaignResponseItem extends ICampaignData {
+  id: string
+  user_id: string
 }
-
-type CampaignStatus = 'Active' | 'Completed' | 'Paused'
-
-const campaigns: Campaign[] = [
-  {
-    clicks: '890',
-    endDate: '2025-06-30',
-    engagement: '1.2K',
-    platform: 'Instagram',
-    reach: '12.5K',
-    startDate: '2025-06-01',
-    status: 'Active',
-    title: 'Summer Sale 2024'
-  },
-  {
-    clicks: '1.5K',
-    endDate: '2025-01-31',
-    engagement: '2.8K',
-    platform: 'Facebook',
-    reach: '25K',
-    startDate: '2025-01-01',
-    status: 'Completed',
-    title: 'New Year Promo'
-  },
-  {
-    clicks: '120',
-    endDate: '2025-05-15',
-    engagement: '350',
-    platform: 'Facebook',
-    reach: '5.2K',
-    startDate: '2025-04-15',
-    status: 'Paused',
-    title: 'Spring Collection Launch'
-  },
-  {
-    clicks: '4.2K',
-    endDate: '2024-11-29',
-    engagement: '8.7K',
-    platform: 'Instagram & Facebook',
-    reach: '50K',
-    startDate: '2024-11-20',
-    status: 'Completed',
-    title: 'Black Friday Deals'
-  }
-]
-
-const statusStyles: Record<CampaignStatus, string> = {
-  Active: 'bg-green-500/20 text-green-400 border-green-500/30',
-  Completed: 'bg-gray-500/20 text-gray-400 border-gray-500/30',
-  Paused: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30'
-}
-
-const CampaignStatusBadge = ({ status }: { status: CampaignStatus }) => (
-  <span className={`rounded-full border px-3 py-1 text-xs font-medium ${statusStyles[status]}`}>{status}</span>
-)
 
 const Metric = ({ icon: Icon, label, value }: { icon: LucideIcon; label: string; value: string }) => (
   <div className="flex items-center gap-2 text-foreground/80">
@@ -79,6 +26,84 @@ const Metric = ({ icon: Icon, label, value }: { icon: LucideIcon; label: string;
 )
 
 export const CampaignPresets = () => {
+  const { signOut } = useAuth()
+  const [campaigns, setCampaigns] = useState<ICampaignResponseItem[]>([])
+  const [deletingId, setDeletingId] = useState<null | string>(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { campaigns: fetchedCampaigns, error, needsAuth } = await getUserCampaigns()
+
+        if (needsAuth) {
+          toast({
+            message: 'You need to be logged in to view your campaigns.',
+            title: 'Unauthorized',
+            type: 'error'
+          })
+          setCampaigns(fetchedCampaigns)
+          await signOut()
+          return
+        }
+
+        if (error) {
+          console.error('Error fetching campaigns:', error)
+          toast({
+            message: error,
+            title: 'Error Loading Campaigns',
+            type: 'error'
+          })
+        } else {
+          setCampaigns(fetchedCampaigns)
+        }
+      } catch (error) {
+        console.error('Failed to fetch campaigns:', error)
+        toast({
+          message: 'Something went wrong while loading campaigns.',
+          title: 'Error Loading Campaigns',
+          type: 'error'
+        })
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchData()
+  }, [signOut])
+
+  const handleDelete = async (campaignId: string) => {
+    setDeletingId(campaignId)
+
+    try {
+      await deleteCampaign(campaignId)
+
+      const newCampaigns = campaigns.filter(c => c.id !== campaignId)
+      setCampaigns(newCampaigns)
+    } catch (error) {
+      console.error('Failed to delete campaign:', error)
+      toast({
+        message: 'Something went wrong.',
+        title: 'Error Deleting Campaign',
+        type: 'error'
+      })
+    } finally {
+      setDeletingId(null)
+    }
+  }
+
+  if (loading) {
+    return (
+      <Section ariaLabel="Campaigns" className="py-8" id="campaigns">
+        <Container>
+          <div className="flex items-center justify-center p-8">
+            <LoadingSpinner size={48} />
+          </div>
+        </Container>
+      </Section>
+    )
+  }
+
   return (
     <Section ariaLabel="Campaigns" className="py-8" id="campaigns">
       <Container>
@@ -91,41 +116,58 @@ export const CampaignPresets = () => {
             </Button>
           </Link>
         </div>
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-          {campaigns.map((campaign, index) => (
-            <CardBorder className="items-start border-gold/50 bg-background/30 p-6" key={index}>
-              <div className="flex w-full items-center justify-between">
-                <h3 className="text-xl font-bold text-foreground">{campaign.title}</h3>
-                <CampaignStatusBadge status={campaign.status} />
-              </div>
-              <div className="mt-2 flex items-center gap-2 text-sm text-foreground/60">
-                <Megaphone className="size-4" />
-                <span>{campaign.platform}</span>
-              </div>
-              <div className="my-6 grid w-full grid-cols-1 gap-4 sm:grid-cols-3">
-                <Metric icon={BarChart} label="Reach" value={campaign.reach} />
-                <Metric icon={Users} label="Engagement" value={campaign.engagement} />
-                <Metric icon={MousePointerClick} label="Clicks" value={campaign.clicks} />
-              </div>
-              <div className="w-full text-sm text-foreground/60">
-                <div className="flex items-center gap-2">
-                  <Calendar className="size-4" />
-                  <span>
-                    {campaign.startDate} - {campaign.endDate}
-                  </span>
+        {size(campaigns) === 0 ? (
+          <div className="flex flex-col items-center justify-center p-8 text-center text-foreground/60">
+            <Megaphone className="mb-4 size-16 text-gold" />
+            <h3 className="text-xl font-bold">{'No Campaign Presets Found'}</h3>
+            <p className="mt-2">{"It looks like you haven't created any campaign presets yet."}</p>
+
+            <p>
+              <Link href={routes.profile.presets.new.campaign}>
+                <Button size="sm" variant="link">
+                  {'Add New Campaign'}
+                </Button>
+              </Link>
+              {'to get started!'}
+            </p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+            {campaigns.map((campaign, index) => (
+              <CardBorder className="items-start border-gold/50 bg-background/30 p-6" key={index}>
+                {/* Card content start */}
+                <div className="flex w-full flex-col gap-4">
+                  <h3 className="text-xl font-bold text-gold">Campaign Preset #{campaign.id}</h3>
+                  {/* Metrics section */}
+                  <div className="grid grid-cols-2 gap-4">
+                    <Metric icon={Megaphone} label="Approach" value={campaign.approach} />
+                    <Metric icon={BarChart} label="Goal" value={campaign.goal} />
+                    <Metric icon={Users} label="Channels" value={campaign.channels.join(', ')} />
+                    <Metric icon={MessageSquare} label="Tone" value={campaign.tone} />
+                  </div>
+                  {/* Promotion and Temperature details */}
+                  <div className="flex flex-col gap-2">
+                    <div className="text-sm">
+                      <span className="font-semibold text-foreground/80">Promotion:</span>
+                      <p className="mt-1 text-foreground/60">{campaign.promotion}</p>
+                    </div>
+                    <div className="text-sm">
+                      <span className="font-semibold text-foreground/80">Temperature:</span>
+                      <p className="mt-1 text-foreground/60">{campaign.temperature}</p>
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div className="mt-6 flex w-full gap-4">
-                <Button size="sm" variant="outline">
-                  View Details
-                </Button>
-                <Button size="sm" variant="ghost">
-                  Edit
-                </Button>
-              </div>
-            </CardBorder>
-          ))}
-        </div>
+                {/* Card content end */}
+                {/* Buttons section */}
+                <div className="mt-6 flex w-full gap-4">
+                  <Button disabled={deletingId === campaign.id} onClick={() => handleDelete(campaign.id)} size="sm" variant="outline">
+                    {deletingId === campaign.id ? <LoadingSpinner /> : 'Delete'}
+                  </Button>
+                </div>
+              </CardBorder>
+            ))}
+          </div>
+        )}
       </Container>
     </Section>
   )

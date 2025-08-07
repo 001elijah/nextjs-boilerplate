@@ -52,14 +52,17 @@ export interface ICampaignToneStepProps {
   step: ICampaignFormStep
 }
 
-export interface ICampaignFormState {
+export interface ICampaignData {
   approach: string | TCampaignFormApproachStepValue
   channels: (string | TCampaignFormChannelStepValue)[]
-  error: string
   goal: string | TCampaignFormGoalStepValue
   promotion: ICampaignFormPromotionStepValue | string
   temperature: string | TCampaignFormTemperatureStepValue
   tone: ICampaignFormToneStepValue | string
+}
+
+export interface ICampaignFormState extends ICampaignData {
+  error: string
 }
 
 type TCampaignFormInput = 'multiSelect' | 'singleSelect'
