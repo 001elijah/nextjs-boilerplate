@@ -74,8 +74,6 @@ export async function submitCampaignForm(previousState: ICampaignFormState, form
   const campaignService = new CampaignService()
 
   try {
-    await new Promise(resolve => setTimeout(resolve, 2000))
-
     const validation = validateCampaignForm(formValues)
     if (!validation.isValid) {
       return createCampaignFormState(formValues, validation.error)

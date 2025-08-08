@@ -1,11 +1,11 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { BusinessFormState, ToneData } from '@/types'
+import { IBusinessFormState, ToneData } from '@/types'
 
 interface UseBusinessToneProps {
   defaultValue: ToneData
-  error: BusinessFormState['error']
+  error: IBusinessFormState['error']
   isLoading: boolean
 }
 

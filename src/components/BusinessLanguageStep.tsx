@@ -1,11 +1,11 @@
 import { ChevronDownIcon } from 'lucide-react'
 import { Button, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, Input, PresetStepTitle } from '@/components'
 import { useBusinessLanguage } from '@/hooks/useBusinessLanguage'
-import { BusinessFormState, Category, LanguageData, Step } from '@/types'
+import { Category, IBusinessFormState, LanguageData, Step } from '@/types'
 
 interface BusinessLanguageStepProps {
   defaultValue: LanguageData
-  error: BusinessFormState['error']
+  error: IBusinessFormState['error']
   isLoading: boolean
   step: Step
 }

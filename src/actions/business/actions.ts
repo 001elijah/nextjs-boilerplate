@@ -1,19 +1,22 @@
 'use server'
 
+import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { routes } from '@/config'
+import { BusinessService } from '@/services/businessService'
 import {
-  BusinessFormState,
   BusinessSubcategoryOption,
   BusinessType,
   ChannelsData,
   CustomerData,
+  IBusinessFormState,
   LanguageData,
   LocationData,
   PromotionsData,
   RegionsData,
   VisualsData
 } from '@/types'
+import { createBusinessFormState, createEmptyBusinessFormState, validateBusinessForm } from '@/utils/formHelpers'
 
 const extractBusinessFormData = (formData: FormData) => {
   const type = formData.get('type') as BusinessType
@@ -52,84 +55,75 @@ export async function cancelBusinessForm() {
   redirect(routes.profile.presets.root)
 }
 
-export async function submitBusinessForm(previousState: BusinessFormState, formData: FormData): Promise<BusinessFormState> {
-  const { category, channels, customer, language, location, name, promotions, regions, tone, type, visuals } = extractBusinessFormData(formData)
+export const deleteBusiness = async (businessId: string) => {
+  const businessService = new BusinessService()
 
   try {
-    await new Promise(resolve => setTimeout(resolve, 2000))
+    const user = await businessService.getCurrentUser()
 
-    // Add validation
-    if (!name || name.trim().length === 0) {
-      return {
-        category,
-        channels,
-        customer,
-        error: 'Business name is required',
-        language,
-        location,
-        name,
-        promotions,
-        regions,
-        tone,
-        type, // Use the current form data, not previous state
-        visuals
-      }
+    if (!user) {
+      console.error('Unauthorized deletion attempt: User not authenticated.')
+      return
     }
 
-    if (name.length < 3) {
-      return {
-        category,
-        channels,
-        customer,
-        error: 'Business name must be at least 3 characters long',
-        language,
-        location,
-        name,
-        promotions,
-        regions,
-        tone,
-        type, // Use the current form data, not previous state
-        visuals
-      }
-    }
-
-    console.log('Submitting business form', { category, channels, customer, language, location, name, promotions, regions, tone, type, visuals })
-
-    // Simulate potential server error
-    // Remove this in production
-    if (Math.random() < 0.3) {
-      throw new Error('Server error occurred')
-    }
-
-    return {
-      category: '',
-      channels: [],
-      customer: { demographics: '', painPoint: '', professionalType: '' },
-      error: '', // Clear any previous errors
-      language: '',
-      location: { city: '', country: '', region: '', state: '', zip: '' },
-      name: '',
-      promotions: [],
-      regions: [],
-      tone: '',
-      type: 'online',
-      visuals: []
-    }
+    await businessService.deleteBusiness(businessId, user.id)
   } catch (error) {
-    // Preserve the current form input values
-    return {
-      category,
-      channels,
-      customer,
-      error: error instanceof Error ? error.message : 'An unexpected error occurred',
-      language,
-      location,
-      name,
-      promotions,
-      regions,
-      tone,
-      type,
-      visuals
+    const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred'
+    console.error('Business deletion error:', errorMessage)
+  } finally {
+    revalidatePath(routes.profile.presets.root)
+  }
+}
+
+export const getUserBusinesses = async () => {
+  const businessService = new BusinessService()
+
+  try {
+    const user = await businessService.getCurrentUser()
+
+    if (!user) {
+      return {
+        businesses: [],
+        error: null,
+        needsAuth: true
+      }
     }
+
+    const businesses = await businessService.getUserBusinesses(user.id)
+    return { businesses, error: null }
+  } catch (error) {
+    console.error('Error fetching user businesses:', error)
+    return {
+      businesses: [],
+      error: error instanceof Error ? error.message : 'Failed to fetch businesses',
+      needsAuth: false
+    }
+  }
+}
+
+export const submitBusinessForm = async (previousState: IBusinessFormState, formData: FormData): Promise<IBusinessFormState> => {
+  const formValues = extractBusinessFormData(formData)
+  const businessService = new BusinessService()
+
+  try {
+    const validation = validateBusinessForm(formValues)
+    if (!validation.isValid) {
+      return createBusinessFormState(formValues, validation.error)
+    }
+
+    const user = await businessService.getCurrentUser()
+    if (!user) {
+      return createBusinessFormState(formValues, 'User not authenticated')
+    }
+
+    await businessService.createBusiness(formValues, user.id)
+
+    return createEmptyBusinessFormState()
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred'
+    console.error('Business submission error:', errorMessage)
+    return createBusinessFormState(formValues, errorMessage)
+  } finally {
+    redirect(routes.profile.presets.root)
   }
 }

@@ -1,11 +1,11 @@
 import { ChevronDownIcon } from 'lucide-react'
 import { Button, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, Input, PresetStepTitle } from '@/components'
 import { useBusinessTone } from '@/hooks/useBusinessTone'
-import { BusinessFormState, Category, Step, ToneData } from '@/types'
+import { Category, IBusinessFormState, Step, ToneData } from '@/types'
 
 interface BusinessToneStepProps {
   defaultValue: ToneData
-  error: BusinessFormState['error']
+  error: IBusinessFormState['error']
   isLoading: boolean
   step: Step
 }

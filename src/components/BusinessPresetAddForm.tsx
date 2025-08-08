@@ -20,11 +20,11 @@ import { presetBusinessFormConfig as businessPresetSteps } from '@/config/busine
 import { useBusinessCategory } from '@/hooks/useBusinessCategory'
 import {
   BusinessFormProps,
-  BusinessFormState,
   BusinessSubcategoryOption,
   BusinessTitle,
   BusinessType,
   CustomerData,
+  IBusinessFormState,
   isValidBusinessType,
   LocationData,
   RegionsData
@@ -36,7 +36,7 @@ export const BusinessPresetAddForm = ({ business }: BusinessFormProps) => {
 
   const { resetCategoryState } = useBusinessCategory()
 
-  const initialState: BusinessFormState = {
+  const initialState: IBusinessFormState = {
     category: '',
     channels: [],
     customer: {
