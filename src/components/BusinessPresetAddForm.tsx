@@ -1,7 +1,7 @@
 'use client'
 
 import { ChangeEvent, useActionState, useEffect, useState, useTransition } from 'react'
-import { cancelBusinessForm, submitBusinessForm } from '@/app/profile/presets/new/business/actions'
+import { cancelBusinessForm, submitBusinessForm } from '@/actions/business'
 import {
   BusinessCategoryStep,
   BusinessChannelsStep,
