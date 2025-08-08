@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import { loginWithGoogle, signup } from '@/app/actions'
+import { loginWithGoogle, signup } from '@/app/actions/auth'
 import { Button, EmailPasswordForm, LoadingSpinner, Modal, ModalProps, SignupSuccessCard } from '@/components'
 import { routes } from '@/config'
 import { useAuth, useGlobal } from '@/contexts'

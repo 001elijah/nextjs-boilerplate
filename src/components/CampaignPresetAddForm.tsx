@@ -1,7 +1,7 @@
 'use client'
 
 import { useActionState, useTransition } from 'react'
-import { cancelCampaignForm, submitCampaignForm } from '@/app/profile/presets/new/campaign/actions'
+import { cancelCampaignForm, submitCampaignForm } from '@/app/actions/campaign'
 import { CampaignApproachStep, CampaignChannelsStep, CampaignGoalStep, CampaignPromotionStep, CampaignTemperatureStep, CampaignToneStep } from '@/components'
 import { Button } from '@/components/Button'
 import { campaignFormConfig } from '@/config/campaigns'
