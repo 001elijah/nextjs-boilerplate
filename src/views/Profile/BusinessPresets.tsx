@@ -3,12 +3,12 @@
 import { size } from 'lodash'
 import { Megaphone, Plus } from 'lucide-react'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { getUserBusinesses } from '@/actions/business'
 import { deleteBusiness } from '@/actions/business'
 import { BusinessPresetCard, Button, Container, LoadingSpinner, Section, SectionTitle, toast } from '@/components'
 import { routes } from '@/config'
-import { useAuth } from '@/contexts'
+import { useFetchUserPresets } from '@/hooks/useFetchUserPresets'
 import { IBusinessData } from '@/types'
 
 export interface IBusinessResponseItem extends IBusinessData {
@@ -17,62 +17,31 @@ export interface IBusinessResponseItem extends IBusinessData {
 }
 
 export const BusinessPresets = () => {
-  const { signOut } = useAuth()
-  const [businesses, setBusinesses] = useState<IBusinessResponseItem[]>([])
   const [deletingId, setDeletingId] = useState<null | string>(null)
-  const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const { businesses: fetchedBusinesses, error, needsAuth } = await getUserBusinesses()
+  const fetchBusinessData = useCallback(async () => {
+    const { businesses, error, needsAuth } = await getUserBusinesses()
+    return { data: businesses, error, needsAuth }
+  }, [])
 
-        if (needsAuth) {
-          toast({
-            message: 'You need to be logged in to view your businesses.',
-            title: 'Unauthorized',
-            type: 'error'
-          })
-          setBusinesses(fetchedBusinesses)
-          await signOut()
-          return
-        }
-
-        if (error) {
-          console.error('Error fetching businesses:', error)
-          toast({
-            message: error,
-            title: 'Error Loading Businesses',
-            type: 'error'
-          })
-        } else {
-          setBusinesses(fetchedBusinesses)
-        }
-      } catch (error) {
-        console.error('Failed to fetch businesses:', error)
-        toast({
-          message: 'Something went wrong while loading businesses.',
-          title: 'Error Loading Businesses',
-          type: 'error'
-        })
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchData()
-  }, [signOut])
+  const { data: businesses, loading } = useFetchUserPresets<IBusinessResponseItem>(fetchBusinessData, {
+    errorMessage: 'Something went wrong while loading businesses.',
+    errorTitle: 'Error Loading Businesses',
+    unauthorizedMessage: 'You need to be logged in to view your businesses.',
+    unauthorizedTitle: 'Unauthorized'
+  })
 
   const handleDelete = async (businessId: string) => {
     setDeletingId(businessId)
 
     try {
       await deleteBusiness(businessId)
-
-      const newBusinesses = businesses.filter(c => c.id !== businessId)
-      setBusinesses(newBusinesses)
-    } catch (error) {
-      console.error('Failed to delete business:', error)
+      toast({
+        message: '',
+        title: `Business ${businessId} Deleted Successfully.`,
+        type: 'success'
+      })
+    } catch {
       toast({
         message: 'Something went wrong.',
         title: 'Error Deleting Business',
@@ -124,9 +93,11 @@ export const BusinessPresets = () => {
             </p>
           </div>
         ) : (
-          businesses.map((presetData, index) => (
-            <BusinessPresetCard businessPresetData={presetData} deletingId={deletingId} key={index} onDelete={handleDelete} />
-          ))
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+            {businesses.map((presetData, index) => (
+              <BusinessPresetCard businessPresetData={presetData} deletingId={deletingId} key={index} onDelete={handleDelete} />
+            ))}
+          </div>
         )}
       </Container>
     </Section>

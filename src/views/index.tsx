@@ -27,3 +27,7 @@ export * from './Profile/CreateCampaignPreset'
 export * from './Profile/BusinessPresets'
 export * from './Profile/CreateBusinessPreset'
 // -------------
+
+// Content View
+export * from './Profile/ContentPresets'
+export * from './Profile/CreateContentPreset'

@@ -18,7 +18,8 @@ export const routes = {
     presets: {
       new: {
         business: '/profile/presets/new/business',
-        campaign: '/profile/presets/new/campaign'
+        campaign: '/profile/presets/new/campaign',
+        content: '/profile/presets/new/content'
       },
       root: '/profile/presets'
     },

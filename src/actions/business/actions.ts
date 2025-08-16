@@ -70,6 +70,7 @@ export const deleteBusiness = async (businessId: string) => {
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred'
     console.error('Business deletion error:', errorMessage)
+    throw error
   } finally {
     revalidatePath(routes.profile.presets.root)
   }

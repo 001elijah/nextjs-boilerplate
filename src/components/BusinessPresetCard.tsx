@@ -4,8 +4,8 @@ import { IBusinessResponseItem } from '@/views'
 
 interface BusinessPresetCardProps {
   businessPresetData: IBusinessResponseItem
-  deletingId: null | string
-  onDelete: (businessId: string) => void
+  deletingId?: null | string
+  onDelete?: (businessId: string) => void
 }
 
 export const BusinessPresetCard = ({ businessPresetData, deletingId, onDelete }: BusinessPresetCardProps) => {
@@ -50,17 +50,19 @@ export const BusinessPresetCard = ({ businessPresetData, deletingId, onDelete }:
           <span>Language: {language}</span>
         </div>
       </div>
-      <div className="mt-auto flex w-full gap-4 pt-4">
-        <Button
-          className="shrink-0 hover:bg-destructive/10"
-          disabled={deletingId === businessPresetData.id}
-          onClick={() => onDelete(businessPresetData.id)}
-          size="icon"
-          variant="ghost"
-        >
-          <Trash2 className="size-4 text-destructive/80" />
-        </Button>
-      </div>
+      {onDelete && (
+        <div className="mt-auto flex w-full gap-4 pt-4">
+          <Button
+            className="shrink-0 hover:bg-destructive/10"
+            disabled={deletingId === businessPresetData.id}
+            onClick={() => onDelete(businessPresetData.id)}
+            size="icon"
+            variant="ghost"
+          >
+            <Trash2 className="size-4 text-destructive/80" />
+          </Button>
+        </div>
+      )}
     </CardBorder>
   )
 }
