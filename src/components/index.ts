@@ -88,6 +88,10 @@ export * from './CallToActionCard'
 export * from './CompanyLogoCard'
 // -------------
 
+// Profile |- Content Presets
+export * from './ContentPresetCard'
+// -------------
+
 // Profile |- Business Presets
 export * from './BusinessPresetCard'
 export * from './PresetTypeBadge'

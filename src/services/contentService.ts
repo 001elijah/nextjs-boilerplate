@@ -1,5 +1,5 @@
 import { IBusinessData, ICampaignData, IContentData, IContentFormState } from '@/types'
-import { createServerSupabaseClient } from '@/utils/supabase/server'
+import { createServerSupabaseClient } from '@/utils/supabase-client/server'
 
 export class ContentService {
   private supabase = createServerSupabaseClient()

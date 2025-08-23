@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { createContext, useContext, useEffect, useState } from 'react'
 import { toast } from '@/components'
 import { routes } from '@/config'
-import { createClient } from '@/utils/supabase/client'
+import { createClient } from '@/utils/supabase-client/client'
 
 interface AuthContextType {
   loading: boolean

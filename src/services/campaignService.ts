@@ -1,5 +1,5 @@
 import { ICampaignFormState } from '@/types'
-import { createServerSupabaseClient } from '@/utils/supabase/server'
+import { createServerSupabaseClient } from '@/utils/supabase-client/server'
 
 export class CampaignService {
   private supabase = createServerSupabaseClient()

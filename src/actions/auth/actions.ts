@@ -4,7 +4,7 @@ import { revalidatePath } from 'next/cache'
 import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { routes } from '@/config'
-import { createServerSupabaseClient } from '@/utils/supabase/server'
+import { createServerSupabaseClient } from '@/utils/supabase-client/server'
 
 export const loginWithGoogle = async () => {
   const supabase = await createServerSupabaseClient()

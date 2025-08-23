@@ -1,4 +1,4 @@
-import { IBusinessData, IBusinessFormState, ICampaignData, ICampaignFormState, IContentFormState } from '@/types'
+import { IAdSetFormState, IBusinessData, IBusinessFormState, ICampaignData, ICampaignFormState, IContentFormState } from '@/types'
 
 interface BusinessFormValidationResult {
   error?: string
@@ -21,6 +21,11 @@ export const createBusinessFormState = (data: IBusinessData, error = ''): IBusin
 })
 
 export const createContentFormState = (data: Omit<IContentFormState, 'error'>, error = ''): IContentFormState => ({
+  ...data,
+  error
+})
+
+export const createAdSetFormState = (data: Omit<IAdSetFormState, 'error'>, error = ''): IAdSetFormState => ({
   ...data,
   error
 })
@@ -54,6 +59,13 @@ export const createEmptyContentFormState = (): IContentFormState => ({
   business_id: '',
   campaign_id: '',
   error: ''
+})
+
+export const createEmptyAdSetFormState = (): IAdSetFormState => ({
+  business_id: '',
+  campaign_id: '',
+  error: '',
+  user_id: ''
 })
 
 export const validateCampaignForm = (data: Omit<ICampaignFormState, 'error'>): CampaignFormValidationResult => {

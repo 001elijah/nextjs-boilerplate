@@ -1,4 +1,5 @@
 export const folderPaths = {
+  DASHBOARD: 'dashboard',
   HOME: 'home',
   PROFILE: 'profile'
 }

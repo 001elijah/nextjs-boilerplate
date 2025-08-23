@@ -12,6 +12,22 @@ yarn dev
 pnpm dev
 # or
 bun dev
+
+colima start
+# or
+docker-compose up
+
+supabase start
+# or
+supabase start -x vector
+#or
+npx supabase start
+#or
+npx supabase start -x vector
+
+#to deploy an edge function with supabase CLI
+supabase functions new hello-world
+supabase functions deploy hello-world
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
