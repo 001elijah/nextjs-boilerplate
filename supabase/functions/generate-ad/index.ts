@@ -80,7 +80,7 @@ Deno.serve(async (req) => {
     let imageBase64 = null;
 
     // Extract text and image from response
-    for (const part of result.response.candidates[0].content.parts) {
+    for (const part of result.candidates[0].content.parts) {
       if (part.text) {
         adText += part.text + '\n';
       }
