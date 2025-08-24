@@ -1,5 +1,7 @@
 'use server'
 
+import { redirect } from 'next/navigation'
+import { routes } from '@/config'
 import { AdService } from '@/services/adService'
 import { IAdSetFormState } from '@/types'
 import { createAdSetFormState, createEmptyAdSetFormState } from '@/utils/formHelpers'
@@ -32,12 +34,13 @@ export const submitAdSetForm = async (previousState: IAdSetFormState, formData: 
   const adService = new AdService()
 
   try {
-    const result = await adService.generateAd(formValues)
-    console.log('Generated ad:', result)
+    await adService.generateAd(formValues)
     return createEmptyAdSetFormState()
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred'
     console.error('Ad set submission error:', errorMessage)
     return createAdSetFormState(formValues, errorMessage)
+  } finally {
+    redirect(routes.history)
   }
 }
