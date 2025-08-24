@@ -12,8 +12,7 @@ import { LoadingSpinner } from '@/components/LoadingSpinner'
 import { PresetStepTitle } from '@/components/PresetStepTitle'
 import { Section } from '@/components/Section'
 import { useFetchUserPresets } from '@/hooks/useFetchUserPresets'
-import { IContentFormState, IContentsProps } from '@/types'
-import { IBusinessResponseItem, ICampaignResponseItem } from '@/views'
+import { IBusinessResponseItem, ICampaignResponseItem, IContentFormState, IContentsProps } from '@/types'
 
 export const ContentPresetAddForm = ({ contents }: IContentsProps) => {
   const [selectedBusinessId, setSelectedBusinessId] = useState<string>('')

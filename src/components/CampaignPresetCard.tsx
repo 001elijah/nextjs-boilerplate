@@ -1,6 +1,6 @@
 import { BarChart, LucideIcon, Megaphone, MessageSquare, Users } from 'lucide-react'
 import { Button, CardBorder, LoadingSpinner } from '@/components'
-import { ICampaignResponseItem } from '@/views'
+import { ICampaignResponseItem } from '@/types'
 
 const Metric = ({ icon: Icon, label, value }: { icon: LucideIcon; label: string; value: string }) => (
   <div className="flex items-center gap-2 text-foreground/80">

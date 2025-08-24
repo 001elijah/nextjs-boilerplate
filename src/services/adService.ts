@@ -1,4 +1,4 @@
-import { IAdSetData, IAdSetResponse } from '@/types'
+import { IAdSetData, IAdSetResponse, IGeneratedAdData } from '@/types'
 import { createServerSupabaseClient } from '@/utils/supabase-client/server'
 
 export class AdService {
@@ -31,5 +31,15 @@ export class AdService {
 
       return data
     }
+  }
+
+  async getUserGeneratedAds(): Promise<IGeneratedAdData[]> {
+    const { data, error } = await (await this.supabase).from('generated_ads').select('*')
+
+    if (error) {
+      throw new Error(error.message)
+    }
+
+    return data
   }
 }

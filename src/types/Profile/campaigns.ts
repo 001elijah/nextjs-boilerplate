@@ -61,6 +61,11 @@ export interface ICampaignData {
   tone: ICampaignFormToneStepValue | string
 }
 
+export interface ICampaignResponseItem extends ICampaignData {
+  id: string
+  user_id: string
+}
+
 export interface ICampaignFormState extends ICampaignData {
   error: string
 }

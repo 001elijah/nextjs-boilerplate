@@ -11,6 +11,22 @@ const ExtractFormData = (formData: FormData): Omit<IAdSetFormState, 'error'> => 
   return { business_id, campaign_id, user_id }
 }
 
+export const getUserGeneratedAds = async () => {
+  const adService = new AdService()
+
+  try {
+    const generatedAds = await adService.getUserGeneratedAds()
+    return { error: null, generatedAds }
+  } catch (error) {
+    console.error('Error fetching user ad sets:', error)
+    return {
+      error: error instanceof Error ? error.message : 'Failed to fetch ad sets',
+      generatedAds: [],
+      needsAuth: false
+    }
+  }
+}
+
 export const submitAdSetForm = async (previousState: IAdSetFormState, formData: FormData): Promise<IAdSetFormState> => {
   const formValues = ExtractFormData(formData)
   const adService = new AdService()

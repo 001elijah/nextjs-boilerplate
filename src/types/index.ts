@@ -1,4 +1,5 @@
 export * from './Dashboard/adGenerator'
+export * from './History/adBrowser'
 export * from './Home/article'
 export * from './Home/beforeAfter'
 export * from './Home/boostYourSocials'

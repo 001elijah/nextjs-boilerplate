@@ -8,6 +8,7 @@ export const routes = {
   },
   createTransformation: '/create-transformation',
   dashboard: '/dashboard',
+  history: '/history',
   home: '/',
   login: '/auth/login',
   profile: {
@@ -32,7 +33,6 @@ export const routes = {
   settings: '/settings',
   signIn: '/sign-in',
   signUp: '/sign-up',
-  stories: '/stories',
   story: (id: string) => `/stories/${id}`,
   storyNew: '/stories/new'
 } as const
@@ -65,7 +65,7 @@ export const navigation = {
       protected: true
     },
     {
-      href: routes.stories,
+      href: routes.history,
       icon: BookOpen,
       label: 'History',
       protected: true

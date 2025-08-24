@@ -9,12 +9,7 @@ import { deleteBusiness } from '@/actions/business'
 import { BusinessPresetCard, Button, Container, LoadingSpinner, Section, SectionTitle, toast } from '@/components'
 import { routes } from '@/config'
 import { useFetchUserPresets } from '@/hooks/useFetchUserPresets'
-import { IBusinessData } from '@/types'
-
-export interface IBusinessResponseItem extends IBusinessData {
-  id: string
-  user_id: string
-}
+import { IBusinessResponseItem } from '@/types'
 
 export const BusinessPresets = () => {
   const [deletingId, setDeletingId] = useState<null | string>(null)

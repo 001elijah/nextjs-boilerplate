@@ -135,3 +135,7 @@ export * from './SubcategoryCustomOption'
 export * from './SubcategoryHeader'
 export * from './SubcategoryPredefinedOption'
 // -------------
+
+// History |- Ad Browser
+export * from './AdCard'
+// -------------

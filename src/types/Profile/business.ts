@@ -91,6 +91,11 @@ export interface IBusinessFormState extends IBusinessData {
   error: string
 }
 
+export interface IBusinessResponseItem extends IBusinessData {
+  id: string
+  user_id: string
+}
+
 export type LanguageData = string
 
 export interface LocationData {

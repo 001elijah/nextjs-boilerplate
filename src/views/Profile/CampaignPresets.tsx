@@ -8,12 +8,7 @@ import { deleteCampaign, getUserCampaigns } from '@/actions/campaign'
 import { Button, CampaignPresetCard, Container, LoadingSpinner, Section, SectionTitle, toast } from '@/components'
 import { routes } from '@/config'
 import { useFetchUserPresets } from '@/hooks/useFetchUserPresets'
-import { ICampaignData } from '@/types'
-
-export interface ICampaignResponseItem extends ICampaignData {
-  id: string
-  user_id: string
-}
+import { ICampaignResponseItem } from '@/types'
 
 export const CampaignPresets = () => {
   const [deletingId, setDeletingId] = useState<null | string>(null)

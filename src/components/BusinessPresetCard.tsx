@@ -1,6 +1,6 @@
 import { Globe, MapPin, Megaphone, Mic, Tag, Trash2 } from 'lucide-react'
 import { Button, CardBorder, PresetTypeBadge } from '@/components'
-import { IBusinessResponseItem } from '@/views'
+import { IBusinessResponseItem } from '@/types'
 
 interface BusinessPresetCardProps {
   businessPresetData: IBusinessResponseItem
