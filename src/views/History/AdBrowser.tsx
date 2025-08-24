@@ -23,7 +23,6 @@ export const AdBrowser = ({ ads: { heading, subheading } }: IAdBrowserProps) => 
     unauthorizedTitle: 'Unauthorized'
   })
 
-  console.log({ generatedAds })
   return (
     <Section ariaLabel="History" className="py-8" id="history">
       <Container>

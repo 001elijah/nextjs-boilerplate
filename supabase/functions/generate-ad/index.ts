@@ -56,6 +56,7 @@ Deno.serve(async (req) => {
          - Speaks directly to the target audience
          - Uses a ${businessData.tone} tone
          - Is suitable for ${businessData.channels.join(', ')} channels
+         - MUST NOT include any introductory phrases or labels like "Ad Text:", "Here is the ad text:", or similar. Provide ONLY the ad text.
 
       2. Create a professional marketing image that:
          - Represents the ${businessData.category} business
