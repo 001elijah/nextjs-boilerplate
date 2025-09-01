@@ -2,6 +2,7 @@ import { BarChart, Gift, Globe, Languages, LucideIcon, MapPin, Megaphone, Messag
 import { Button } from '@/components/Button'
 import { CardBorder } from '@/components/CardBorder'
 import { LoadingSpinner } from '@/components/LoadingSpinner'
+import { cn } from '@/lib/utils'
 import { IContentData } from '@/types'
 
 interface ContentPresetCardProps {
@@ -16,6 +17,19 @@ const Metric = ({ icon: Icon, label, value }: { icon: LucideIcon; label: string;
     <span className="text-sm">
       {label}: <strong className="font-semibold text-foreground">{value}</strong>
     </span>
+  </div>
+)
+
+interface ContentDetailSectionProps {
+  children: React.ReactNode
+  className?: string
+  title: string
+}
+
+const ContentDetailSection = ({ children, className, title }: ContentDetailSectionProps) => (
+  <div className={cn('w-full md:flex-1', className)}>
+    <h4 className="mb-3 text-lg font-semibold text-foreground">{title}</h4>
+    <div className="grid grid-cols-1 gap-3 md:grid-cols-2">{children}</div>
   </div>
 )
 
@@ -35,21 +49,17 @@ export const ContentPresetCard = ({ contentPresetData, deletingKey, onDelete }: 
           </strong>
         </p>
 
-        <div className="w-full">
-          <h4 className="mb-3 text-lg font-semibold text-foreground">Campaign Details</h4>
-          <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+        <div className="flex flex-col gap-4 lg:flex-row">
+          <ContentDetailSection title="Campaign Details">
             <Metric icon={Megaphone} label="Approach" value={contentPresetData.campaigns?.approach || 'N/A'} />
             <Metric icon={BarChart} label="Goal" value={contentPresetData.campaigns?.goal || 'N/A'} />
             <Metric icon={Users} label="Channels" value={contentPresetData.campaigns?.channels?.join(', ') || 'N/A'} />
             <Metric icon={MessageSquare} label="Tone" value={contentPresetData.campaigns?.tone || 'N/A'} />
             <Metric icon={Megaphone} label="Promotion" value={contentPresetData.campaigns?.promotion || 'N/A'} />
             <Metric icon={BarChart} label="Temperature" value={contentPresetData.campaigns?.temperature || 'N/A'} />
-          </div>
-        </div>
+          </ContentDetailSection>
 
-        <div className="w-full pt-4 border-t border-gold/20">
-          <h4 className="mb-3 text-lg font-semibold text-foreground">Business Information</h4>
-          <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+          <ContentDetailSection className="pt-4 border-t lg:pl-4 lg:border-l border-gold/20 lg:border-t-0 lg:pt-0" title="Business Information">
             <Metric icon={Tag} label="Type" value={contentPresetData.businesses?.type || 'N/A'} />
             <Metric icon={Languages} label="Language" value={contentPresetData.businesses?.language || 'N/A'} />
             {contentPresetData.businesses?.location && (
@@ -63,12 +73,11 @@ export const ContentPresetCard = ({ contentPresetData, deletingKey, onDelete }: 
             <Metric icon={MessageSquare} label="Tone" value={contentPresetData.businesses?.tone || 'N/A'} />
             <Metric icon={Globe} label="Regions" value={contentPresetData.businesses?.regions?.join(', ') || 'N/A'} />
             <Metric icon={Gift} label="Promotions" value={contentPresetData.businesses?.promotions?.join(', ') || 'N/A'} />
-          </div>
+          </ContentDetailSection>
+
           {contentPresetData.businesses?.customer && (
-            <div className="mt-4 pt-4 border-t border-gold/20">
-              {' '}
-              {/* Separator for customer profile */}
-              <h5 className="mb-2 text-md font-medium text-foreground/80">Customer Profile:</h5>
+            <div className="w-full pt-4 border-t lg:pl-4 lg:border-l border-gold/20 md:flex-1 lg:border-t-0 lg:pt-0">
+              <h5 className="mb-2 text-lg font-semibold text-foreground">Customer Profile:</h5>
               <p className="text-sm text-foreground/70">
                 <strong>Demographics:</strong> {contentPresetData.businesses.customer.demographics || 'N/A'}
               </p>

@@ -97,7 +97,7 @@ export const AdGenerator = ({ adGenerator }: IAdGeneratorProps) => {
               <label>
                 <PresetStepTitle question={'Pick a content preset for your ad set'} title={'Select a Content Preset'} />
               </label>
-              <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+              <div className="grid grid-cols-1 gap-8">
                 {contents.map((content, index) => (
                   <div
                     className={`
