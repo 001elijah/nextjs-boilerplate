@@ -8,7 +8,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
       <div className="flex flex-col flex-1 overflow-hidden">
         <Header />
         <div className="flex flex-1 overflow-hidden">
-          <Sidebar />
+          <Sidebar defaultCollapsed={false} />
           <div className="flex-1 flex flex-col overflow-hidden">
             <main className="flex-1 overflow-y-auto">{children}</main>
             <Footer />

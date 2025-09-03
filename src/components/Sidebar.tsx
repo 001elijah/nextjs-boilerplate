@@ -18,12 +18,12 @@ export const Sidebar = ({ className, defaultCollapsed = true }: SidebarProps) =>
   const { user } = useAuth()
 
   useEffect(() => {
-    const isProfilePage = pathname.startsWith(routes.profile.root)
+    const isHomePage = pathname === routes.home
     const checkMobile = () => {
       if (isMobile) {
         setIsSidebarCollapsed(true)
       } else {
-        setIsSidebarCollapsed(isProfilePage ? false : defaultCollapsed)
+        setIsSidebarCollapsed(isHomePage ? true : defaultCollapsed)
       }
     }
     checkMobile()
