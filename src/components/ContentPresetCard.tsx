@@ -1,4 +1,7 @@
-import { BarChart, Gift, Globe, Languages, LucideIcon, MapPin, Megaphone, MessageSquare, Tag, Users } from 'lucide-react'
+'use client'
+
+import { BarChart, ChevronDown, ChevronUp, Gift, Globe, Languages, LucideIcon, MapPin, Megaphone, MessageSquare, Tag, Users } from 'lucide-react'
+import { useState } from 'react'
 import { Button } from '@/components/Button'
 import { CardBorder } from '@/components/CardBorder'
 import { LoadingSpinner } from '@/components/LoadingSpinner'
@@ -34,6 +37,10 @@ const ContentDetailSection = ({ children, className, title }: ContentDetailSecti
 )
 
 export const ContentPresetCard = ({ contentPresetData, deletingKey, onDelete }: ContentPresetCardProps) => {
+  const [isFolded, setIsFolded] = useState(true)
+
+  const toggleFold = () => setIsFolded(!isFolded)
+
   return (
     <CardBorder className="items-start border-gold/50 bg-background/30 p-6">
       <div className="flex w-full flex-col gap-4">
@@ -49,47 +56,62 @@ export const ContentPresetCard = ({ contentPresetData, deletingKey, onDelete }: 
           </strong>
         </p>
 
-        <div className="flex flex-col gap-4 lg:flex-row">
-          <ContentDetailSection title="Campaign Details">
-            <Metric icon={Megaphone} label="Approach" value={contentPresetData.campaigns?.approach || 'N/A'} />
-            <Metric icon={BarChart} label="Goal" value={contentPresetData.campaigns?.goal || 'N/A'} />
-            <Metric icon={Users} label="Channels" value={contentPresetData.campaigns?.channels?.join(', ') || 'N/A'} />
-            <Metric icon={MessageSquare} label="Tone" value={contentPresetData.campaigns?.tone || 'N/A'} />
-            <Metric icon={Megaphone} label="Promotion" value={contentPresetData.campaigns?.promotion || 'N/A'} />
-            <Metric icon={BarChart} label="Temperature" value={contentPresetData.campaigns?.temperature || 'N/A'} />
-          </ContentDetailSection>
+        <div className={cn('overflow-hidden transition-all duration-300 ease-in-out', isFolded ? 'max-h-0 opacity-0' : 'max-h-[1000px] opacity-100 pt-4')}>
+          <div className="flex flex-col gap-4 lg:flex-row">
+            <ContentDetailSection title="Campaign Details">
+              <Metric icon={Megaphone} label="Approach" value={contentPresetData.campaigns?.approach || 'N/A'} />
+              <Metric icon={BarChart} label="Goal" value={contentPresetData.campaigns?.goal || 'N/A'} />
+              <Metric icon={Users} label="Channels" value={contentPresetData.campaigns?.channels?.join(', ') || 'N/A'} />
+              <Metric icon={MessageSquare} label="Tone" value={contentPresetData.campaigns?.tone || 'N/A'} />
+              <Metric icon={Megaphone} label="Promotion" value={contentPresetData.campaigns?.promotion || 'N/A'} />
+              <Metric icon={BarChart} label="Temperature" value={contentPresetData.campaigns?.temperature || 'N/A'} />
+            </ContentDetailSection>
 
-          <ContentDetailSection className="pt-4 border-t lg:pl-4 lg:border-l border-gold/20 lg:border-t-0 lg:pt-0" title="Business Information">
-            <Metric icon={Tag} label="Type" value={contentPresetData.businesses?.type || 'N/A'} />
-            <Metric icon={Languages} label="Language" value={contentPresetData.businesses?.language || 'N/A'} />
-            {contentPresetData.businesses?.location && (
-              <Metric
-                icon={MapPin}
-                label="Location"
-                value={`${contentPresetData.businesses.location.city}, ${contentPresetData.businesses.location.state}, ${contentPresetData.businesses.location.country}`}
-              />
+            <ContentDetailSection className="border-t pt-4 lg:border-l lg:border-t-0 lg:pl-4 lg:pt-0 border-gold/20" title="Business Information">
+              <Metric icon={Tag} label="Type" value={contentPresetData.businesses?.type || 'N/A'} />
+              <Metric icon={Languages} label="Language" value={contentPresetData.businesses?.language || 'N/A'} />
+              {contentPresetData.businesses?.location && (
+                <Metric
+                  icon={MapPin}
+                  label="Location"
+                  value={`${contentPresetData.businesses.location.city}, ${contentPresetData.businesses.location.state}, ${contentPresetData.businesses.location.country}`}
+                />
+              )}
+              <Metric icon={Users} label="Channels" value={contentPresetData.businesses?.channels?.join(', ') || 'N/A'} />
+              <Metric icon={MessageSquare} label="Tone" value={contentPresetData.businesses?.tone || 'N/A'} />
+              <Metric icon={Globe} label="Regions" value={contentPresetData.businesses?.regions?.join(', ') || 'N/A'} />
+              <Metric icon={Gift} label="Promotions" value={contentPresetData.businesses?.promotions?.join(', ') || 'N/A'} />
+            </ContentDetailSection>
+
+            {contentPresetData.businesses?.customer && (
+              <div className="w-full border-t pt-4 md:flex-1 lg:border-l lg:border-t-0 lg:pl-4 lg:pt-0 border-gold/20">
+                <h5 className="mb-2 text-lg font-semibold text-foreground">Customer Profile:</h5>
+                <p className="text-sm text-foreground/70">
+                  <strong>Demographics:</strong> {contentPresetData.businesses.customer.demographics || 'N/A'}
+                </p>
+                <p className="text-sm text-foreground/70">
+                  <strong>Professional Type:</strong> {contentPresetData.businesses.customer.professionalType || 'N/A'}
+                </p>
+                <p className="text-sm text-foreground/70">
+                  <strong>Pain Point:</strong> {contentPresetData.businesses.customer.painPoint || 'N/A'}
+                </p>
+              </div>
             )}
-            <Metric icon={Users} label="Channels" value={contentPresetData.businesses?.channels?.join(', ') || 'N/A'} />
-            <Metric icon={MessageSquare} label="Tone" value={contentPresetData.businesses?.tone || 'N/A'} />
-            <Metric icon={Globe} label="Regions" value={contentPresetData.businesses?.regions?.join(', ') || 'N/A'} />
-            <Metric icon={Gift} label="Promotions" value={contentPresetData.businesses?.promotions?.join(', ') || 'N/A'} />
-          </ContentDetailSection>
-
-          {contentPresetData.businesses?.customer && (
-            <div className="w-full pt-4 border-t lg:pl-4 lg:border-l border-gold/20 md:flex-1 lg:border-t-0 lg:pt-0">
-              <h5 className="mb-2 text-lg font-semibold text-foreground">Customer Profile:</h5>
-              <p className="text-sm text-foreground/70">
-                <strong>Demographics:</strong> {contentPresetData.businesses.customer.demographics || 'N/A'}
-              </p>
-              <p className="text-sm text-foreground/70">
-                <strong>Professional Type:</strong> {contentPresetData.businesses.customer.professionalType || 'N/A'}
-              </p>
-              <p className="text-sm text-foreground/70">
-                <strong>Pain Point:</strong> {contentPresetData.businesses.customer.painPoint || 'N/A'}
-              </p>
-            </div>
-          )}
+          </div>
         </div>
+
+        <Button className="w-fit" onClick={toggleFold} size="sm" type="button" variant="ghost">
+          {isFolded ? (
+            <>
+              <ChevronDown className="mr-2 size-4" /> Show Details
+            </>
+          ) : (
+            <>
+              <ChevronUp className="mr-2 size-4" /> Hide Details
+            </>
+          )}
+        </Button>
+
         {onDelete && (
           <div className="mt-6 flex w-full gap-4">
             <Button
