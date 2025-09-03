@@ -3,9 +3,9 @@
 import { size } from 'lodash'
 import { Megaphone } from 'lucide-react'
 import Link from 'next/link'
-import { useActionState, useCallback, useEffect, useState, useTransition } from 'react' // Import useEffect
+import { useActionState, useCallback, useEffect, useState } from 'react'
 import { submitAdSetForm } from '@/actions/ad'
-import { cancelContentForm, getUserContents } from '@/actions/content'
+import { getUserContents } from '@/actions/content'
 import { Button, Container, ContentPresetCard, LoadingSpinner, PresetStepTitle, Section } from '@/components'
 import { routes } from '@/config'
 import { useAuth } from '@/contexts'
@@ -13,10 +13,10 @@ import { useFetchUserPresets } from '@/hooks/useFetchUserPresets'
 import { IAdGeneratorProps, IAdSetFormState, IContentData } from '@/types'
 
 export const AdGenerator = ({ adGenerator }: IAdGeneratorProps) => {
-  const { cancelButtonText, cancelTransitionButtonText, submitButtonText, submitPendingButtonText } = adGenerator
+  const { submitButtonText, submitPendingButtonText } = adGenerator
   const [selectedContentKey, setSelectedContentKey] = useState<null | string>(null)
-  const [businessId, setBusinessId] = useState<null | string>(null) // State for businessId
-  const [campaignId, setCampaignId] = useState<null | string>(null) // State for campaignId
+  const [businessId, setBusinessId] = useState<null | string>(null)
+  const [campaignId, setCampaignId] = useState<null | string>(null)
 
   const fetchContentData = useCallback(async () => {
     const { contents, error, needsAuth } = await getUserContents()
@@ -45,18 +45,11 @@ export const AdGenerator = ({ adGenerator }: IAdGeneratorProps) => {
   }, [selectedContentKey])
 
   const userId = user?.identities?.[0]?.user_id || null
-  const [isPending, startTransition] = useTransition()
   const initialState: IAdSetFormState = {
     business_id: '',
     campaign_id: '',
     error: '',
     user_id: userId || ''
-  }
-
-  const handleCancel = () => {
-    startTransition(async () => {
-      await cancelContentForm()
-    })
   }
 
   const [state, action, isLoading] = useActionState(submitAdSetForm, initialState)
@@ -74,9 +67,9 @@ export const AdGenerator = ({ adGenerator }: IAdGeneratorProps) => {
   }
 
   return (
-    <Container>
-      <form action={action} className="w-full">
-        <div className="w-full max-w-3xl mx-auto space-y-6">
+    <Section ariaLabel="AdGenerator" className="py-8" id="adGenerator">
+      <Container>
+        <form action={action} className="flex flex-col gap-4">
           {size(contents) === 0 ? (
             <div className="flex flex-col items-center justify-center p-8 text-center text-foreground/60">
               <Megaphone className="mb-4 size-16 text-gold" />
@@ -100,10 +93,9 @@ export const AdGenerator = ({ adGenerator }: IAdGeneratorProps) => {
               <div className="grid grid-cols-1 gap-8">
                 {contents.map((content, index) => (
                   <div
-                    className={`
-                  p-1 cursor-pointer rounded-lg transition-all duration-200 ease-in-out hover:shadow-lg hover:shadow-primary/20
-                  ${selectedContentKey === `${content.business_id}-${content.campaign_id}` ? 'ring-2 ring-primary' : 'border-2 border-transparent'}
-                `}
+                    className={`p-1 cursor-pointer rounded-lg transition-all duration-200 ease-in-out hover:shadow-lg hover:shadow-primary/20
+                        ${selectedContentKey === `${content.business_id}-${content.campaign_id}` ? 'ring-2 ring-primary' : 'border-2 border-transparent'}
+                      `}
                     key={index}
                     onClick={() => setSelectedContentKey(`${content.business_id}-${content.campaign_id}`)}
                   >
@@ -113,24 +105,20 @@ export const AdGenerator = ({ adGenerator }: IAdGeneratorProps) => {
               </div>
             </div>
           )}
-        </div>
 
-        {/* Action Buttons */}
-        <Button disabled={isLoading || !selectedContentKey} type="submit">
-          {isLoading ? submitPendingButtonText : submitButtonText}
-        </Button>
+          {/* Action Buttons */}
+          <Button disabled={isLoading || !selectedContentKey} type="submit">
+            {isLoading ? submitPendingButtonText : submitButtonText}
+          </Button>
 
-        <Button className="text-muted-foreground hover:text-foreground" disabled={isPending} onClick={handleCancel} type="button" variant="ghost">
-          {isPending ? cancelTransitionButtonText : cancelButtonText}
-        </Button>
+          {/* Error Display */}
+          {state?.error && <p className="text-red-500 text-sm mt-2">{state.error}</p>}
 
-        {/* Error Display */}
-        {state?.error && <p className="text-red-500 text-sm mt-2">{state.error}</p>}
-
-        <input name="business_id" type="hidden" value={businessId || ''} />
-        <input name="campaign_id" type="hidden" value={campaignId || ''} />
-        <input name="user_id" type="hidden" value={userId || ''} />
-      </form>
-    </Container>
+          <input name="business_id" type="hidden" value={businessId || ''} />
+          <input name="campaign_id" type="hidden" value={campaignId || ''} />
+          <input name="user_id" type="hidden" value={userId || ''} />
+        </form>
+      </Container>
+    </Section>
   )
 }
