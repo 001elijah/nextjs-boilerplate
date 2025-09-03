@@ -35,6 +35,12 @@ export async function updateSession(request: NextRequest) {
 
   const currentPath = request.nextUrl.pathname
 
+  if (user && currentPath === routes.home) {
+    const url = request.nextUrl.clone()
+    url.pathname = routes.dashboard
+    return NextResponse.redirect(url)
+  }
+
   if (!user && !currentPath.startsWith(routes.home)) {
     // no user, potentially respond by redirecting the user to the login page
     const url = request.nextUrl.clone()
