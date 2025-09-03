@@ -1,7 +1,6 @@
-import { BookOpen, ChevronLeft, LayoutDashboard, Plus, Settings, User } from 'lucide-react'
+import { BookOpen, ChevronLeft, LayoutDashboard, Settings, User } from 'lucide-react'
 
 export const routes = {
-  advertisement: (id: string) => `/advertisement/${id}`,
   auth: {
     callback: '/auth/callback',
     confirm: '/auth/confirm'
@@ -12,10 +11,6 @@ export const routes = {
   home: '/',
   login: '/auth/login',
   profile: {
-    content: {
-      generate: '/profile/content/generate',
-      root: '/profile/content'
-    },
     presets: {
       new: {
         business: '/profile/presets/new/business',
@@ -30,11 +25,8 @@ export const routes = {
     socials: '/profile/socials',
     subscriptions: '/profile/subscriptions'
   },
-  settings: '/settings',
   signIn: '/sign-in',
-  signUp: '/sign-up',
-  story: (id: string) => `/stories/${id}`,
-  storyNew: '/stories/new'
+  signUp: '/sign-up'
 } as const
 
 // Type for all possible routes
@@ -45,19 +37,13 @@ export type AppRoute =
 
 // Type guard to check if a route requires authentication
 export const isProtectedRoute = (route: string): boolean => {
-  return route === routes.dashboard || route.startsWith(routes.profile.root) || route === routes.settings
+  return route === routes.dashboard || route.startsWith(routes.profile.root) || route === routes.profile.settings
 }
 
 export type Route = (typeof routes)[keyof typeof routes]
 
 export const navigation = {
   main: [
-    {
-      href: routes.home,
-      icon: Plus,
-      label: 'Try a new Ad generation',
-      protected: true
-    },
     {
       href: routes.dashboard,
       icon: LayoutDashboard,
@@ -71,7 +57,7 @@ export const navigation = {
       protected: true
     },
     {
-      href: routes.profile.settings,
+      href: routes.profile.presets.root,
       icon: User,
       label: 'Profile',
       protected: true
@@ -81,7 +67,6 @@ export const navigation = {
     { href: routes.dashboard, icon: ChevronLeft, label: 'Back to Dashboard' },
     { href: '', icon: undefined, label: '' },
     { href: routes.profile.settings, icon: Settings, label: 'Profile settings' },
-    { href: routes.profile.content.root, icon: Plus, label: 'Content generation' },
     { href: routes.profile.presets.root, icon: LayoutDashboard, label: 'Profile presets' },
     { href: routes.profile.socials, icon: User, label: 'Socials' },
     { href: routes.profile.subscriptions, icon: BookOpen, label: 'Subscriptions' },
@@ -94,7 +79,7 @@ export const navigation = {
       label: 'Profile'
     },
     {
-      href: routes.settings,
+      href: routes.profile.settings,
       icon: Settings,
       label: 'Settings'
     }
