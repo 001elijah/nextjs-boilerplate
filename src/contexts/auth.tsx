@@ -1,9 +1,7 @@
 'use client'
 
 import { User } from '@supabase/supabase-js'
-import { useRouter } from 'next/navigation'
 import { createContext, useContext, useEffect, useState } from 'react'
-import { toast } from '@/components'
 import { routes } from '@/config'
 import { createClient } from '@/utils/supabase-client/client'
 
@@ -32,7 +30,6 @@ const supabase = createClient()
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<null | User>(null)
   const [loading, setLoading] = useState(true)
-  const router = useRouter()
 
   useEffect(() => {
     // Check active sessions and sets the user
@@ -87,13 +84,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const signOut = async () => {
     const { error } = await supabase.auth.signOut()
     if (error) console.error('Error signing out:', error.message)
-
-    toast({
-      message: 'You have been successfully logged out',
-      title: 'Logged Out',
-      type: 'success'
-    })
-    router.push(routes.home)
+    window.location.replace(routes.home)
   }
 
   return <AuthContext.Provider value={{ loading, loginWithEmail, signIn, signOut, signUp, user }}>{children}</AuthContext.Provider>
