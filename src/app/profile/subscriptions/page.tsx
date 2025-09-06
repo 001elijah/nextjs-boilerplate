@@ -1,9 +1,8 @@
 'use client'
 
 import { ArrowDownToLine, CheckCircle, CreditCard, RefreshCw, XCircle } from 'lucide-react'
-import { useEffect, useState } from 'react'
-import { Button, CardBorder, Container, Modal, PricingCard, Section, SectionTitle } from '@/components'
-import { pricingCards } from '@/views'
+import { Button, CardBorder, Container, PricingModal, Section, SectionTitle } from '@/components'
+import { useModalClose } from '@/hooks/useModalClose'
 
 const currentPlan = {
   description: 'Perfect for medium businesses',
@@ -20,24 +19,7 @@ const billingHistory = [
 ]
 
 export default function SubscriptionsPage() {
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const openModal = () => setIsModalOpen(true)
-  const closeModal = () => setIsModalOpen(false)
-  useEffect(() => {
-    const handleEscapeKey = (e: KeyboardEvent | React.KeyboardEvent) => {
-      if (e.key === 'Escape' && isModalOpen) {
-        closeModal()
-      }
-    }
-
-    if (isModalOpen) {
-      document.addEventListener('keydown', handleEscapeKey)
-    }
-
-    return () => {
-      document.removeEventListener('keydown', handleEscapeKey)
-    }
-  }, [isModalOpen])
+  const { closeModal, isModalOpen, openModal } = useModalClose()
   return (
     <Section ariaLabel="Subscriptions" className="pb-0 md:pb-0 lg:pb-0" id="subscriptions">
       <Container>
@@ -115,14 +97,13 @@ export default function SubscriptionsPage() {
           </div>
         </div>
       </Container>
-      <Modal isOpen={isModalOpen} onOpenChange={closeModal} title={'Available plans'} withCloseButton>
-        <p className="mb-4">{'Select the plan that fits your needs'}</p>
-        <div className="overflow-auto max-h-[calc(80vh-220px)] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {pricingCards.map((card, index) => (
-            <PricingCard buttonText={'Upgrade'} description={card.description} key={index} price={card.price} />
-          ))}
-        </div>
-      </Modal>
+      <PricingModal
+        actionText={'Upgrade'}
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        prompt={'Select the plan that fits your needs'}
+        title={'Available plans'}
+      />
     </Section>
   )
 }

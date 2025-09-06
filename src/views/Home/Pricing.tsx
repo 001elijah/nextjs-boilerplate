@@ -1,49 +1,11 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { Button, Container, Modal, PricingCard, Section } from '@/components'
+import { Button, Container, PricingModal, Section } from '@/components'
+import { useModalClose } from '@/hooks/useModalClose'
 import { PricingProps } from '@/types'
 
-export const pricingCards = [
-  {
-    description: 'Perfect for small businesses',
-    price: 40
-  },
-  {
-    description: 'Perfect for medium businesses',
-    price: 70
-  },
-  {
-    description: 'Perfect for large businesses',
-    price: 120
-  },
-  {
-    description: 'Perfect for startups',
-    price: 240
-  }
-]
-
 export const Pricing = ({ pricing }: PricingProps) => {
-  const [isModalOpen, setIsModalOpen] = useState(false)
-
-  const openModal = () => setIsModalOpen(true)
-  const closeModal = () => setIsModalOpen(false)
-
-  useEffect(() => {
-    const handleEscapeKey = (e: KeyboardEvent | React.KeyboardEvent) => {
-      if (e.key === 'Escape' && isModalOpen) {
-        closeModal()
-      }
-    }
-
-    if (isModalOpen) {
-      document.addEventListener('keydown', handleEscapeKey)
-    }
-
-    return () => {
-      document.removeEventListener('keydown', handleEscapeKey)
-    }
-  }, [isModalOpen])
+  const { closeModal, isModalOpen, openModal } = useModalClose()
 
   return (
     <>
@@ -60,14 +22,13 @@ export const Pricing = ({ pricing }: PricingProps) => {
             </div>
           </Container>
 
-          <Modal isOpen={isModalOpen} onOpenChange={closeModal} title={pricing?.modalHeading} withCloseButton>
-            <p className="mb-4">{pricing?.modalPrompt}</p>
-            <div className="overflow-auto max-h-[calc(80vh-220px)] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {pricingCards.map((card, index) => (
-                <PricingCard buttonText={pricing?.modalAction} description={card.description} key={index} price={card.price} />
-              ))}
-            </div>
-          </Modal>
+          <PricingModal
+            actionText={pricing?.modalAction}
+            isOpen={isModalOpen}
+            onClose={closeModal}
+            prompt={pricing?.modalPrompt}
+            title={pricing?.modalHeading}
+          />
         </Section>
       )}
     </>

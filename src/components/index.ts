@@ -52,6 +52,7 @@ export * from './CaseInfo'
 
 // Pricing
 export * from './PricingCard'
+export * from './PricingModal'
 // -------------
 
 // Quiz
