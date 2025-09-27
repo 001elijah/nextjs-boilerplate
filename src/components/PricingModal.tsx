@@ -1,28 +1,26 @@
 'use client'
 
+import { PostgrestError } from '@supabase/supabase-js'
 import { useState } from 'react'
-import { AuthModal } from '@/components/AuthModal'
 import { Modal } from '@/components/Modal'
 import { PricingCard } from '@/components/PricingCard'
-import { Tables } from '@/types/database.types'
-import { PostgrestError } from '@supabase/supabase-js'
 import { toast } from '@/components/Toast'
-import { useAuth } from '@/contexts'
+import { Tables } from '@/types/database.types'
 
 interface PricingModalProps {
-  onAction: () => void
+  actionText?: string
   isOpen: boolean
+  onAction: () => void
   onClose: () => void
   prices: Record<string, Partial<Record<'month' | 'year', Tables<{ schema: 'stripe' }, 'prices'>>>>
-  products: Tables<{ schema: 'stripe' }, 'products'>[]
   pricesError: null | PostgrestError
+  products: Tables<{ schema: 'stripe' }, 'products'>[]
   productsError: null | PostgrestError
-  actionText?: string
   prompt?: string
   title?: string
 }
 
-export const PricingModal = ({ onAction, isOpen, onClose, prices, products, pricesError, productsError, actionText, prompt, title }: PricingModalProps) => {
+export const PricingModal = ({ actionText, isOpen, onAction, onClose, prices, pricesError, products, productsError, prompt, title }: PricingModalProps) => {
   const [billingPeriod, setBillingPeriod] = useState<'month' | 'year'>('month')
   const isMonthly = billingPeriod === 'month'
 
@@ -59,14 +57,7 @@ export const PricingModal = ({ onAction, isOpen, onClose, prices, products, pric
           const currentPrice = productPrices[billingPeriod]
 
           return (
-            <PricingCard
-              actionText={actionText}
-              billingPeriod={billingPeriod}
-              key={product.id}
-              onAction={onAction}
-              price={currentPrice}
-              product={product}
-            />
+            <PricingCard actionText={actionText} billingPeriod={billingPeriod} key={product.id} onAction={onAction} price={currentPrice} product={product} />
           )
         })}
       </div>

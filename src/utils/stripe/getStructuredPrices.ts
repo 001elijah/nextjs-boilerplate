@@ -2,7 +2,7 @@ import { Tables } from '@/types/database.types'
 
 export type StructuredPrices = Record<string, Partial<Record<'month' | 'year', Tables<{ schema: 'stripe' }, 'prices'>>>>
 
-export const getStructuredPrices = (prices: Tables<{ schema: 'stripe' }, 'prices'>[] | null): StructuredPrices => {
+export const getStructuredPrices = (prices: null | Tables<{ schema: 'stripe' }, 'prices'>[]): StructuredPrices => {
   if (!prices) {
     return {}
   }

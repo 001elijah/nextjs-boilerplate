@@ -1,12 +1,12 @@
 'use client'
 
 import { PostgrestError } from '@supabase/supabase-js'
-import { AuthModal, Button, Container, PricingModal, Section, toast } from '@/components'
+import { useState } from 'react'
+import { AuthModal, Button, Container, PricingModal, Section } from '@/components'
 import { useModalClose } from '@/hooks/useModalClose'
 import { PricingProps } from '@/types'
 import { Tables } from '@/types/database.types'
 import { getStructuredPrices, StructuredPrices } from '@/utils/stripe/getStructuredPrices'
-import { useState } from 'react'
 
 interface ExtendedPricingProps extends PricingProps {
   prices: Tables<{ schema: 'stripe' }, 'prices'>[]
@@ -36,16 +36,16 @@ export const Pricing = ({ prices, pricesError, pricing, products, productsError 
           </Container>
 
           <PricingModal
-            onAction={() => setIsAuthModalOpen(true)}
             actionText={pricing?.modalAction}
             isOpen={isModalOpen}
+            onAction={() => setIsAuthModalOpen(true)}
             onClose={closeModal}
             prices={structuredPrices}
+            pricesError={pricesError}
             products={products}
+            productsError={productsError}
             prompt={pricing?.modalPrompt}
             title={pricing?.modalHeading}
-            pricesError={pricesError}
-            productsError={productsError}
           />
         </Section>
       )}

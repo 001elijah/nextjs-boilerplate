@@ -1,12 +1,12 @@
 'use client'
 
+import { PostgrestError } from '@supabase/supabase-js'
 import { ArrowDownToLine, CheckCircle, CreditCard, RefreshCw, XCircle } from 'lucide-react'
 import { Button, CardBorder, Container, PricingModal, Section, SectionTitle, toast } from '@/components'
 import { useModalClose } from '@/hooks/useModalClose'
-import { getStructuredPrices, StructuredPrices } from '@/utils/stripe/getStructuredPrices'
 import { PricingProps } from '@/types'
 import { Tables } from '@/types/database.types'
-import { PostgrestError } from '@supabase/supabase-js'
+import { getStructuredPrices, StructuredPrices } from '@/utils/stripe/getStructuredPrices'
 
 const currentPlan = {
   description: 'Perfect for medium businesses',
@@ -29,7 +29,7 @@ interface ExtendedPricingProps extends PricingProps {
   productsError: null | PostgrestError
 }
 
-export const Subscriptions = ({ products, productsError, prices, pricesError }: ExtendedPricingProps) => {
+export const Subscriptions = ({ prices, pricesError, products, productsError }: ExtendedPricingProps) => {
   const { closeModal, isModalOpen, openModal } = useModalClose()
   const structuredPrices: StructuredPrices = getStructuredPrices(prices)
   return (
@@ -110,20 +110,22 @@ export const Subscriptions = ({ products, productsError, prices, pricesError }: 
         </div>
       </Container>
       <PricingModal
-        onAction={() => toast({
-          message: '',
-          title: `Sending purchase intent...`,
-          type: 'success'
-        })}
         actionText={'Upgrade'}
         isOpen={isModalOpen}
+        onAction={() =>
+          toast({
+            message: '',
+            title: `Sending purchase intent...`,
+            type: 'success'
+          })
+        }
         onClose={closeModal}
         prices={structuredPrices}
+        pricesError={pricesError}
         products={products!}
+        productsError={productsError}
         prompt={'Select the plan that fits your needs'}
         title={'Available plans'}
-        productsError={productsError}
-        pricesError={pricesError}
       />
     </Section>
   )

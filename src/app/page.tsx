@@ -2,6 +2,7 @@
 // @ts-nocheck
 import { getDataAction } from '@/lib/getDataAction'
 import { folderPaths } from '@/utils/folderPaths'
+import { getStripeProductsAndPrices } from '@/utils/stripe/getStripeProductsAndPrices'
 import {
   Article,
   BeforeAfter,
@@ -17,10 +18,9 @@ import {
   TrustBlock,
   WhyChooseUs
 } from '@/views'
-import { getStripeProductsAndPrices } from '@/utils/stripe/getStripeProductsAndPrices'
 
 export default async function Home() {
-  const { products, productsError, prices, pricesError } = await getStripeProductsAndPrices()
+  const { prices, pricesError, products, productsError } = await getStripeProductsAndPrices()
 
   const { HOME } = folderPaths
   const {
