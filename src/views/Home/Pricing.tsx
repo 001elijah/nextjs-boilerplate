@@ -1,10 +1,12 @@
 'use client'
 
 import { PostgrestError } from '@supabase/supabase-js'
-import { Button, Container, PricingModal, Section, toast } from '@/components'
+import { AuthModal, Button, Container, PricingModal, Section, toast } from '@/components'
 import { useModalClose } from '@/hooks/useModalClose'
 import { PricingProps } from '@/types'
 import { Tables } from '@/types/database.types'
+import { getStructuredPrices, StructuredPrices } from '@/utils/stripe/getStructuredPrices'
+import { useState } from 'react'
 
 interface ExtendedPricingProps extends PricingProps {
   prices: Tables<{ schema: 'stripe' }, 'prices'>[]
@@ -13,39 +15,11 @@ interface ExtendedPricingProps extends PricingProps {
   productsError: null | PostgrestError
 }
 
-type StructuredPrices = Record<string, Partial<Record<'month' | 'year', Tables<{ schema: 'stripe' }, 'prices'>>>>
-
 export const Pricing = ({ prices, pricesError, pricing, products, productsError }: ExtendedPricingProps) => {
   const { closeModal, isModalOpen, openModal } = useModalClose()
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
 
-  if (productsError || pricesError) {
-    toast({
-      message: 'Failed to load products or prices.',
-      title: 'Error',
-      type: 'error'
-    })
-  }
-
-  const structuredPrices: StructuredPrices = prices.reduce((acc, price) => {
-    if (
-      price.type === 'recurring' &&
-      price?.attrs &&
-      typeof price.attrs === 'object' &&
-      'recurring' in price.attrs &&
-      (price.attrs as any).recurring?.interval &&
-      price.product !== null
-    ) {
-      const interval = (price.attrs as any).recurring.interval as 'month' | 'year'
-      acc[price.product] = {
-        ...(acc[price.product] || {}),
-        [interval]: price
-      }
-    }
-    return acc
-  }, {} as StructuredPrices)
-
-  console.log({ products })
-  console.log({ prices })
+  const structuredPrices: StructuredPrices = getStructuredPrices(prices)
   return (
     <>
       {pricing && (
@@ -62,6 +36,7 @@ export const Pricing = ({ prices, pricesError, pricing, products, productsError 
           </Container>
 
           <PricingModal
+            onAction={() => setIsAuthModalOpen(true)}
             actionText={pricing?.modalAction}
             isOpen={isModalOpen}
             onClose={closeModal}
@@ -69,9 +44,12 @@ export const Pricing = ({ prices, pricesError, pricing, products, productsError 
             products={products}
             prompt={pricing?.modalPrompt}
             title={pricing?.modalHeading}
+            pricesError={pricesError}
+            productsError={productsError}
           />
         </Section>
       )}
+      <AuthModal isOpen={isAuthModalOpen} onOpenChange={setIsAuthModalOpen} />
     </>
   )
 }

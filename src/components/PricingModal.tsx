@@ -5,21 +5,34 @@ import { AuthModal } from '@/components/AuthModal'
 import { Modal } from '@/components/Modal'
 import { PricingCard } from '@/components/PricingCard'
 import { Tables } from '@/types/database.types'
+import { PostgrestError } from '@supabase/supabase-js'
+import { toast } from '@/components/Toast'
+import { useAuth } from '@/contexts'
 
 interface PricingModalProps {
-  actionText?: string
+  onAction: () => void
   isOpen: boolean
   onClose: () => void
   prices: Record<string, Partial<Record<'month' | 'year', Tables<{ schema: 'stripe' }, 'prices'>>>>
   products: Tables<{ schema: 'stripe' }, 'products'>[]
+  pricesError: null | PostgrestError
+  productsError: null | PostgrestError
+  actionText?: string
   prompt?: string
   title?: string
 }
 
-export const PricingModal = ({ actionText, isOpen, onClose, prices, products, prompt, title }: PricingModalProps) => {
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
+export const PricingModal = ({ onAction, isOpen, onClose, prices, products, pricesError, productsError, actionText, prompt, title }: PricingModalProps) => {
   const [billingPeriod, setBillingPeriod] = useState<'month' | 'year'>('month')
   const isMonthly = billingPeriod === 'month'
+
+  if (productsError || pricesError) {
+    toast({
+      message: 'Failed to load products or prices.',
+      title: 'Error',
+      type: 'error'
+    })
+  }
 
   const togglePeriod = () => {
     setBillingPeriod(isMonthly ? 'year' : 'month')
@@ -50,14 +63,13 @@ export const PricingModal = ({ actionText, isOpen, onClose, prices, products, pr
               actionText={actionText}
               billingPeriod={billingPeriod}
               key={product.id}
-              onAction={setIsAuthModalOpen}
+              onAction={onAction}
               price={currentPrice}
               product={product}
             />
           )
         })}
       </div>
-      <AuthModal isOpen={isAuthModalOpen} onOpenChange={setIsAuthModalOpen} />
     </Modal>
   )
 }

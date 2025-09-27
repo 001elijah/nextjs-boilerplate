@@ -30,6 +30,7 @@ export * from './Profile/CreateCampaignPreset'
 // Profile View
 export * from './Profile/BusinessPresets'
 export * from './Profile/CreateBusinessPreset'
+export * from './Profile/Subscriptions'
 // -------------
 
 // Content View

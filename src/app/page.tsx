@@ -2,7 +2,6 @@
 // @ts-nocheck
 import { getDataAction } from '@/lib/getDataAction'
 import { folderPaths } from '@/utils/folderPaths'
-import { createServerSupabaseClient } from '@/utils/supabase-client/server'
 import {
   Article,
   BeforeAfter,
@@ -18,11 +17,10 @@ import {
   TrustBlock,
   WhyChooseUs
 } from '@/views'
+import { getStripeProductsAndPrices } from '@/utils/stripe/getStripeProductsAndPrices'
 
 export default async function Home() {
-  const supabase = await createServerSupabaseClient()
-  const { data: products, error: productsError } = await supabase.schema('stripe').from('products').select('*')
-  const { data: prices, error: pricesError } = await supabase.schema('stripe').from('prices').select('*')
+  const { products, productsError, prices, pricesError } = await getStripeProductsAndPrices()
 
   const { HOME } = folderPaths
   const {
