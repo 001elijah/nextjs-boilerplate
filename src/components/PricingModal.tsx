@@ -1,42 +1,63 @@
+'use client'
+
+import { useState } from 'react'
+import { AuthModal } from '@/components/AuthModal'
 import { Modal } from '@/components/Modal'
 import { PricingCard } from '@/components/PricingCard'
+import { Tables } from '@/types/database.types'
 
-const pricingCards = [
-  {
-    description: 'Perfect for small businesses',
-    price: 40
-  },
-  {
-    description: 'Perfect for medium businesses',
-    price: 70
-  },
-  {
-    description: 'Perfect for large businesses',
-    price: 120
-  },
-  {
-    description: 'Perfect for startups',
-    price: 240
-  }
-]
-
-type PricingModalProps = {
-  actionText: string
+interface PricingModalProps {
+  actionText?: string
   isOpen: boolean
   onClose: () => void
-  prompt: string
-  title: string
+  prices: Record<string, Partial<Record<'month' | 'year', Tables<{ schema: 'stripe' }, 'prices'>>>>
+  products: Tables<{ schema: 'stripe' }, 'products'>[]
+  prompt?: string
+  title?: string
 }
 
-export const PricingModal = ({ actionText, isOpen, onClose, prompt, title }: PricingModalProps) => {
+export const PricingModal = ({ actionText, isOpen, onClose, prices, products, prompt, title }: PricingModalProps) => {
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
+  const [billingPeriod, setBillingPeriod] = useState<'month' | 'year'>('month')
+  const isMonthly = billingPeriod === 'month'
+
+  const togglePeriod = () => {
+    setBillingPeriod(isMonthly ? 'year' : 'month')
+  }
+
+  const toggleClass = 'px-4 py-2 text-sm font-medium rounded-md transition-colors duration-200'
+
   return (
-    <Modal isOpen={isOpen} onOpenChange={onClose} title={title} withCloseButton>
+    <Modal isOpen={isOpen} onOpenChange={onClose} title={title ?? ''} withCloseButton>
       <p className="mb-4">{prompt}</p>
-      <div className="overflow-auto max-h-[calc(80vh-220px)] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        {pricingCards.map((card, index) => (
-          <PricingCard buttonText={actionText} description={card.description} key={index} price={card.price} />
-        ))}
+      <div className="flex justify-center mb-8">
+        <div className="inline-flex rounded-lg bg-background p-1 shadow-inner">
+          <button className={`${toggleClass} ${isMonthly ? 'bg-primary text-background shadow' : 'text-foreground'}`} onClick={togglePeriod}>
+            Monthly
+          </button>
+          <button className={`${toggleClass} ${!isMonthly ? 'bg-primary text-background shadow' : 'text-foreground'}`} onClick={togglePeriod}>
+            Annually
+          </button>
+        </div>
       </div>
+      <div className="overflow-auto max-h-[calc(80vh-220px)] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {products.map(product => {
+          const productPrices = product.id ? prices[product.id] || {} : {}
+          const currentPrice = productPrices[billingPeriod]
+
+          return (
+            <PricingCard
+              actionText={actionText}
+              billingPeriod={billingPeriod}
+              key={product.id}
+              onAction={setIsAuthModalOpen}
+              price={currentPrice}
+              product={product}
+            />
+          )
+        })}
+      </div>
+      <AuthModal isOpen={isAuthModalOpen} onOpenChange={setIsAuthModalOpen} />
     </Modal>
   )
 }

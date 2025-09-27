@@ -2,6 +2,7 @@
 // @ts-nocheck
 import { getDataAction } from '@/lib/getDataAction'
 import { folderPaths } from '@/utils/folderPaths'
+import { createServerSupabaseClient } from '@/utils/supabase-client/server'
 import {
   Article,
   BeforeAfter,
@@ -18,7 +19,11 @@ import {
   WhyChooseUs
 } from '@/views'
 
-export default function Home() {
+export default async function Home() {
+  const supabase = await createServerSupabaseClient()
+  const { data: products, error: productsError } = await supabase.schema('stripe').from('products').select('*')
+  const { data: prices, error: pricesError } = await supabase.schema('stripe').from('prices').select('*')
+
   const { HOME } = folderPaths
   const {
     adsArticle,
@@ -46,7 +51,7 @@ export default function Home() {
 
       <CaseStudies caseStudies={caseStudies} />
 
-      <Pricing pricing={pricing} />
+      <Pricing prices={prices ?? []} pricesError={pricesError} pricing={pricing} products={products ?? []} productsError={productsError} />
 
       <Quiz quiz={quiz} />
 

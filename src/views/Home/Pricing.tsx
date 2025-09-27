@@ -1,12 +1,51 @@
 'use client'
 
-import { Button, Container, PricingModal, Section } from '@/components'
+import { PostgrestError } from '@supabase/supabase-js'
+import { Button, Container, PricingModal, Section, toast } from '@/components'
 import { useModalClose } from '@/hooks/useModalClose'
 import { PricingProps } from '@/types'
+import { Tables } from '@/types/database.types'
 
-export const Pricing = ({ pricing }: PricingProps) => {
+interface ExtendedPricingProps extends PricingProps {
+  prices: Tables<{ schema: 'stripe' }, 'prices'>[]
+  pricesError: null | PostgrestError
+  products: Tables<{ schema: 'stripe' }, 'products'>[]
+  productsError: null | PostgrestError
+}
+
+type StructuredPrices = Record<string, Partial<Record<'month' | 'year', Tables<{ schema: 'stripe' }, 'prices'>>>>
+
+export const Pricing = ({ prices, pricesError, pricing, products, productsError }: ExtendedPricingProps) => {
   const { closeModal, isModalOpen, openModal } = useModalClose()
 
+  if (productsError || pricesError) {
+    toast({
+      message: 'Failed to load products or prices.',
+      title: 'Error',
+      type: 'error'
+    })
+  }
+
+  const structuredPrices: StructuredPrices = prices.reduce((acc, price) => {
+    if (
+      price.type === 'recurring' &&
+      price?.attrs &&
+      typeof price.attrs === 'object' &&
+      'recurring' in price.attrs &&
+      (price.attrs as any).recurring?.interval &&
+      price.product !== null
+    ) {
+      const interval = (price.attrs as any).recurring.interval as 'month' | 'year'
+      acc[price.product] = {
+        ...(acc[price.product] || {}),
+        [interval]: price
+      }
+    }
+    return acc
+  }, {} as StructuredPrices)
+
+  console.log({ products })
+  console.log({ prices })
   return (
     <>
       {pricing && (
@@ -26,6 +65,8 @@ export const Pricing = ({ pricing }: PricingProps) => {
             actionText={pricing?.modalAction}
             isOpen={isModalOpen}
             onClose={closeModal}
+            prices={structuredPrices}
+            products={products}
             prompt={pricing?.modalPrompt}
             title={pricing?.modalHeading}
           />
