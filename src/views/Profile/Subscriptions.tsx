@@ -4,7 +4,6 @@ import { PostgrestError } from '@supabase/supabase-js'
 import { ArrowDownToLine, CheckCircle, CreditCard, RefreshCw, XCircle } from 'lucide-react'
 import { Button, CardBorder, Container, PricingModal, Section, SectionTitle, toast } from '@/components'
 import { useModalClose } from '@/hooks/useModalClose'
-import { PricingProps } from '@/types'
 import { Tables } from '@/types/database.types'
 import { getStructuredPrices, StructuredPrices } from '@/utils/stripe/getStructuredPrices'
 
@@ -22,7 +21,7 @@ const billingHistory = [
   { amount: 70, date: 'April 20, 2025', id: 'INV-2025-001' }
 ]
 
-interface ExtendedPricingProps extends PricingProps {
+interface ExtendedPricingProps {
   prices: Tables<{ schema: 'stripe' }, 'prices'>[]
   pricesError: null | PostgrestError
   products: Tables<{ schema: 'stripe' }, 'products'>[]
