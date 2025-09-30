@@ -14,6 +14,35 @@ type CheckoutResponse = {
 
 type Price = Tables<{ schema: 'stripe' }, 'prices'>
 
+export async function cancelStripeSubscription(subscriptionId: string, redirectPath: string = '/account'): Promise<CheckoutResponse> {
+  try {
+    const supabase = await createServerSupabaseClient()
+    const {
+      data: { user },
+      error
+    } = await supabase.auth.getUser()
+
+    if (error || !user) {
+      console.error(error)
+      throw new Error('Could not get user session.')
+    }
+
+    await stripe.subscriptions.update(subscriptionId, { cancel_at_period_end: true })
+
+    return { sessionId: undefined }
+  } catch (error) {
+    if (error instanceof Error) {
+      return {
+        errorRedirect: getErrorRedirect(redirectPath, error.message, 'Please try again later or contact a system administrator.')
+      }
+    } else {
+      return {
+        errorRedirect: getErrorRedirect(redirectPath, 'An unknown error occurred.', 'Please try again later or contact a system administrator.')
+      }
+    }
+  }
+}
+
 export async function checkoutWithStripe(price: Price, redirectPath: string = '/account'): Promise<CheckoutResponse> {
   try {
     // Get the user from Supabase auth
