@@ -1,5 +1,3 @@
-// Generated with ```illiazolotukha@MacBook-Air-Illia-2 ad-studio % npx supabase gen types typescript --project-id "hfdfggwxdvdykpeaxguf" --schema public,stripe > database.types.ts``
-
 export type CompositeTypes<
   PublicCompositeTypeNameOrOptions extends keyof DefaultSchema['CompositeTypes'] | { schema: keyof DatabaseWithoutInternals },
   CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
@@ -204,6 +202,24 @@ export type Database = {
           id?: never
           image_url?: null | string
           user_id?: null | string
+        }
+      }
+      user_stripe_map: {
+        Insert: {
+          created_at?: string
+          stripe_customer_id: string
+          user_id: string
+        }
+        Relationships: []
+        Row: {
+          created_at: string
+          stripe_customer_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          stripe_customer_id?: string
+          user_id?: string
         }
       }
       users: {

@@ -1,19 +1,37 @@
 'use client'
 
 import { Dispatch, SetStateAction } from 'react'
-import { Button, CardBorder } from '@/components'
+import { Button, CardBorder, LoadingSpinner, toast } from '@/components'
 import { Tables } from '@/types/database.types'
 
 interface PricingCardProps {
   actionText: string | undefined
   billingPeriod: 'month' | 'year'
-  onAction: Dispatch<SetStateAction<boolean>>
+  isAuthFlow?: boolean
+  onAction: ((price: Tables<{ schema: 'stripe' }, 'prices'>) => Promise<void>) | Dispatch<SetStateAction<boolean>>
   price: Tables<{ schema: 'stripe' }, 'prices'> | undefined
+  priceIdLoading: string | undefined
   product: Tables<{ schema: 'stripe' }, 'products'>
 }
 
-export const PricingCard = ({ actionText, billingPeriod, onAction, price, product }: PricingCardProps) => {
+export const PricingCard = ({ actionText, billingPeriod, isAuthFlow, onAction, price, priceIdLoading, product }: PricingCardProps) => {
   const periodText = billingPeriod === 'month' ? '/month' : '/year'
+
+  const handleActionClick = async () => {
+    if (isAuthFlow) {
+      ;(onAction as () => void)()
+    } else {
+      if (price) {
+        await (onAction as (price: Tables<{ schema: 'stripe' }, 'prices'>) => Promise<void>)(price)
+      } else {
+        toast({
+          message: 'Price information is missing for this plan.',
+          title: 'Error',
+          type: 'error'
+        })
+      }
+    }
+  }
 
   return (
     <CardBorder className="border-primary justify-between p-4 text-center">
@@ -30,7 +48,9 @@ export const PricingCard = ({ actionText, billingPeriod, onAction, price, produc
         </span>
         {price?.type === 'recurring' && <span className="text-gray-500 dark:text-gray-400">{periodText}</span>}
       </div>
-      <Button onClick={() => onAction(true)}>{actionText}</Button>
+      <Button disabled={priceIdLoading === price?.id} onClick={handleActionClick}>
+        {priceIdLoading === price?.id ? <LoadingSpinner className="text-foreground" /> : actionText}
+      </Button>
     </CardBorder>
   )
 }

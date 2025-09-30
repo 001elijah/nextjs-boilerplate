@@ -5,7 +5,7 @@ import { Tables } from '@/types/database.types'
 import { createServerSupabaseClient } from '@/utils/supabase-client/server'
 
 interface StripeData {
-  prices: null | Tables<{ schema: 'stripe' }, 'prices'>[]
+  prices: (Tables<{ schema: 'stripe' }, 'prices'> & { attrs: any })[] | null
   pricesError: null | PostgrestError
   products: null | Tables<{ schema: 'stripe' }, 'products'>[]
   productsError: null | PostgrestError

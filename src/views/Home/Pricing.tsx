@@ -18,8 +18,15 @@ interface ExtendedPricingProps extends PricingProps {
 export const Pricing = ({ prices, pricesError, pricing, products, productsError }: ExtendedPricingProps) => {
   const { closeModal, isModalOpen, openModal } = useModalClose()
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
+  const [priceIdLoading, setPriceIdLoading] = useState<string>()
 
   const structuredPrices: StructuredPrices = getStructuredPrices(prices)
+
+  const handlePricePress = async (price: Tables<{ schema: 'stripe' }, 'prices'>) => {
+    setPriceIdLoading(price?.id ?? '')
+    setIsAuthModalOpen(true)
+    setPriceIdLoading('')
+  }
   return (
     <>
       {pricing && (
@@ -37,9 +44,11 @@ export const Pricing = ({ prices, pricesError, pricing, products, productsError 
 
           <PricingModal
             actionText={pricing?.modalAction}
+            isAuthFlow={true}
             isOpen={isModalOpen}
-            onAction={() => setIsAuthModalOpen(true)}
+            onAction={handlePricePress}
             onClose={closeModal}
+            priceIdLoading={priceIdLoading}
             prices={structuredPrices}
             pricesError={pricesError}
             products={products}

@@ -1,7 +1,7 @@
 'use client'
 
 import { PostgrestError } from '@supabase/supabase-js'
-import { useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 import { Modal } from '@/components/Modal'
 import { PricingCard } from '@/components/PricingCard'
 import { toast } from '@/components/Toast'
@@ -9,9 +9,11 @@ import { Tables } from '@/types/database.types'
 
 interface PricingModalProps {
   actionText?: string
+  isAuthFlow?: boolean
   isOpen: boolean
-  onAction: () => void
+  onAction: ((price: Tables<{ schema: 'stripe' }, 'prices'>) => Promise<void>) | Dispatch<SetStateAction<boolean>>
   onClose: () => void
+  priceIdLoading: string | undefined
   prices: Record<string, Partial<Record<'month' | 'year', Tables<{ schema: 'stripe' }, 'prices'>>>>
   pricesError: null | PostgrestError
   products: Tables<{ schema: 'stripe' }, 'products'>[]
@@ -20,7 +22,20 @@ interface PricingModalProps {
   title?: string
 }
 
-export const PricingModal = ({ actionText, isOpen, onAction, onClose, prices, pricesError, products, productsError, prompt, title }: PricingModalProps) => {
+export const PricingModal = ({
+  actionText,
+  isAuthFlow,
+  isOpen,
+  onAction,
+  onClose,
+  priceIdLoading,
+  prices,
+  pricesError,
+  products,
+  productsError,
+  prompt,
+  title
+}: PricingModalProps) => {
   const [billingPeriod, setBillingPeriod] = useState<'month' | 'year'>('month')
   const isMonthly = billingPeriod === 'month'
 
@@ -57,7 +72,16 @@ export const PricingModal = ({ actionText, isOpen, onAction, onClose, prices, pr
           const currentPrice = productPrices[billingPeriod]
 
           return (
-            <PricingCard actionText={actionText} billingPeriod={billingPeriod} key={product.id} onAction={onAction} price={currentPrice} product={product} />
+            <PricingCard
+              actionText={actionText}
+              billingPeriod={billingPeriod}
+              isAuthFlow={isAuthFlow}
+              key={product.id}
+              onAction={onAction}
+              price={currentPrice}
+              priceIdLoading={priceIdLoading}
+              product={product}
+            />
           )
         })}
       </div>
