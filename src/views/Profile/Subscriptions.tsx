@@ -32,9 +32,6 @@ export const Subscriptions = ({ prices, pricesError, products, productsError, us
 
   const { product, productError, subscription, subscriptionError, userError, userStripeMapError } = userSubscriptionData
   const hasActiveSubscription = !!subscription
-  console.log({
-    subscription
-  })
 
   useEffect(() => {
     if (pricesError) {
@@ -240,10 +237,12 @@ export const Subscriptions = ({ prices, pricesError, products, productsError, us
                   <span className="text-foreground/90">{userProductDescription}</span>
                 </div>
                 <div className="mt-auto flex flex-col md:flex-row items-center justify-center w-full gap-4 pt-4">
-                  <Button className="bg-gold font-bold text-background hover:bg-gold/90" onClick={openModal}>
-                    <RefreshCw className="-ml-1 mr-2 size-4" />
-                    Upgrade Plan
-                  </Button>
+                  {!hasActiveSubscription && (
+                    <Button className="bg-gold font-bold text-background hover:bg-gold/90" onClick={openModal}>
+                      <RefreshCw className="-ml-1 mr-2 size-4" />
+                      Upgrade Plan
+                    </Button>
+                  )}
                   {!isUserSubscriptionCancelled && (
                     <Button onClick={handleCancelSubscription} variant="destructive">
                       <XCircle className="-ml-1 mr-2 size-4" />
