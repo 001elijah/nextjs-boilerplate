@@ -25,12 +25,13 @@ interface ExtendedPricingProps {
 
 export const Subscriptions = ({ prices, pricesError, products, productsError, userStripePaymentMethod, userSubscriptionData }: ExtendedPricingProps) => {
   const { closeModal, isModalOpen, openModal } = useModalClose()
-  const [priceIdLoading, setPriceIdLoading] = useState<string>()
+  const [priceIdLoading, setPriceIdLoading] = useState<string>('')
   const structuredPrices: StructuredPrices = getStructuredPrices(prices)
   const router = useRouter()
   const currentPath = usePathname()
 
   const { product, productError, subscription, subscriptionError, userError, userStripeMapError } = userSubscriptionData
+  const hasActiveSubscription = !!subscription
 
   useEffect(() => {
     if (pricesError) {
@@ -142,79 +143,97 @@ export const Subscriptions = ({ prices, pricesError, products, productsError, us
 
     setPriceIdLoading('')
   }
-
+  console.log({
+    stripeCardExpireInfo,
+    stripeCardVendorInfo,
+    userProductDescription,
+    userProductName,
+    userProductPriceCurrency,
+    userProductPriceInterval,
+    userProductPriceNumber,
+    userSubscriptionRenewalDate
+  })
   return (
     <Section ariaLabel="Subscriptions" className="pb-0 md:pb-0 lg:pb-0" id="subscriptions">
       <Container>
         <SectionTitle fallbackTitle="Subscription" sectionTitle="Manage Your Subscription" />
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-          {/* Current Plan Details */}
-          <div className="lg:col-span-2">
-            <CardBorder className="h-full border-gold/50 bg-background/30 p-6">
-              <h3 className="text-2xl font-bold text-gold">Current Plan</h3>
-              <div className="mt-4 flex items-baseline gap-4">
-                <p className="text-4xl font-extrabold text-foreground">{userProductName}</p>
-                <p className="text-xl font-semibold text-foreground/80">
-                  {userProductPriceCurrency === 'usd' && '$'}
-                  {userProductPriceNumber}
-                  <span className="text-sm font-normal text-foreground/60">/{userProductPriceInterval}</span>
-                </p>
-              </div>
-              {isUserSubscriptionAutoCollect ? (
-                <p className="mt-2 text-sm text-foreground/60">
-                  Your plan renews on <span className="font-semibold text-gold">{userSubscriptionRenewalDate}</span>.
-                </p>
-              ) : (
-                <p className="mt-2 text-sm text-foreground/60">
-                  Your plan ends on <span className="font-semibold text-gold">{userSubscriptionRenewalDate}</span>.
-                </p>
-              )}
-              <div className="flex items-center gap-3 pt-4">
-                <CheckCircle className="size-5 text-green-400" />
-                <span className="text-foreground/90">{userProductDescription}</span>
-              </div>
-              <div className="mt-auto flex flex-col md:flex-row items-center justify-center w-full gap-4 pt-4">
-                <Button className="bg-gold font-bold text-background hover:bg-gold/90" onClick={openModal}>
-                  <RefreshCw className="-ml-1 mr-2 size-4" />
-                  Upgrade Plan
-                </Button>
-                <Button
-                  onClick={() => {
-                    toast({
-                      message: 'Subscription cancellation coming soon...',
-                      title: 'Cancel Subscription',
-                      type: 'error'
-                    })
-                  }}
-                  variant="destructive"
-                >
-                  <XCircle className="-ml-1 mr-2 size-4" />
-                  Cancel Subscription
-                </Button>
-              </div>
-            </CardBorder>
-          </div>
-
-          {/* Billing Information */}
-          <div className="lg:col-span-1">
-            <CardBorder className="h-full items-start border-gold/50 bg-background/30 p-6">
-              <h3 className="text-xl font-bold text-foreground">Billing Information</h3>
-              <div className="mt-6">
-                <p className="mb-2 text-sm font-semibold text-foreground/80">Payment Method</p>
-                <div className="flex items-center gap-3">
-                  {isCardStripePaymentMethod && <CreditCard className="size-6 text-foreground/60" />}
-                  <div>
-                    <p className="font-semibold text-foreground">{stripeCardVendorInfo}</p>
-                    <p className="text-sm text-foreground/60">{stripeCardExpireInfo}</p>
-                  </div>
+        {hasActiveSubscription ? (
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+            {/* Current Plan Details */}
+            <div className="lg:col-span-2">
+              <CardBorder className="h-full border-gold/50 bg-background/30 p-6">
+                <h3 className="text-2xl font-bold text-gold">Current Plan</h3>
+                <div className="mt-4 flex items-baseline gap-4">
+                  <p className="text-4xl font-extrabold text-foreground">{userProductName}</p>
+                  <p className="text-xl font-semibold text-foreground/80">
+                    {userProductPriceCurrency === 'usd' && '$'}
+                    {userProductPriceNumber}
+                    <span className="text-sm font-normal text-foreground/60">/{userProductPriceInterval}</span>
+                  </p>
                 </div>
-                <Button className="mt-4 w-full" size="sm" variant="outline">
-                  Update Payment Method
-                </Button>
-              </div>
-            </CardBorder>
+                {isUserSubscriptionAutoCollect ? (
+                  <p className="mt-2 text-sm text-foreground/60">
+                    Your plan renews on <span className="font-semibold text-gold">{userSubscriptionRenewalDate}</span>.
+                  </p>
+                ) : (
+                  <p className="mt-2 text-sm text-foreground/60">
+                    Your plan ends on <span className="font-semibold text-gold">{userSubscriptionRenewalDate}</span>.
+                  </p>
+                )}
+                <div className="flex items-center gap-3 pt-4">
+                  <CheckCircle className="size-5 text-green-400" />
+                  <span className="text-foreground/90">{userProductDescription}</span>
+                </div>
+                <div className="mt-auto flex flex-col md:flex-row items-center justify-center w-full gap-4 pt-4">
+                  <Button className="bg-gold font-bold text-background hover:bg-gold/90" onClick={openModal}>
+                    <RefreshCw className="-ml-1 mr-2 size-4" />
+                    Upgrade Plan
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      toast({
+                        message: 'Subscription cancellation coming soon...',
+                        title: 'Cancel Subscription',
+                        type: 'error'
+                      })
+                    }}
+                    variant="destructive"
+                  >
+                    <XCircle className="-ml-1 mr-2 size-4" />
+                    Cancel Subscription
+                  </Button>
+                </div>
+              </CardBorder>
+            </div>
+
+            {/* Billing Information */}
+            <div className="lg:col-span-1">
+              <CardBorder className="h-full items-start border-gold/50 bg-background/30 p-6">
+                <h3 className="text-xl font-bold text-foreground">Billing Information</h3>
+                <div className="mt-6">
+                  <p className="mb-2 text-sm font-semibold text-foreground/80">Payment Method</p>
+                  <div className="flex items-center gap-3">
+                    {isCardStripePaymentMethod && <CreditCard className="size-6 text-foreground/60" />}
+                    <div>
+                      <p className="font-semibold text-foreground">{stripeCardVendorInfo}</p>
+                      <p className="text-sm text-foreground/60">{stripeCardExpireInfo}</p>
+                    </div>
+                  </div>
+                  <Button className="mt-4 w-full" size="sm" variant="outline">
+                    Update Payment Method
+                  </Button>
+                </div>
+              </CardBorder>
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className="flex flex-col items-center justify-center p-8 text-center">
+            <p className="text-xl font-semibold text-foreground">{"You don't have an active subscription."}</p>
+            <Button className="mt-4 bg-gold font-bold text-background hover:bg-gold/90" onClick={openModal}>
+              Explore Plans
+            </Button>
+          </div>
+        )}
       </Container>
       <PricingModal
         actionText={'Upgrade'}

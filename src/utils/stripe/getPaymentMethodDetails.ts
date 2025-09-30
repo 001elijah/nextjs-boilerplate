@@ -9,6 +9,12 @@ import { stripe } from '@/utils/stripe/config'
  */
 export async function getPaymentMethodDetails(paymentMethodId: string) {
   try {
+    if (!paymentMethodId) {
+      return {
+        readableDetails: null,
+        type: null
+      }
+    }
     const paymentMethod = await stripe.paymentMethods.retrieve(paymentMethodId)
 
     const paymentType = paymentMethod.type
